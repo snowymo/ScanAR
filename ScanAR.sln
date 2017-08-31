@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanAR", "ScanAR.csproj", "{B354CE29-5D88-3CF4-A842-B07A0D18E815}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanAR.Editor", "ScanAR.Editor.csproj", "{045406E8-6486-2767-5B0A-2378117F6704}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B354CE29-5D88-3CF4-A842-B07A0D18E815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B354CE29-5D88-3CF4-A842-B07A0D18E815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B354CE29-5D88-3CF4-A842-B07A0D18E815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B354CE29-5D88-3CF4-A842-B07A0D18E815}.Release|Any CPU.Build.0 = Release|Any CPU
+		{045406E8-6486-2767-5B0A-2378117F6704}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{045406E8-6486-2767-5B0A-2378117F6704}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{045406E8-6486-2767-5B0A-2378117F6704}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{045406E8-6486-2767-5B0A-2378117F6704}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
