@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelWithViveTracker", "Assembly-CSharp.csproj", "{8749172C-A912-4EF6-F854-F6CE5573A4D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelWithViveTracker", "Assembly-CSharp-Editor.csproj", "{A1393C56-CD67-3BF0-3713-B10548257D12}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8749172C-A912-4EF6-F854-F6CE5573A4D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8749172C-A912-4EF6-F854-F6CE5573A4D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8749172C-A912-4EF6-F854-F6CE5573A4D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8749172C-A912-4EF6-F854-F6CE5573A4D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1393C56-CD67-3BF0-3713-B10548257D12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1393C56-CD67-3BF0-3713-B10548257D12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1393C56-CD67-3BF0-3713-B10548257D12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1393C56-CD67-3BF0-3713-B10548257D12}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
