@@ -123,6 +123,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\HoloToolkit-Sharing-240\Editor\Extensions\EditorGUIExtensions.cs" />
+    <Compile Include="Assets\HoloToolkit-Sharing-240\Editor\Extensions\EditorGUILayoutExtensions.cs" />
+    <Compile Include="Assets\HoloToolkit-Sharing-240\Editor\Extensions\LayerMaskExtensions.cs" />
+    <Compile Include="Assets\HoloToolkit-Sharing-240\Editor\Sharing\SharingMenu.cs" />
     <Compile Include="Assets\SteamVR\Editor\SteamVR_Editor.cs" />
     <Compile Include="Assets\SteamVR\Editor\SteamVR_Preferences.cs" />
     <Compile Include="Assets\SteamVR\Editor\SteamVR_RenderModelEditor.cs" />
@@ -131,6 +135,28 @@
     <Compile Include="Assets\SteamVR\Editor\SteamVR_Update.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\HoloToolkit-Sharing-240\Models\Cursor\UI-Default.shader" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\BlinnPhongConfigurable.cginc" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\BlinnPhongConfigurable.shader" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\BlinnPhongConfigurableTransparent.shader" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\HoloToolkitCommon.cginc" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\LambertianConfigurable.cginc" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\LambertianConfigurable.shader" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\LambertianConfigurableTransparent.shader" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\Occlusion.shader" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\StandardFast.shader" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\UnlitConfigurable.cginc" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\UnlitConfigurable.shader" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\UnlitConfigurableTransparent.shader" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\VertexLitConfigurable.cginc" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\VertexLitConfigurable.shader" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\VertexLitConfigurableTransparent.shader" />
+    <None Include="Assets\HoloToolkit-Sharing-240\Shaders\Wireframe.shader" />
+    <None Include="Assets\Materials\SteamVR\Highlight.shader" />
+    <None Include="Assets\Materials\SteamVR\Silhouette.shader" />
+    <None Include="Assets\Shaders\BlobWire.shader" />
+    <None Include="Assets\Shaders\BlobWireInside.shader" />
+    <None Include="Assets\Shaders\WireHolographic.shader" />
     <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\SeeThru.shader" />
     <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\Silhouette.shader" />
     <None Include="Assets\SteamVR\InteractionSystem\Hints\Shaders\ControllerButtonHints.shader" />
