@@ -17,8 +17,10 @@ public class AvatarSelector : MonoBehaviour
     /// </summary>
     void OnSelect()
     {
-        
-    }
+    PlayerAvatarStore.Instance.DismissAvatarPicker();
+
+    LocalPlayerManager.Instance.SetUserAvatar(AvatarIndex);
+  }
 
     void Start()
     {
