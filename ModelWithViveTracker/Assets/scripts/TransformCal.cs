@@ -8,7 +8,7 @@ public class TransformCal : MonoBehaviour {
     public Transform headsetRelatedMatrix;
     public Transform modelTransform;
 
-    bool bCalibrated;
+    public bool bCalibrated;
 
     Matrix4x4 lastModel, curModel, lastHeadset, curHeadset;
 
@@ -39,16 +39,23 @@ public class TransformCal : MonoBehaviour {
             // apply the difference of vivetracker1.m
             // apply the inverse of vivetracker2.m
             curModel.SetTRS(modelRelatedMatrix.position, modelRelatedMatrix.rotation, modelRelatedMatrix.localScale);
-            if (!lastModel.isIdentity)
+            curHeadset.SetTRS(headsetRelatedMatrix.position, headsetRelatedMatrix.rotation, headsetRelatedMatrix.localScale);
+            if (!lastModel.isIdentity && !lastHeadset.isIdentity)
             {
-                Matrix4x4 modelbtw = curModel * lastModel.inverse ;
                 Matrix4x4 modelMatrix = Matrix4x4.identity;
                 modelMatrix.SetTRS(modelTransform.position, modelTransform.rotation, modelTransform.localScale);
-                modelMatrix = modelbtw * modelMatrix;
+
+                Matrix4x4 headsetbtw = curHeadset * lastHeadset.inverse;
+                modelMatrix = headsetbtw.inverse * modelMatrix;
+
+                //Matrix4x4 modelbtw = curModel * lastModel.inverse;
+                //modelMatrix = modelbtw * modelMatrix;
+
                 modelTransform.position = modelMatrix.GetPosition();
                 modelTransform.rotation = modelMatrix.GetRotation();
             }
             lastModel = curModel;
+            lastHeadset = curHeadset;
         }
     }
 }
