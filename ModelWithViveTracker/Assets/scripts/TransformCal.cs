@@ -9,12 +9,14 @@ public class TransformCal : MonoBehaviour {
     public Transform modelTransform;
 
     public bool bCalibrated;
+    public bool bHide;
 
     Matrix4x4 lastModel, curModel, lastHeadset, curHeadset;
 
 	// Use this for initialization
 	void Start () {
         bCalibrated = false;
+        bHide = false;
         lastModel = Matrix4x4.identity;
         lastHeadset = Matrix4x4.identity;
 
@@ -40,22 +42,29 @@ public class TransformCal : MonoBehaviour {
             // apply the inverse of vivetracker2.m
             curModel.SetTRS(modelRelatedMatrix.position, modelRelatedMatrix.rotation, modelRelatedMatrix.localScale);
             curHeadset.SetTRS(headsetRelatedMatrix.position, headsetRelatedMatrix.rotation, headsetRelatedMatrix.localScale);
-            if (!lastModel.isIdentity && !lastHeadset.isIdentity)
+            if (!lastModel.isIdentity/* && !lastHeadset.isIdentity*/)
             {
                 Matrix4x4 modelMatrix = Matrix4x4.identity;
+                if (bHide)
+                    modelTransform.position -= new Vector3(1, 1, 1);
                 modelMatrix.SetTRS(modelTransform.position, modelTransform.rotation, modelTransform.localScale);
 
-                Matrix4x4 headsetbtw = curHeadset * lastHeadset.inverse;
-                modelMatrix = headsetbtw.inverse * modelMatrix;
+                //Matrix4x4 headsetbtw = curHeadset * lastHeadset.inverse;
+                //modelMatrix = headsetbtw.inverse * modelMatrix;
 
-                //Matrix4x4 modelbtw = curModel * lastModel.inverse;
-                //modelMatrix = modelbtw * modelMatrix;
+                Matrix4x4 modelbtw = curModel * lastModel.inverse;
+                modelMatrix = modelbtw * modelMatrix;
 
                 modelTransform.position = modelMatrix.GetPosition();
+                if (bHide)
+                    modelTransform.position += new Vector3(1, 1, 1);
                 modelTransform.rotation = modelMatrix.GetRotation();
             }
             lastModel = curModel;
             lastHeadset = curHeadset;
         }
+
+        if (bHide)
+            modelTransform.position = new Vector3(100, 100, 100);
     }
 }

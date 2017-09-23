@@ -194,6 +194,7 @@
     <Compile Include="Assets\HoloToolkit-Sharing-240\Utilities\Singleton.cs" />
     <Compile Include="Assets\scripts\AppStateManager.cs" />
     <Compile Include="Assets\scripts\AvatarSelector.cs" />
+    <Compile Include="Assets\scripts\Calibration.cs" />
     <Compile Include="Assets\scripts\Cube.cs" />
     <Compile Include="Assets\scripts\ExplodeTarget.cs" />
     <Compile Include="Assets\scripts\Grid.cs" />

@@ -6,24 +6,37 @@ public class InputMgr : MonoBehaviour
     private PrimitiveType _currentPrimitiveType = PrimitiveType.Sphere;
 
     public TransformCal tf;
+    public GameObject cubeModel;
+
+    public Calibration calib;
 
     private void OnEnable()
     {
         _controller = GetComponent<SteamVR_TrackedController>();
         _controller.TriggerClicked += HandleTriggerClicked;
+        _controller.Gripped += HandleGripClicked;
         //_controller.PadClicked += HandlePadClicked;
     }
 
     private void OnDisable()
     {
         _controller.TriggerClicked -= HandleTriggerClicked;
+        _controller.Gripped -= HandleGripClicked;
         //_controller.PadClicked -= HandlePadClicked;
     }
 
     #region Primitive Spawning
     private void HandleTriggerClicked(object sender, ClickedEventArgs e)
     {
-        tf.bCalibrated = true;
+        tf.bCalibrated = !tf.bCalibrated;
+        calib.bCalib = !calib.bCalib;
+        //SpawnCurrentPrimitiveAtController();
+    }
+
+    private void HandleGripClicked(object sender, ClickedEventArgs e)
+    {
+        cubeModel.SetActive(!cubeModel.activeInHierarchy);
+        tf.bHide = !tf.bHide;
         //SpawnCurrentPrimitiveAtController();
     }
 
