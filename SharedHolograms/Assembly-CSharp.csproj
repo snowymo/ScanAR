@@ -51,6 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Atomic Nucleus\Nucleon.cs" />
+     <Compile Include="Assets\Atomic Nucleus\NucleonSpawner.cs" />
      <Compile Include="Assets\Holograms\Support\Anchor\Blob.cs" />
      <Compile Include="Assets\Holograms\Support\Anchor\EnergyHubBase.cs" />
      <Compile Include="Assets\Holograms\Support\Anchor\ExplodingBlob.cs" />
@@ -166,16 +168,21 @@
      <Compile Include="Assets\HoloToolkit-Sharing-240\Utilities\Billboard.cs" />
      <Compile Include="Assets\HoloToolkit-Sharing-240\Utilities\Singleton.cs" />
      <Compile Include="Assets\Scripts\AppStateManager.cs" />
+     <Compile Include="Assets\Scripts\AppStateManagerHehe.cs" />
      <Compile Include="Assets\Scripts\AvatarSelector.cs" />
      <Compile Include="Assets\Scripts\ExplodeTarget.cs" />
+     <Compile Include="Assets\Scripts\FPSCounter.cs" />
+     <Compile Include="Assets\Scripts\FPSDisplay.cs" />
      <Compile Include="Assets\Scripts\HologramPlacement.cs" />
      <Compile Include="Assets\Scripts\HologramPlacementHehe.cs" />
+     <Compile Include="Assets\Scripts\HologramPlacementHehe1.cs" />
      <Compile Include="Assets\Scripts\ImportExportAnchorManager.cs" />
      <Compile Include="Assets\Scripts\LocalPlayerManager.cs" />
      <Compile Include="Assets\Scripts\ProjectileBehavior.cs" />
      <Compile Include="Assets\Scripts\ProjectileLauncher.cs" />
      <Compile Include="Assets\Scripts\RemotePlayerManager.cs" />
      <Compile Include="Assets\tryout\AvatarSelectorKey.cs" />
+     <Compile Include="Assets\tryout\CustomExtendedMsg.cs" />
      <Compile Include="Assets\tryout\CustomMsgMgr.cs" />
      <None Include="Assets\HoloToolkit-Sharing-240\Shaders\UnlitConfigurable.shader" />
      <None Include="Assets\HoloToolkit-Sharing-240\Shaders\VertexLitConfigurable.cginc" />

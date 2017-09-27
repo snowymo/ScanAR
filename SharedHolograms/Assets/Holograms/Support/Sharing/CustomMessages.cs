@@ -19,6 +19,8 @@ public class CustomMessages : Singleton<CustomMessages>
         StageTransform,
         ResetStage,
         ExplodeTarget,
+        Camera,
+        Model,
         Max
     }
 
@@ -49,19 +51,19 @@ public class CustomMessages : Singleton<CustomMessages>
     /// Helper object that we use to route incoming message callbacks to the member
     /// functions of this class
     /// </summary>
-    NetworkConnectionAdapter connectionAdapter;
+    protected NetworkConnectionAdapter connectionAdapter;
 
     /// <summary>
     /// Cache the connection object for the sharing service
     /// </summary>
-    NetworkConnection serverConnection;
+    protected NetworkConnection serverConnection;
 
     void Start()
     {
         InitializeMessageHandlers();
     }
 
-    void InitializeMessageHandlers()
+    protected void InitializeMessageHandlers()
     {
         SharingStage sharingStage = SharingStage.Instance;
         if (sharingStage != null)
@@ -86,7 +88,7 @@ public class CustomMessages : Singleton<CustomMessages>
         }
     }
 
-    private NetworkOutMessage CreateMessage(byte MessageType)
+    protected NetworkOutMessage CreateMessage(byte MessageType)
     {
         NetworkOutMessage msg = serverConnection.CreateMessage(MessageType);
         msg.Write(MessageType);
@@ -193,7 +195,24 @@ public class CustomMessages : Singleton<CustomMessages>
         }
     }
 
-    public void SendResetStage()
+  public void SendCustomTransform(TestMessageID id, Vector3 position, Quaternion rotation) {
+    // If we are connected to a session, broadcast our head info
+    if (this.serverConnection != null && this.serverConnection.IsConnected()) {
+      // Create an outgoing network message to contain all the info we want to send
+      NetworkOutMessage msg = CreateMessage((byte)id);
+
+      AppendTransform(msg, position, rotation);
+
+      // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
+      this.serverConnection.Broadcast(
+          msg,
+          MessagePriority.Immediate,
+          MessageReliability.ReliableOrdered,
+          MessageChannel.Avatar);
+    }
+  }
+
+  public void SendResetStage()
     {
         // If we are connected to a session, broadcast our head info
         if (this.serverConnection != null && this.serverConnection.IsConnected())
@@ -239,7 +258,7 @@ public class CustomMessages : Singleton<CustomMessages>
         }
     }
 
-    void OnMessageReceived(NetworkConnection connection, NetworkInMessage msg)
+    protected void OnMessageReceived(NetworkConnection connection, NetworkInMessage msg)
     {
         byte messageType = msg.ReadByte();
         MessageCallback messageHandler = MessageHandlers[(TestMessageID)messageType];
@@ -251,7 +270,7 @@ public class CustomMessages : Singleton<CustomMessages>
 
     #region HelperFunctionsForWriting
 
-    void AppendTransform(NetworkOutMessage msg, Vector3 position, Quaternion rotation)
+    protected void AppendTransform(NetworkOutMessage msg, Vector3 position, Quaternion rotation)
     {
         AppendVector3(msg, position);
         AppendQuaternion(msg, rotation);
