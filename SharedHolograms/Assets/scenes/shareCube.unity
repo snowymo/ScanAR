@@ -25884,7 +25884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modelObj: {fileID: 1098461768}
   cameraObj: {fileID: 1464917718}
-  category: 1
+  category: 0
 --- !u!1 &863670777
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class CustomMsgMgr : MonoBehaviour {
   public Transform modelObj;
   public Transform cameraObj;
 
-  public enum Category { sender, receiver};
+  public enum Category { Hololens, HTCVive};
 
   public Category category;
 
@@ -21,17 +21,17 @@ public class CustomMsgMgr : MonoBehaviour {
   void Start () {
     customMessages = CustomMessages.Instance;
     //id = customMessages.generateMID();
-    customMessages.MessageHandlers[CustomMessages.TestMessageID.Model] = this.receiveModelTransform;
+    customMessages.MessageHandlers[CustomMessages.TestMessageID.StageTransform] = this.receiveModelTransform;
     customMessages.MessageHandlers[CustomMessages.TestMessageID.Camera] = this.receiveCameraTransform;
   }
 	
 	// Update is called once per frame
 	void Update () {
-    if(category == Category.sender)
+    if(category == Category.Hololens)
     {
       sendTransform(CustomMessages.TestMessageID.Camera);
     } else {
-      sendTransform(CustomMessages.TestMessageID.Model);
+      sendTransform();
     }
     
 	}
@@ -40,6 +40,10 @@ public class CustomMsgMgr : MonoBehaviour {
   {
     CustomMessages.Instance.SendCustomTransform(id, cameraObj.position, cameraObj.rotation);
     print(cameraObj.position);
+  }
+
+  void sendTransform() {
+    CustomMessages.Instance.SendStageTransform(modelObj.position, modelObj.rotation);
   }
 
   void receiveModelTransform(NetworkInMessage msg)
