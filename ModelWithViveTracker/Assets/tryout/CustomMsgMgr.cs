@@ -6,43 +6,64 @@ using Academy.HoloToolkit.Unity;
 
 public class CustomMsgMgr : MonoBehaviour {
 
-  public Transform testObj;
+  public Transform modelObj;
+  public Transform cameraObj;
 
-  public enum Category { sender, receiver};
+  public enum Category { Hololens, HTCVive};
 
   public Category category;
 
   CustomMessages customMessages;
+//  [SerializeField]
+//  CustomMessages.TestMessageID id;
 
   // Use this for initialization
   void Start () {
     customMessages = CustomMessages.Instance;
-    customMessages.MessageHandlers[CustomMessages.TestMessageID.StageTransform] = this.receiveTransform;
+    //id = customMessages.generateMID();
+    customMessages.MessageHandlers[CustomMessages.TestMessageID.StageTransform] = this.receiveModelTransform;
+    customMessages.MessageHandlers[CustomMessages.TestMessageID.Camera] = this.receiveCameraTransform;
   }
 	
 	// Update is called once per frame
 	void Update () {
-    if(category == Category.sender)
+    if(category == Category.Hololens)
     {
+      sendTransform(CustomMessages.TestMessageID.Camera);
+    } else {
       sendTransform();
     }
     
 	}
 
-  void sendTransform()
+  void sendTransform(CustomMessages.TestMessageID id)
   {
-    CustomMessages.Instance.SendStageTransform(testObj.position, testObj.rotation);
-    print(testObj.position);
+    CustomMessages.Instance.SendCustomTransform(id, cameraObj.position, cameraObj.rotation);
+    print(cameraObj.position);
   }
 
-  void receiveTransform(NetworkInMessage msg)
+  void sendTransform() {
+    CustomMessages.Instance.SendStageTransform(modelObj.position, modelObj.rotation);
+  }
+
+  void receiveModelTransform(NetworkInMessage msg)
   {
     // Parse the message
     long userID = msg.ReadInt64();
 
-    testObj.position = customMessages.ReadVector3(msg);
+    modelObj.position = customMessages.ReadVector3(msg);
 
-    testObj.rotation = customMessages.ReadQuaternion(msg);
+    modelObj.rotation = customMessages.ReadQuaternion(msg);
     
+  }
+
+  void receiveCameraTransform(NetworkInMessage msg) {
+    // Parse the message
+    long userID = msg.ReadInt64();
+
+    cameraObj.position = customMessages.ReadVector3(msg);
+
+    cameraObj.rotation = customMessages.ReadQuaternion(msg);
+
   }
 }

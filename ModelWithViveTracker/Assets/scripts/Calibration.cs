@@ -16,10 +16,10 @@ public class Calibration : MonoBehaviour {
 
     Matrix4x4 VTModelPrev;
     Matrix4x4 HModelPrev;
-    
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         hololensModel.SetPositionAndRotation(new Vector3(0, 0, 0), Quaternion.identity);
         bCalib = false;
     }
@@ -77,13 +77,16 @@ public class Calibration : MonoBehaviour {
             //H T-1 Tc'(Tc-1 T) H-1 Hc
             Matrix4x4 refMatrix = mHCamera * mVTCamera.inverse * mVTModel * VTModelPrev.inverse * mVTCamera * mHCamera.inverse;
             print("refMatrix: " + refMatrix);
-            mHModel = mHCamera * mVTCamera.inverse * mVTModel * VTModelPrev.inverse * mVTCamera * mHCamera.inverse * HModelPrev;
-//             print("mHCamera" + mHCamera);
-//             print("mVTCamera" + mVTCamera);
-//             print("mVTModel" + mVTModel);
-// 
-//             print("HModelPrev" + HModelPrev);
-//             print("VTModelPrev" + VTModelPrev);
+            Matrix4x4 ref2 = mHCamera * mVTCamera.inverse * mVTModel * VTModelPrev.inverse * mVTCameraPrev * mHCameraPrev.inverse;
+            print("ref2: " + ref2);
+            /*mHModel = mHCamera * mVTCamera.inverse * mVTModel * VTModelPrev.inverse * mVTCamera * mHCamera.inverse * HModelPrev;*/
+            mHModel = mHCamera * mVTCamera.inverse * mVTModel * VTModelPrev.inverse * mVTCameraPrev * mHCameraPrev.inverse * HModelPrev;
+            //             print("mHCamera" + mHCamera);
+            //             print("mVTCamera" + mVTCamera);
+            //             print("mVTModel" + mVTModel);
+            // 
+            //             print("HModelPrev" + HModelPrev);
+            //             print("VTModelPrev" + VTModelPrev);
         }        
     }
 }
