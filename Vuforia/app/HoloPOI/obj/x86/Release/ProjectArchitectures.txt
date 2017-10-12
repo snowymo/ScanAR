@@ -1,0 +1,1 @@
+E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\HoloPOI.csproj;x86

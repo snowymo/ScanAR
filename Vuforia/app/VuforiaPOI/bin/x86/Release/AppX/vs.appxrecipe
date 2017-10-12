@@ -1,0 +1,785 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>VIVE</Machine>
+    <WindowsUser>Media</WindowsUser>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetOsVersion>10.0</TargetOsVersion>
+    <TargetOsDescription>Windows 10.0</TargetOsDescription>
+    <SolutionConfiguration>Release|x86</SolutionConfiguration>
+    <PackageArchitecture>x86</PackageArchitecture>
+    <PackageIdentityName>156aa60b-0d98-499c-92fd-25efddf276ab</PackageIdentityName>
+    <PackageIdentityPublisher>CN=Holographic Academy</PackageIdentityPublisher>
+    <IntermediateOutputPath>E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\obj\x86\Release\</IntermediateOutputPath>
+    <RemoteDeploymentType>
+    </RemoteDeploymentType>
+    <PackageRegistrationPath>
+    </PackageRegistrationPath>
+    <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
+    <DeployOptionalPackages>false</DeployOptionalPackages>
+    <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
+    <LayoutDir>E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\bin\x86\Release\AppX</LayoutDir>
+    <RegisteredManifestChecksum>78FA446398098F90793E9BD4331B8BA5E3953B5826B2B263579B85A32107AD39</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>vuforiatest2_1.0.0.0_x86__sx6pycx103f58</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>vuforiatest2_sx6pycx103f58!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>vuforiatest2</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=Holographic Academy</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+    <JitOptimizationSuppressed>False</JitOptimizationSuppressed>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\bin\x86\Release\Core\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-10-12T10:27:00.274</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\bin\x86\Release\VuforiaPOI.exe">
+      <PackagePath>entrypoint\VuforiaPOI.exe</PackagePath>
+      <Modified>2017-10-12T10:26:49.922</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.ApplicationInsights\1.0.0\lib\portable-win81+wpa81\Microsoft.ApplicationInsights.dll">
+      <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
+      <Modified>2015-06-17T19:46:00.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.ApplicationInsights.PersistenceChannel\1.0.0\lib\portable-win81+wpa81\Microsoft.ApplicationInsights.PersistenceChannel.dll">
+      <PackagePath>Microsoft.ApplicationInsights.PersistenceChannel.dll</PackagePath>
+      <Modified>2015-06-17T19:57:38.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.ApplicationInsights.WindowsApps\1.0.0\lib\win81\Microsoft.ApplicationInsights.Extensibility.Windows.dll">
+      <PackagePath>Microsoft.ApplicationInsights.Extensibility.Windows.dll</PackagePath>
+      <Modified>2015-06-17T20:13:14.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.CSharp\4.0.0\lib\netcore50\Microsoft.CSharp.dll">
+      <PackagePath>Microsoft.CSharp.dll</PackagePath>
+      <Modified>2017-04-21T21:01:15.150</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.NETCore.Portable.Compatibility\1.0.0\lib\netcore50\System.ComponentModel.DataAnnotations.dll">
+      <PackagePath>System.ComponentModel.DataAnnotations.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.419</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.NETCore.Portable.Compatibility\1.0.0\lib\netcore50\System.Core.dll">
+      <PackagePath>System.Core.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.509</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.NETCore.Portable.Compatibility\1.0.0\lib\netcore50\System.Net.dll">
+      <PackagePath>System.Net.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.536</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.NETCore.Portable.Compatibility\1.0.0\lib\netcore50\System.Numerics.dll">
+      <PackagePath>System.Numerics.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.554</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.NETCore.Portable.Compatibility\1.0.0\lib\netcore50\System.Runtime.Serialization.dll">
+      <PackagePath>System.Runtime.Serialization.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.572</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.NETCore.Portable.Compatibility\1.0.0\lib\netcore50\System.ServiceModel.Web.dll">
+      <PackagePath>System.ServiceModel.Web.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.602</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.NETCore.Portable.Compatibility\1.0.0\lib\netcore50\System.ServiceModel.dll">
+      <PackagePath>System.ServiceModel.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.588</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.NETCore.Portable.Compatibility\1.0.0\lib\netcore50\System.Windows.dll">
+      <PackagePath>System.Windows.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.618</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.NETCore.Portable.Compatibility\1.0.0\lib\netcore50\System.Xml.Linq.dll">
+      <PackagePath>System.Xml.Linq.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.649</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.NETCore.Portable.Compatibility\1.0.0\lib\netcore50\System.Xml.Serialization.dll">
+      <PackagePath>System.Xml.Serialization.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.661</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.NETCore.Portable.Compatibility\1.0.0\lib\netcore50\System.Xml.dll">
+      <PackagePath>System.Xml.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.634</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.NETCore.Portable.Compatibility\1.0.0\lib\netcore50\System.dll">
+      <PackagePath>System.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.522</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.VisualBasic\10.0.0\lib\netcore50\Microsoft.VisualBasic.dll">
+      <PackagePath>Microsoft.VisualBasic.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.569</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.Win32.Primitives\4.0.0\lib\dotnet\Microsoft.Win32.Primitives.dll">
+      <PackagePath>Microsoft.Win32.Primitives.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.520</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.AppContext\4.0.0\lib\netcore50\System.AppContext.dll">
+      <PackagePath>System.AppContext.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.656</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Collections\4.0.10\lib\netcore50\System.Collections.dll">
+      <PackagePath>System.Collections.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.954</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Collections.Concurrent\4.0.10\lib\dotnet\System.Collections.Concurrent.dll">
+      <PackagePath>System.Collections.Concurrent.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.280</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Collections.Immutable\1.1.37\lib\dotnet\System.Collections.Immutable.dll">
+      <PackagePath>System.Collections.Immutable.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.656</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Collections.NonGeneric\4.0.0\lib\dotnet\System.Collections.NonGeneric.dll">
+      <PackagePath>System.Collections.NonGeneric.dll</PackagePath>
+      <Modified>2017-04-21T21:01:15.302</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Collections.Specialized\4.0.0\lib\dotnet\System.Collections.Specialized.dll">
+      <PackagePath>System.Collections.Specialized.dll</PackagePath>
+      <Modified>2017-04-21T21:01:15.295</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.ComponentModel\4.0.0\lib\netcore50\System.ComponentModel.dll">
+      <PackagePath>System.ComponentModel.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.036</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.ComponentModel.Annotations\4.0.10\lib\dotnet\System.ComponentModel.Annotations.dll">
+      <PackagePath>System.ComponentModel.Annotations.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.437</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.ComponentModel.EventBasedAsync\4.0.10\lib\dotnet\System.ComponentModel.EventBasedAsync.dll">
+      <PackagePath>System.ComponentModel.EventBasedAsync.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.505</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Data.Common\4.0.0\lib\dotnet\System.Data.Common.dll">
+      <PackagePath>System.Data.Common.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.852</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Diagnostics.Contracts\4.0.0\lib\netcore50\System.Diagnostics.Contracts.dll">
+      <PackagePath>System.Diagnostics.Contracts.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.012</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Diagnostics.Debug\4.0.10\lib\netcore50\System.Diagnostics.Debug.dll">
+      <PackagePath>System.Diagnostics.Debug.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.065</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Diagnostics.StackTrace\4.0.0\lib\netcore50\System.Diagnostics.StackTrace.dll">
+      <PackagePath>System.Diagnostics.StackTrace.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.535</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Diagnostics.Tools\4.0.0\lib\netcore50\System.Diagnostics.Tools.dll">
+      <PackagePath>System.Diagnostics.Tools.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.552</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Diagnostics.Tracing\4.0.20\lib\netcore50\System.Diagnostics.Tracing.dll">
+      <PackagePath>System.Diagnostics.Tracing.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.045</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Dynamic.Runtime\4.0.10\lib\netcore50\System.Dynamic.Runtime.dll">
+      <PackagePath>System.Dynamic.Runtime.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.501</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Globalization\4.0.10\lib\netcore50\System.Globalization.dll">
+      <PackagePath>System.Globalization.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.430</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Globalization.Calendars\4.0.0\lib\netcore50\System.Globalization.Calendars.dll">
+      <PackagePath>System.Globalization.Calendars.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.994</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Globalization.Extensions\4.0.0\lib\dotnet\System.Globalization.Extensions.dll">
+      <PackagePath>System.Globalization.Extensions.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.708</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.IO\4.0.10\lib\netcore50\System.IO.dll">
+      <PackagePath>System.IO.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.656</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.IO.Compression\4.0.0\lib\netcore50\System.IO.Compression.dll">
+      <PackagePath>System.IO.Compression.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.049</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.IO.Compression.clrcompression-x86\4.0.0\runtimes\win10-x86\native\ClrCompression.dll">
+      <PackagePath>ClrCompression.dll</PackagePath>
+      <Modified>2017-04-21T21:01:16.588</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.IO.Compression.ZipFile\4.0.0\lib\dotnet\System.IO.Compression.ZipFile.dll">
+      <PackagePath>System.IO.Compression.ZipFile.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.237</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.IO.FileSystem\4.0.0\lib\netcore50\System.IO.FileSystem.dll">
+      <PackagePath>System.IO.FileSystem.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.698</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.IO.FileSystem.Primitives\4.0.0\lib\dotnet\System.IO.FileSystem.Primitives.dll">
+      <PackagePath>System.IO.FileSystem.Primitives.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.493</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.IO.IsolatedStorage\4.0.0\lib\netcore50\System.IO.IsolatedStorage.dll">
+      <PackagePath>System.IO.IsolatedStorage.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.504</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.IO.UnmanagedMemoryStream\4.0.0\lib\dotnet\System.IO.UnmanagedMemoryStream.dll">
+      <PackagePath>System.IO.UnmanagedMemoryStream.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.328</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Linq\4.0.0\lib\netcore50\System.Linq.dll">
+      <PackagePath>System.Linq.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.706</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Linq.Expressions\4.0.10\lib\netcore50\System.Linq.Expressions.dll">
+      <PackagePath>System.Linq.Expressions.dll</PackagePath>
+      <Modified>2017-04-21T21:01:15.325</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Linq.Parallel\4.0.0\lib\netcore50\System.Linq.Parallel.dll">
+      <PackagePath>System.Linq.Parallel.dll</PackagePath>
+      <Modified>2017-04-21T21:01:15.200</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Linq.Queryable\4.0.0\lib\netcore50\System.Linq.Queryable.dll">
+      <PackagePath>System.Linq.Queryable.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.289</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Net.Http\4.0.0\lib\netcore50\System.Net.Http.dll">
+      <PackagePath>System.Net.Http.dll</PackagePath>
+      <Modified>2017-04-21T21:01:15.288</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Net.Http.Rtc\4.0.0\lib\netcore50\System.Net.Http.Rtc.dll">
+      <PackagePath>System.Net.Http.Rtc.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.660</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Net.NetworkInformation\4.0.0\lib\netcore50\System.Net.NetworkInformation.dll">
+      <PackagePath>System.Net.NetworkInformation.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.195</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Net.Primitives\4.0.10\lib\netcore50\System.Net.Primitives.dll">
+      <PackagePath>System.Net.Primitives.dll</PackagePath>
+      <Modified>2017-04-21T21:01:15.251</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Net.Requests\4.0.10\lib\dotnet\System.Net.Requests.dll">
+      <PackagePath>System.Net.Requests.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.784</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Net.Sockets\4.0.0\lib\netcore50\System.Net.Sockets.dll">
+      <PackagePath>System.Net.Sockets.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.506</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Net.WebHeaderCollection\4.0.0\lib\dotnet\System.Net.WebHeaderCollection.dll">
+      <PackagePath>System.Net.WebHeaderCollection.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.717</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Numerics.Vectors\4.1.0\lib\dotnet\System.Numerics.Vectors.dll">
+      <PackagePath>System.Numerics.Vectors.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.125</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Numerics.Vectors.WindowsRuntime\4.0.0\lib\dotnet\System.Numerics.Vectors.WindowsRuntime.dll">
+      <PackagePath>System.Numerics.Vectors.WindowsRuntime.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.379</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.ObjectModel\4.0.10\lib\dotnet\System.ObjectModel.dll">
+      <PackagePath>System.ObjectModel.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.386</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Private.DataContractSerialization\4.0.0\lib\netcore50\System.Private.DataContractSerialization.dll">
+      <PackagePath>System.Private.DataContractSerialization.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.187</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Private.Networking\4.0.0\lib\netcore50\System.Private.Networking.dll">
+      <PackagePath>System.Private.Networking.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.789</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Private.ServiceModel\4.0.0\lib\netcore50\System.Private.ServiceModel.dll">
+      <PackagePath>System.Private.ServiceModel.dll</PackagePath>
+      <Modified>2017-04-21T21:01:15.433</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Private.Uri\4.0.0\lib\netcore50\System.Private.Uri.dll">
+      <PackagePath>System.Private.Uri.dll</PackagePath>
+      <Modified>2017-04-21T21:01:11.965</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Reflection\4.0.10\lib\netcore50\System.Reflection.dll">
+      <PackagePath>System.Reflection.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.988</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Reflection.Context\4.0.0\lib\netcore50\System.Reflection.Context.dll">
+      <PackagePath>System.Reflection.Context.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.510</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Reflection.DispatchProxy\4.0.0\lib\netcore50\System.Reflection.DispatchProxy.dll">
+      <PackagePath>System.Reflection.DispatchProxy.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.483</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Reflection.Emit\4.0.0\lib\netcore50\System.Reflection.Emit.dll">
+      <PackagePath>System.Reflection.Emit.dll</PackagePath>
+      <Modified>2017-04-21T21:01:16.585</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Reflection.Emit.ILGeneration\4.0.0\lib\netcore50\System.Reflection.Emit.ILGeneration.dll">
+      <PackagePath>System.Reflection.Emit.ILGeneration.dll</PackagePath>
+      <Modified>2017-04-21T21:01:16.609</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Reflection.Emit.Lightweight\4.0.0\lib\netcore50\System.Reflection.Emit.Lightweight.dll">
+      <PackagePath>System.Reflection.Emit.Lightweight.dll</PackagePath>
+      <Modified>2017-04-21T21:01:16.566</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Reflection.Extensions\4.0.0\lib\netcore50\System.Reflection.Extensions.dll">
+      <PackagePath>System.Reflection.Extensions.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.765</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Reflection.Metadata\1.0.22\lib\dotnet\System.Reflection.Metadata.dll">
+      <PackagePath>System.Reflection.Metadata.dll</PackagePath>
+      <Modified>2017-04-21T21:01:15.103</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Reflection.Primitives\4.0.0\lib\netcore50\System.Reflection.Primitives.dll">
+      <PackagePath>System.Reflection.Primitives.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.810</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Reflection.TypeExtensions\4.0.0\lib\netcore50\System.Reflection.TypeExtensions.dll">
+      <PackagePath>System.Reflection.TypeExtensions.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.404</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Resources.ResourceManager\4.0.0\lib\netcore50\System.Resources.ResourceManager.dll">
+      <PackagePath>System.Resources.ResourceManager.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.487</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Runtime\4.0.20\lib\netcore50\System.Runtime.dll">
+      <PackagePath>System.Runtime.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.686</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Runtime.Extensions\4.0.10\lib\netcore50\System.Runtime.Extensions.dll">
+      <PackagePath>System.Runtime.Extensions.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.666</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Runtime.Handles\4.0.0\lib\netcore50\System.Runtime.Handles.dll">
+      <PackagePath>System.Runtime.Handles.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.405</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Runtime.InteropServices\4.0.20\lib\netcore50\System.Runtime.InteropServices.dll">
+      <PackagePath>System.Runtime.InteropServices.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.784</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Runtime.InteropServices.WindowsRuntime\4.0.0\lib\netcore50\System.Runtime.InteropServices.WindowsRuntime.dll">
+      <PackagePath>System.Runtime.InteropServices.WindowsRuntime.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.032</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Runtime.Numerics\4.0.0\lib\netcore50\System.Runtime.Numerics.dll">
+      <PackagePath>System.Runtime.Numerics.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.902</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Runtime.Serialization.Json\4.0.0\lib\netcore50\System.Runtime.Serialization.Json.dll">
+      <PackagePath>System.Runtime.Serialization.Json.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.837</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Runtime.Serialization.Primitives\4.0.10\lib\dotnet\System.Runtime.Serialization.Primitives.dll">
+      <PackagePath>System.Runtime.Serialization.Primitives.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.685</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Runtime.Serialization.Xml\4.0.10\lib\netcore50\System.Runtime.Serialization.Xml.dll">
+      <PackagePath>System.Runtime.Serialization.Xml.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.073</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Runtime.WindowsRuntime\4.0.10\lib\netcore50\System.Runtime.WindowsRuntime.dll">
+      <PackagePath>System.Runtime.WindowsRuntime.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.892</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Runtime.WindowsRuntime.UI.Xaml\4.0.0\lib\netcore50\System.Runtime.WindowsRuntime.UI.Xaml.dll">
+      <PackagePath>System.Runtime.WindowsRuntime.UI.Xaml.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.852</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Security.Claims\4.0.0\lib\dotnet\System.Security.Claims.dll">
+      <PackagePath>System.Security.Claims.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.764</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Security.Principal\4.0.0\lib\netcore50\System.Security.Principal.dll">
+      <PackagePath>System.Security.Principal.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.700</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.ServiceModel.Duplex\4.0.0\lib\netcore50\System.ServiceModel.Duplex.dll">
+      <PackagePath>System.ServiceModel.Duplex.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.707</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.ServiceModel.Http\4.0.10\lib\netcore50\System.ServiceModel.Http.dll">
+      <PackagePath>System.ServiceModel.Http.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.880</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.ServiceModel.NetTcp\4.0.0\lib\netcore50\System.ServiceModel.NetTcp.dll">
+      <PackagePath>System.ServiceModel.NetTcp.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.725</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.ServiceModel.Primitives\4.0.0\lib\netcore50\System.ServiceModel.Primitives.dll">
+      <PackagePath>System.ServiceModel.Primitives.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.865</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.ServiceModel.Security\4.0.0\lib\netcore50\System.ServiceModel.Security.dll">
+      <PackagePath>System.ServiceModel.Security.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.711</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Text.Encoding\4.0.10\lib\netcore50\System.Text.Encoding.dll">
+      <PackagePath>System.Text.Encoding.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.370</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Text.Encoding.CodePages\4.0.0\lib\dotnet\System.Text.Encoding.CodePages.dll">
+      <PackagePath>System.Text.Encoding.CodePages.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.890</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Text.Encoding.Extensions\4.0.10\lib\netcore50\System.Text.Encoding.Extensions.dll">
+      <PackagePath>System.Text.Encoding.Extensions.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.614</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Text.RegularExpressions\4.0.10\lib\dotnet\System.Text.RegularExpressions.dll">
+      <PackagePath>System.Text.RegularExpressions.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.855</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Threading\4.0.10\lib\netcore50\System.Threading.dll">
+      <PackagePath>System.Threading.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.186</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Threading.Overlapped\4.0.0\lib\netcore50\System.Threading.Overlapped.dll">
+      <PackagePath>System.Threading.Overlapped.dll</PackagePath>
+      <Modified>2017-04-21T21:01:11.949</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Threading.Tasks\4.0.10\lib\netcore50\System.Threading.Tasks.dll">
+      <PackagePath>System.Threading.Tasks.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.148</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Threading.Tasks.Dataflow\4.5.25\lib\dotnet\System.Threading.Tasks.Dataflow.dll">
+      <PackagePath>System.Threading.Tasks.Dataflow.dll</PackagePath>
+      <Modified>2017-04-21T21:01:15.170</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Threading.Tasks.Parallel\4.0.0\lib\netcore50\System.Threading.Tasks.Parallel.dll">
+      <PackagePath>System.Threading.Tasks.Parallel.dll</PackagePath>
+      <Modified>2017-04-21T21:01:14.286</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Threading.Timer\4.0.0\lib\netcore50\System.Threading.Timer.dll">
+      <PackagePath>System.Threading.Timer.dll</PackagePath>
+      <Modified>2017-04-21T21:01:13.949</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Xml.ReaderWriter\4.0.10\lib\dotnet\System.Xml.ReaderWriter.dll">
+      <PackagePath>System.Xml.ReaderWriter.dll</PackagePath>
+      <Modified>2017-04-21T21:01:15.286</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Xml.XDocument\4.0.10\lib\dotnet\System.Xml.XDocument.dll">
+      <PackagePath>System.Xml.XDocument.dll</PackagePath>
+      <Modified>2017-04-21T21:01:15.029</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Xml.XmlDocument\4.0.0\lib\dotnet\System.Xml.XmlDocument.dll">
+      <PackagePath>System.Xml.XmlDocument.dll</PackagePath>
+      <Modified>2017-04-21T21:01:11.910</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\System.Xml.XmlSerializer\4.0.10\lib\netcore50\System.Xml.XmlSerializer.dll">
+      <PackagePath>System.Xml.XmlSerializer.dll</PackagePath>
+      <Modified>2017-04-21T21:01:12.931</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Program Files\Unity2017.1\Editor\Data\PlaybackEngines\MetroSupport\Players\UAP\dotnet\x86\Release\UnityEngineProxy.dll">
+      <PackagePath>UnityEngineProxy.dll</PackagePath>
+      <Modified>2017-07-07T15:11:58.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Unprocessed\WinRTLegacy.dll">
+      <PackagePath>WinRTLegacy.dll</PackagePath>
+      <Modified>2017-07-07T15:10:18.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Program Files\Unity2017.1\Editor\Data\PlaybackEngines\MetroSupport\Players\UAP\dotnet\x86\Release\UnityPlayer.dll">
+      <PackagePath>UnityPlayer.dll</PackagePath>
+      <Modified>2017-07-07T15:12:00.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Program Files\Unity2017.1\Editor\Data\PlaybackEngines\MetroSupport\Players\UAP\dotnet\x86\Release\BridgeInterface.dll">
+      <PackagePath>BridgeInterface.dll</PackagePath>
+      <Modified>2017-07-07T15:11:54.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Program Files\Unity2017.1\Editor\Data\PlaybackEngines\MetroSupport\Players\UAP\dotnet\x86\Release\UnityEngineDelegates.dll">
+      <PackagePath>UnityEngineDelegates.dll</PackagePath>
+      <Modified>2017-07-07T15:11:56.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Program Files\Unity2017.1\Editor\Data\PlaybackEngines\MetroSupport\Players\UAP\dotnet\x86\Release\BridgeInterface.winmd">
+      <PackagePath>BridgeInterface.winmd</PackagePath>
+      <Modified>2017-07-07T15:12:58.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Program Files\Unity2017.1\Editor\Data\PlaybackEngines\MetroSupport\Players\UAP\dotnet\x86\Release\UnityEngineDelegates.winmd">
+      <PackagePath>UnityEngineDelegates.winmd</PackagePath>
+      <Modified>2017-07-07T15:13:00.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Program Files\Unity2017.1\Editor\Data\PlaybackEngines\MetroSupport\Players\UAP\dotnet\x86\Release\UnityPlayer.winmd">
+      <PackagePath>UnityPlayer.winmd</PackagePath>
+      <Modified>2017-07-07T15:13:00.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Program Files\Unity2017.1\Editor\Data\PlaybackEngines\MetroSupport\Players\UAP\dotnet\x86\Release\WinRTBridge.winmd">
+      <PackagePath>WinRTBridge.winmd</PackagePath>
+      <Modified>2017-07-07T15:13:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Resource.res">
+      <PackagePath>Resource.res</PackagePath>
+      <Modified>2017-10-12T10:25:56.656</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Assets\SplashScreen.scale-200.png">
+      <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-06-14T01:54:38.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Assets\Square150x150Logo.scale-200.png">
+      <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-07-06T18:44:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Assets\Square44x44Logo.scale-200.png">
+      <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-07-06T18:44:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-07-06T18:44:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Assets\StoreLogo.png">
+      <PackagePath>Assets\StoreLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-07-06T18:44:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Assets\Wide310x150Logo.scale-200.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-07-06T18:44:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Properties\Default.rd.xml">
+      <PackagePath>Properties\Default.rd.xml</PackagePath>
+      <Modified>2017-06-14T01:54:38.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\StreamingAssets\QCAR\Holograil.xml">
+      <PackagePath>Data\StreamingAssets\QCAR\Holograil.xml</PackagePath>
+      <Modified>2017-05-12T02:29:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\StreamingAssets\QCAR\jewel5.xml">
+      <PackagePath>Data\StreamingAssets\QCAR\jewel5.xml</PackagePath>
+      <Modified>2017-05-12T02:29:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\StreamingAssets\Vuforia\ARGlass.xml">
+      <PackagePath>Data\StreamingAssets\Vuforia\ARGlass.xml</PackagePath>
+      <Modified>2017-10-04T20:28:14.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\StreamingAssets\Vuforia\scanar.xml">
+      <PackagePath>Data\StreamingAssets\Vuforia\scanar.xml</PackagePath>
+      <Modified>2017-10-12T09:51:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\VuforiaWrapper.dll">
+      <PackagePath>VuforiaWrapper.dll</PackagePath>
+      <Modified>2017-05-12T02:29:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\MicStreamSelector.dll">
+      <PackagePath>MicStreamSelector.dll</PackagePath>
+      <Modified>2017-05-12T02:29:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\SharingClient.dll">
+      <PackagePath>SharingClient.dll</PackagePath>
+      <Modified>2017-05-12T02:29:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Vuforia.dll">
+      <PackagePath>Vuforia.dll</PackagePath>
+      <Modified>2017-05-12T02:29:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\SpatialUnderstanding.dll">
+      <PackagePath>SpatialUnderstanding.dll</PackagePath>
+      <Modified>2017-05-12T02:29:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\PlaneFinding.dll">
+      <PackagePath>PlaneFinding.dll</PackagePath>
+      <Modified>2017-05-12T02:29:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\AudioPluginMsHRTF.dll">
+      <PackagePath>AudioPluginMsHRTF.dll</PackagePath>
+      <Modified>2017-07-07T01:43:56.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\boot.config">
+      <PackagePath>Data\boot.config</PackagePath>
+      <Modified>2017-10-12T10:25:40.736</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\globalgamemanagers">
+      <PackagePath>Data\globalgamemanagers</PackagePath>
+      <Modified>2017-10-12T10:25:31.882</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\level0">
+      <PackagePath>Data\level0</PackagePath>
+      <Modified>2017-10-12T10:25:30.774</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\Resources\unity default resources">
+      <PackagePath>Data\Resources\unity default resources</PackagePath>
+      <Modified>2017-07-07T02:06:26.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\Resources\unity_builtin_extra">
+      <PackagePath>Data\Resources\unity_builtin_extra</PackagePath>
+      <Modified>2017-10-12T10:25:40.728</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\globalgamemanagers.assets">
+      <PackagePath>Data\globalgamemanagers.assets</PackagePath>
+      <Modified>2017-10-12T10:25:32.787</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\resources.assets">
+      <PackagePath>Data\resources.assets</PackagePath>
+      <Modified>2017-10-12T10:25:33.088</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\sharedassets0.assets">
+      <PackagePath>Data\sharedassets0.assets</PackagePath>
+      <Modified>2017-10-12T10:25:37.730</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\level0.resS">
+      <PackagePath>Data\level0.resS</PackagePath>
+      <Modified>2017-10-12T10:25:30.766</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\sharedassets0.assets.resS">
+      <PackagePath>Data\sharedassets0.assets.resS</PackagePath>
+      <Modified>2017-10-12T10:25:37.727</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\managedAssemblies.txt">
+      <PackagePath>Data\managedAssemblies.txt</PackagePath>
+      <Modified>2017-10-12T10:25:56.594</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\nativePlugins.txt">
+      <PackagePath>Data\nativePlugins.txt</PackagePath>
+      <Modified>2017-10-12T10:25:56.596</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\resources.resource">
+      <PackagePath>Data\resources.resource</PackagePath>
+      <Modified>2017-10-12T10:25:33.092</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\sharedassets0.resource">
+      <PackagePath>Data\sharedassets0.resource</PackagePath>
+      <Modified>2017-10-12T10:25:37.733</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\StreamingAssets\QCAR\Holograil.dat">
+      <PackagePath>Data\StreamingAssets\QCAR\Holograil.dat</PackagePath>
+      <Modified>2017-05-12T02:29:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\StreamingAssets\QCAR\jewel5.dat">
+      <PackagePath>Data\StreamingAssets\QCAR\jewel5.dat</PackagePath>
+      <Modified>2017-05-12T02:29:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\StreamingAssets\Vuforia\ARGlass.dat">
+      <PackagePath>Data\StreamingAssets\Vuforia\ARGlass.dat</PackagePath>
+      <Modified>2017-10-04T20:28:14.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Data\StreamingAssets\Vuforia\scanar.dat">
+      <PackagePath>Data\StreamingAssets\Vuforia\scanar.dat</PackagePath>
+      <Modified>2017-10-12T09:51:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.15063.0\Windows.winmd">
+      <PackagePath>WinMetadata\Windows.winmd</PackagePath>
+      <Modified>2017-10-04T19:54:10.645</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\bin\x86\Release\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-10-12T10:26:51.611</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Assembly-CSharp.dll">
+      <PackagePath>Assembly-CSharp.dll</PackagePath>
+      <Modified>2017-10-12T10:26:57.180</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\UnityEngine.dll">
+      <PackagePath>UnityEngine.dll</PackagePath>
+      <Modified>2017-10-12T10:26:57.593</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\UnityEngine.Timeline.dll">
+      <PackagePath>UnityEngine.Timeline.dll</PackagePath>
+      <Modified>2017-10-12T10:26:57.635</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\nunit.framework.dll">
+      <PackagePath>nunit.framework.dll</PackagePath>
+      <Modified>2017-10-12T10:26:57.686</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\UnityEngine.UI.dll">
+      <PackagePath>UnityEngine.UI.dll</PackagePath>
+      <Modified>2017-10-12T10:26:57.759</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\UnityEngine.HoloLens.dll">
+      <PackagePath>UnityEngine.HoloLens.dll</PackagePath>
+      <Modified>2017-10-12T10:26:57.784</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\Vuforia.UnityExtensions.dll">
+      <PackagePath>Vuforia.UnityExtensions.dll</PackagePath>
+      <Modified>2017-10-12T10:26:57.843</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\UnityEngine.Networking.dll">
+      <PackagePath>UnityEngine.Networking.dll</PackagePath>
+      <Modified>2017-10-12T10:26:57.899</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\bin\x86\Release\Core\VuforiaPOI.exe">
+      <PackagePath>VuforiaPOI.exe</PackagePath>
+      <Modified>2017-10-12T10:27:00.266</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.24123.0</Version>
+      <Architecture>ARM</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.24123.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\ARM\Microsoft.VCLibs.ARM.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.24123.0</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.24123.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\x64\Microsoft.VCLibs.x64.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.24123.0</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.24123.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\x86\Microsoft.VCLibs.x86.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.CoreRuntime\1.1\">
+      <Name>Microsoft.NET.CoreRuntime.1.1</Name>
+      <Version>1.1.25129.1</Version>
+      <Architecture>ARM</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.CoreRuntime.1.1, MinVersion = 1.1.25129.1, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.CoreRuntime\1.1\.\AppX\ARM\Microsoft.NET.CoreRuntime.1.1.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.CoreRuntime\1.1\">
+      <Name>Microsoft.NET.CoreRuntime.1.1</Name>
+      <Version>1.1.25129.1</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.CoreRuntime.1.1, MinVersion = 1.1.25129.1, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.CoreRuntime\1.1\.\AppX\x64\Microsoft.NET.CoreRuntime.1.1.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.CoreRuntime\1.1\">
+      <Name>Microsoft.NET.CoreRuntime.1.1</Name>
+      <Version>1.1.25129.1</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.CoreRuntime.1.1, MinVersion = 1.1.25129.1, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.CoreRuntime\1.1\.\AppX\x86\Microsoft.NET.CoreRuntime.1.1.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.24123.0</Version>
+      <Architecture>ARM</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.24123.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\ARM\Microsoft.VCLibs.ARM.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.24123.0</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.24123.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\x64\Microsoft.VCLibs.x64.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.24123.0</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.24123.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\x86\Microsoft.VCLibs.x86.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+  </ItemGroup>
+</Project>

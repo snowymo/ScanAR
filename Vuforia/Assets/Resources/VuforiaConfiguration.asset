@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: VuforiaConfiguration
   m_EditorClassIdentifier: 
   vuforia:
-    vuforiaLicenseKey: AY+D4Ar/////AAAAGU2CuEFkYkZ7mXeUJ2Qx1Q554naqoiVZ1JRfI7VslurYNysktA+fgjrGJiHh9EjeqKaISa6gd8FtMHHa5RoYER+erVXj4WFyQ6FYAumluRtJIpP7Mpne+4u5Grs6wiCsoyrSlkwQuDCHHZIFROXijyvvNjDjF6q8WF2jntkT6lMXIgSlTaa3+g2o1Di8V+HBQsAY5wGiSZFGwDcM7Nr55v86RuZK1sVj3QEjnby+KL/voAeuQGTZe2y/zQ7+NWX8JeQrG58o7hPZpt/ECXiL7Ouwi0D8VSSBWZ87IKhEecOjZM3SKA0CXVQkzufqWN1GuhWk7Ppi0bpWOL1aUB94u/tPBYh1OY5j+SmLjX8ULh4i
+    vuforiaLicenseKey: AQtbyx3/////AAAAGcE3uepq0UAtlkeAae9A6V1a7z689kCWWOzSuAMgPEYPJYCRad80ZORQvDsJnaVxLwe4mIVeJlK/9RbYOaaOtqkzZgVkpxiM6EnYyDpFf3sWaIxjbK+wKh8gxl8aRedaIiY48jkEPNAHrZD/Z21JDlDhEIC1n6YBIW0OKsab017HizPu6WwQ91wUtUPL3TXiXe/q4dFmdd0hE5QS81h7F8czYI8NFu9Or3ZTWfs4Mxuzf0c6SE0vpR6T5AEfbPW6rzBNuKy85Oxv6MjZGm7WsWYWTIR82SnMFeNe4+r05uOaqbzAM1F0/JZhk2HL2xSHHLea3us8cJoI24BPLBiUeOklAvOKmHvO9uGuqCOyxCTP
     delayedInitialization: 0
     cameraDeviceModeSetting: -1
     maxSimultaneousImageTargets: 1
@@ -64,7 +64,7 @@ MonoBehaviour:
     modelTransformEnabled: 1
     modelTransform: {x: 0, y: 0.1, z: -0.1}
   webcam:
-    deviceNameSetInEditor: Meta 2 Webcam
+    deviceNameSetInEditor: HD USB Camera
     flipHorizontally: 1
     turnOffWebCam: 0
     renderTextureLayer: 30
