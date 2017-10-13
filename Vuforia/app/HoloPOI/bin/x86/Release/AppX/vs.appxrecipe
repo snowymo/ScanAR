@@ -10,7 +10,7 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>156aa60b-0d98-499c-92fd-25efddf276ab</PackageIdentityName>
     <PackageIdentityPublisher>CN=Holographic Academy</PackageIdentityPublisher>
-    <IntermediateOutputPath>E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\obj\x86\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\obj\x86\Release\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -18,7 +18,7 @@
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\bin\x86\Release\AppX</LayoutDir>
+    <LayoutDir>E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\bin\x86\Release\AppX</LayoutDir>
     <RegisteredManifestChecksum>B0B3D461F7CBCA2CD55A6DB4F9D099B0DB0055136F948F03BE56DE61680663E3</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>vuforiatest3_1.0.0.0_x86__sx6pycx103f58</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>vuforiatest3_sx6pycx103f58!App</RegisteredUserModeAppID>
@@ -28,16 +28,16 @@
     <JitOptimizationSuppressed>False</JitOptimizationSuppressed>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\bin\x86\Release\Core\AppxManifest.xml">
+    <AppXManifest Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\bin\x86\Release\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-10-12T11:06:18.454</Modified>
+      <Modified>2017-10-12T19:23:19.575</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\bin\x86\Release\HoloPOI.exe">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\bin\x86\Release\HoloPOI.exe">
       <PackagePath>entrypoint\HoloPOI.exe</PackagePath>
-      <Modified>2017-10-12T11:06:07.706</Modified>
+      <Modified>2017-10-12T19:23:12.607</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Media\.nuget\packages\Microsoft.ApplicationInsights\1.0.0\lib\portable-win81+wpa81\Microsoft.ApplicationInsights.dll">
       <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
@@ -467,7 +467,7 @@
       <PackagePath>UnityEngineProxy.dll</PackagePath>
       <Modified>2017-07-07T15:11:58.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Unprocessed\WinRTLegacy.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Unprocessed\WinRTLegacy.dll">
       <PackagePath>WinRTLegacy.dll</PackagePath>
       <Modified>2017-07-07T15:10:18.000</Modified>
     </AppxPackagedFile>
@@ -499,157 +499,157 @@
       <PackagePath>WinRTBridge.winmd</PackagePath>
       <Modified>2017-07-07T15:13:02.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Resource.res">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Resource.res">
       <PackagePath>Resource.res</PackagePath>
-      <Modified>2017-10-12T11:05:28.218</Modified>
+      <Modified>2017-10-12T19:21:47.276</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2017-06-14T01:54:38.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2017-07-06T18:44:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2017-07-06T18:44:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2017-07-06T18:44:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2017-07-06T18:44:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2017-07-06T18:44:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
       <Modified>2017-06-14T01:54:38.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\StreamingAssets\QCAR\Holograil.xml">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\StreamingAssets\QCAR\Holograil.xml">
       <PackagePath>Data\StreamingAssets\QCAR\Holograil.xml</PackagePath>
       <Modified>2017-05-12T02:29:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\StreamingAssets\QCAR\jewel5.xml">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\StreamingAssets\QCAR\jewel5.xml">
       <PackagePath>Data\StreamingAssets\QCAR\jewel5.xml</PackagePath>
       <Modified>2017-05-12T02:29:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\StreamingAssets\Vuforia\ARGlass.xml">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\StreamingAssets\Vuforia\ARGlass.xml">
       <PackagePath>Data\StreamingAssets\Vuforia\ARGlass.xml</PackagePath>
       <Modified>2017-10-04T20:28:14.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\StreamingAssets\Vuforia\scanar.xml">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\StreamingAssets\Vuforia\scanar.xml">
       <PackagePath>Data\StreamingAssets\Vuforia\scanar.xml</PackagePath>
       <Modified>2017-10-12T09:51:02.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\VuforiaWrapper.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\VuforiaWrapper.dll">
       <PackagePath>VuforiaWrapper.dll</PackagePath>
       <Modified>2017-05-12T02:29:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\MicStreamSelector.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\MicStreamSelector.dll">
       <PackagePath>MicStreamSelector.dll</PackagePath>
       <Modified>2017-05-12T02:29:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\SharingClient.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\SharingClient.dll">
       <PackagePath>SharingClient.dll</PackagePath>
       <Modified>2017-05-12T02:29:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Vuforia.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Vuforia.dll">
       <PackagePath>Vuforia.dll</PackagePath>
       <Modified>2017-05-12T02:29:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\SpatialUnderstanding.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\SpatialUnderstanding.dll">
       <PackagePath>SpatialUnderstanding.dll</PackagePath>
       <Modified>2017-05-12T02:29:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\PlaneFinding.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\PlaneFinding.dll">
       <PackagePath>PlaneFinding.dll</PackagePath>
       <Modified>2017-05-12T02:29:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\AudioPluginMsHRTF.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\AudioPluginMsHRTF.dll">
       <PackagePath>AudioPluginMsHRTF.dll</PackagePath>
       <Modified>2017-07-07T01:43:56.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\boot.config">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\boot.config">
       <PackagePath>Data\boot.config</PackagePath>
-      <Modified>2017-10-12T11:05:12.998</Modified>
+      <Modified>2017-10-12T19:21:32.305</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\globalgamemanagers">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\globalgamemanagers">
       <PackagePath>Data\globalgamemanagers</PackagePath>
-      <Modified>2017-10-12T11:05:09.013</Modified>
+      <Modified>2017-10-12T19:21:31.741</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\level0">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\level0">
       <PackagePath>Data\level0</PackagePath>
-      <Modified>2017-10-12T11:05:08.114</Modified>
+      <Modified>2017-10-12T19:21:30.825</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\Resources\unity default resources">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\Resources\unity default resources">
       <PackagePath>Data\Resources\unity default resources</PackagePath>
       <Modified>2017-07-07T02:06:26.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\Resources\unity_builtin_extra">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\Resources\unity_builtin_extra">
       <PackagePath>Data\Resources\unity_builtin_extra</PackagePath>
-      <Modified>2017-10-12T11:05:12.997</Modified>
+      <Modified>2017-10-12T19:21:32.304</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\globalgamemanagers.assets">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\globalgamemanagers.assets">
       <PackagePath>Data\globalgamemanagers.assets</PackagePath>
-      <Modified>2017-10-12T11:05:09.511</Modified>
+      <Modified>2017-10-12T19:21:31.891</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\resources.assets">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\resources.assets">
       <PackagePath>Data\resources.assets</PackagePath>
-      <Modified>2017-10-12T11:05:09.619</Modified>
+      <Modified>2017-10-12T19:21:31.920</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\sharedassets0.assets">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\sharedassets0.assets">
       <PackagePath>Data\sharedassets0.assets</PackagePath>
-      <Modified>2017-10-12T11:05:11.141</Modified>
+      <Modified>2017-10-12T19:21:32.113</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\level0.resS">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\level0.resS">
       <PackagePath>Data\level0.resS</PackagePath>
-      <Modified>2017-10-12T11:05:08.108</Modified>
+      <Modified>2017-10-12T19:21:30.818</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\sharedassets0.assets.resS">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\sharedassets0.assets.resS">
       <PackagePath>Data\sharedassets0.assets.resS</PackagePath>
-      <Modified>2017-10-12T11:05:11.138</Modified>
+      <Modified>2017-10-12T19:21:32.111</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\managedAssemblies.txt">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\managedAssemblies.txt">
       <PackagePath>Data\managedAssemblies.txt</PackagePath>
-      <Modified>2017-10-12T11:05:28.177</Modified>
+      <Modified>2017-10-12T19:21:47.244</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\nativePlugins.txt">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\nativePlugins.txt">
       <PackagePath>Data\nativePlugins.txt</PackagePath>
-      <Modified>2017-10-12T11:05:28.180</Modified>
+      <Modified>2017-10-12T19:21:47.245</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\resources.resource">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\resources.resource">
       <PackagePath>Data\resources.resource</PackagePath>
-      <Modified>2017-10-12T11:05:09.622</Modified>
+      <Modified>2017-10-12T19:21:31.923</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\sharedassets0.resource">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\sharedassets0.resource">
       <PackagePath>Data\sharedassets0.resource</PackagePath>
-      <Modified>2017-10-12T11:05:11.144</Modified>
+      <Modified>2017-10-12T19:21:32.116</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\StreamingAssets\QCAR\Holograil.dat">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\StreamingAssets\QCAR\Holograil.dat">
       <PackagePath>Data\StreamingAssets\QCAR\Holograil.dat</PackagePath>
       <Modified>2017-05-12T02:29:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\StreamingAssets\QCAR\jewel5.dat">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\StreamingAssets\QCAR\jewel5.dat">
       <PackagePath>Data\StreamingAssets\QCAR\jewel5.dat</PackagePath>
       <Modified>2017-05-12T02:29:52.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\StreamingAssets\Vuforia\ARGlass.dat">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\StreamingAssets\Vuforia\ARGlass.dat">
       <PackagePath>Data\StreamingAssets\Vuforia\ARGlass.dat</PackagePath>
       <Modified>2017-10-04T20:28:14.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Data\StreamingAssets\Vuforia\scanar.dat">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Data\StreamingAssets\Vuforia\scanar.dat">
       <PackagePath>Data\StreamingAssets\Vuforia\scanar.dat</PackagePath>
       <Modified>2017-10-12T09:51:02.000</Modified>
     </AppxPackagedFile>
@@ -657,46 +657,46 @@
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
       <Modified>2017-10-04T19:54:10.645</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\bin\x86\Release\resources.pri">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\bin\x86\Release\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-10-12T11:06:09.581</Modified>
+      <Modified>2017-10-12T19:15:08.692</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Assembly-CSharp.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Assembly-CSharp.dll">
       <PackagePath>Assembly-CSharp.dll</PackagePath>
-      <Modified>2017-10-12T11:06:15.350</Modified>
+      <Modified>2017-10-12T19:23:18.466</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\UnityEngine.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\UnityEngine.dll">
       <PackagePath>UnityEngine.dll</PackagePath>
-      <Modified>2017-10-12T11:06:15.785</Modified>
+      <Modified>2017-10-12T19:23:19.021</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\UnityEngine.Timeline.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\UnityEngine.Timeline.dll">
       <PackagePath>UnityEngine.Timeline.dll</PackagePath>
-      <Modified>2017-10-12T11:06:15.819</Modified>
+      <Modified>2017-10-12T19:23:19.066</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\nunit.framework.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\nunit.framework.dll">
       <PackagePath>nunit.framework.dll</PackagePath>
-      <Modified>2017-10-12T11:06:15.877</Modified>
+      <Modified>2017-10-12T19:23:19.113</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\UnityEngine.UI.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\UnityEngine.UI.dll">
       <PackagePath>UnityEngine.UI.dll</PackagePath>
-      <Modified>2017-10-12T11:06:15.948</Modified>
+      <Modified>2017-10-12T19:23:19.190</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\UnityEngine.HoloLens.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\UnityEngine.HoloLens.dll">
       <PackagePath>UnityEngine.HoloLens.dll</PackagePath>
-      <Modified>2017-10-12T11:06:15.973</Modified>
+      <Modified>2017-10-12T19:23:19.224</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\Vuforia.UnityExtensions.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\Vuforia.UnityExtensions.dll">
       <PackagePath>Vuforia.UnityExtensions.dll</PackagePath>
-      <Modified>2017-10-12T11:06:16.033</Modified>
+      <Modified>2017-10-12T19:23:19.288</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\UnityEngine.Networking.dll">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\UnityEngine.Networking.dll">
       <PackagePath>UnityEngine.Networking.dll</PackagePath>
-      <Modified>2017-10-12T11:06:16.089</Modified>
+      <Modified>2017-10-12T19:23:19.355</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\bin\x86\Release\Core\HoloPOI.exe">
+    <AppxPackagedFile Include="E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\bin\x86\Release\Core\HoloPOI.exe">
       <PackagePath>HoloPOI.exe</PackagePath>
-      <Modified>2017-10-12T11:06:18.443</Modified>
+      <Modified>2017-10-12T19:23:19.568</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

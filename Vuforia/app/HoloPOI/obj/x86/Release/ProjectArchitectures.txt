@@ -1,1 +1,1 @@
-E:\Zhenyi\Github\ScanAR\Vuforia\app\HoloPOI\HoloPOI.csproj;x86
+E:\Zhenyi\Github\ScanAR\Vuforia\App\HoloPOI\HoloPOI.csproj;x86

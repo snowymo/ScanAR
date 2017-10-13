@@ -15778,10 +15778,10 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "E:\\Zhenyi\\Github\\ScanAR\\Vuforia\\app\\HoloPOI\\HoloPOI.csproj",
+      "projectUniqueName": "E:\\Zhenyi\\Github\\ScanAR\\Vuforia\\App\\HoloPOI\\HoloPOI.csproj",
       "projectName": "HoloPOI",
-      "projectPath": "E:\\Zhenyi\\Github\\ScanAR\\Vuforia\\app\\HoloPOI\\HoloPOI.csproj",
-      "projectJsonPath": "E:\\Zhenyi\\Github\\ScanAR\\Vuforia\\app\\HoloPOI\\project.json",
+      "projectPath": "E:\\Zhenyi\\Github\\ScanAR\\Vuforia\\App\\HoloPOI\\HoloPOI.csproj",
+      "projectJsonPath": "E:\\Zhenyi\\Github\\ScanAR\\Vuforia\\App\\HoloPOI\\project.json",
       "projectStyle": "ProjectJson"
     },
     "dependencies": {

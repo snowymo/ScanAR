@@ -1,1 +1,0 @@
-E:\Zhenyi\holoVuforia-master\app\VuforiaPOI\VuforiaPOI.csproj;x86
