@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig>
     <Tracking>
+        <CylinderTarget name="cylinder" sideLength="0.400000"/>
         <ImageTarget name="baobao" size="0.500000 0.312500"/>
         <ImageTarget name="poi2.Front" size="0.100000 0.100000"/>
         <ImageTarget name="poi2.Top" size="0.100000 0.100000"/>
