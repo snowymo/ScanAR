@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig>
     <Tracking>
+        <CylinderTarget name="cylinder" sideLength="0.400000"/>
+        <ImageTarget name="root_scale2" size="0.100000 0.100000"/>
+        <ImageTarget name="reese_scale" size="0.100000 0.100000"/>
+        <ImageTarget name="finch_scale" size="0.100000 0.100000"/>
+        <ImageTarget name="poi_scale" size="0.100000 0.100000"/>
+        <ImageTarget name="shaw2_scale" size="0.100000 0.100000"/>
+        <ImageTarget name="shaw_scale" size="0.100000 0.099444"/>
         <ImageTarget name="leaves_5star_bg" size="0.500000 0.500000"/>
         <ImageTarget name="baobao" size="0.500000 0.312500"/>
+        <ImageTarget name="poi2.Front" size="0.100000 0.100000"/>
+        <ImageTarget name="poi2.Left" size="0.100000 0.100000"/>
+        <ImageTarget name="poi2.Right" size="0.100000 0.100000"/>
+        <ImageTarget name="poi2.Bottom" size="0.100000 0.100000"/>
+        <ImageTarget name="poi2.Top" size="0.100000 0.100000"/>
+        <ImageTarget name="poi2.Back" size="0.100000 0.100000"/>
         <ImageTarget name="cube.Front" size="0.100000 0.100000"/>
         <ImageTarget name="cube.Left" size="0.100000 0.100000"/>
         <ImageTarget name="cube.Right" size="0.100000 0.100000"/>
         <ImageTarget name="cube.Bottom" size="0.100000 0.100000"/>
         <ImageTarget name="cube.Top" size="0.100000 0.100000"/>
         <ImageTarget name="cube.Back" size="0.100000 0.100000"/>
+        <MultiTarget name="poi2">
+            <Part name="poi2.Left" translation="-0.05000000074505806 0 0" rotation="AD: 0 1 0 -90"/>
+            <Part name="poi2.Right" translation="0.05000000074505806 0 0" rotation="AD: 0 1 0 90"/>
+            <Part name="poi2.Front" translation="0 0 0.05000000074505806" rotation="AD: 1 0 0 0"/>
+            <Part name="poi2.Back" translation="0 0 -0.05000000074505806" rotation="AD: 0 1 0 180"/>
+            <Part name="poi2.Top" translation="0 0.05000000074505806 0" rotation="AD: 1 0 0 -90"/>
+            <Part name="poi2.Bottom" translation="0 -0.05000000074505806 0" rotation="AD: 1 0 0 90"/>
+        </MultiTarget>
         <MultiTarget name="poi">
             <Part name="cube.Left" translation="-0.05000000074505806 0 0" rotation="AD: 0 1 0 -90"/>
             <Part name="cube.Right" translation="0.05000000074505806 0 0" rotation="AD: 0 1 0 90"/>

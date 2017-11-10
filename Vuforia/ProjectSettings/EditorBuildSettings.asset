@@ -5,30 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Origami_Adelle.unity
-    guid: a411bc8ffc1ed3249afa371dd5bb67a7
-  - enabled: 0
-    path: Assets/Scenes/VuforiaTest.unity
-    guid: 3aaf89230639d2e4c9b7bf886eb4662f
-  - enabled: 0
-    path: Assets/Scenes/OpeningScene.unity
-    guid: 243e80ea26edcaa449aeb9e7933052db
-  - enabled: 0
-    path: Assets/Scenes/VuforiaTest.unity
-    guid: 3aaf89230639d2e4c9b7bf886eb4662f
-  - enabled: 0
-    path: Assets/Scenes/SwitchTo.unity
-    guid: 905268885c0ff9a4aaae382b4d727764
-  - enabled: 0
-    path: Assets/Scenes/SwitchTo.unity
-    guid: 905268885c0ff9a4aaae382b4d727764
-  - enabled: 0
-    path: Assets/Scenes/ToniDove.unity
-    guid: 20a78b7348bba23478f2a46d90dc6ea8
-  - enabled: 0
-    path: Assets/Scenes/TheApp.unity
-    guid: e093449036c0c3a44938d7862c534ab9
   - enabled: 1
     path: Assets/zhenyi/vuforiaHololens.unity
     guid: 745fe8d4dd6cac943a2ce3394282fa1d

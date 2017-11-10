@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vuforia", "Vuforia.csproj", "{41ADC99E-7FB0-90A4-4176-28A5F934318C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vuforia.Editor", "Vuforia.Editor.csproj", "{945A7850-783C-4763-E079-25F219103F86}"
