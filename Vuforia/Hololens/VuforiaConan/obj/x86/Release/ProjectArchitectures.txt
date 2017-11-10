@@ -1,1 +1,0 @@
-E:\Zhenyi\holoVuforia-master\Hololens\VuforiaConan\VuforiaConan.csproj;x86
