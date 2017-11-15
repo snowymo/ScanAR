@@ -74,6 +74,7 @@ public class CustomMsgMgr : MonoBehaviour
 
     void receiveMesh(NetworkInMessage msg)
     {
+        print("receive msg size:" + msg.ToString().Length);
         // Parse the message
         long userID = msg.ReadInt64();
 

@@ -266,7 +266,7 @@ public class CustomMessages : Singleton<CustomMessages>
                 AppendVector3(msg, vertices[i]);
             //AppendVector3(msg, position + (direction * 0.016f));
             // AppendVector3(msg, direction);
-
+            print("send msg size:" + msg.ToString().Length);
             // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
             this.serverConnection.Broadcast(
                 msg,
