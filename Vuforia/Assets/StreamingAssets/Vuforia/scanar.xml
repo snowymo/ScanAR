@@ -3,12 +3,26 @@
     <Tracking>
         <CylinderTarget name="cylinder" sideLength="0.400000"/>
         <ImageTarget name="baobao" size="0.500000 0.312500"/>
+        <ImageTarget name="poi3.Front" size="0.054000 0.054000"/>
+        <ImageTarget name="poi3.Left" size="0.054000 0.054000"/>
+        <ImageTarget name="poi3.Right" size="0.054000 0.054000"/>
+        <ImageTarget name="poi3.Bottom" size="0.054000 0.054000"/>
+        <ImageTarget name="poi3.Top" size="0.054000 0.054000"/>
+        <ImageTarget name="poi3.Back" size="0.054000 0.054000"/>
         <ImageTarget name="poi2.Front" size="0.100000 0.100000"/>
-        <ImageTarget name="poi2.Top" size="0.100000 0.100000"/>
-        <ImageTarget name="poi2.Bottom" size="0.100000 0.100000"/>
         <ImageTarget name="poi2.Left" size="0.100000 0.100000"/>
         <ImageTarget name="poi2.Right" size="0.100000 0.100000"/>
+        <ImageTarget name="poi2.Bottom" size="0.100000 0.100000"/>
+        <ImageTarget name="poi2.Top" size="0.100000 0.100000"/>
         <ImageTarget name="poi2.Back" size="0.100000 0.100000"/>
+        <MultiTarget name="poi3">
+            <Part name="poi3.Left" translation="-0.027000000700354576 0 0" rotation="AD: 0 1 0 -90"/>
+            <Part name="poi3.Right" translation="0.027000000700354576 0 0" rotation="AD: 0 1 0 90"/>
+            <Part name="poi3.Front" translation="0 0 0.027000000700354576" rotation="AD: 1 0 0 0"/>
+            <Part name="poi3.Back" translation="0 0 -0.027000000700354576" rotation="AD: 0 1 0 180"/>
+            <Part name="poi3.Top" translation="0 0.027000000700354576 0" rotation="AD: 1 0 0 -90"/>
+            <Part name="poi3.Bottom" translation="0 -0.027000000700354576 0" rotation="AD: 1 0 0 90"/>
+        </MultiTarget>
         <MultiTarget name="poi2">
             <Part name="poi2.Left" translation="-0.05000000074505806 0 0" rotation="AD: 0 1 0 -90"/>
             <Part name="poi2.Right" translation="0.05000000074505806 0 0" rotation="AD: 0 1 0 90"/>
