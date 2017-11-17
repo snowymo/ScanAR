@@ -11,13 +11,15 @@ public class CustomMsgMgr : MonoBehaviour
      Transform cameraObj;
     public Mesh mesh;
 
-    public MeshRender mr;
+    public MeshRender[] mrs;
 
     public enum Category { Hololens, Scanner };
 
     public Category category;
 
     CustomMessages customMessages;
+
+    public Transform debugCylinder;
     //  [SerializeField]
     //  CustomMessages.TestMessageID id;
 
@@ -27,7 +29,7 @@ public class CustomMsgMgr : MonoBehaviour
         customMessages = CustomMessages.Instance;
         //id = customMessages.generateMID();
         customMessages.MessageHandlers[CustomMessages.TestMessageID.Mesh] = this.receiveMesh;
-        //customMessages.MessageHandlers[CustomMessages.TestMessageID.Camera] = this.receiveCameraTransform;
+        customMessages.MessageHandlers[CustomMessages.TestMessageID.Camera] = this.receiveTransformWithScale;
     }
 
     // Update is called once per frame
@@ -40,6 +42,7 @@ public class CustomMsgMgr : MonoBehaviour
         else
         {
             sendMesh(CustomMessages.TestMessageID.Mesh);
+            sendTransformWithScale(CustomMessages.TestMessageID.Camera);
         }
 
     }
@@ -59,6 +62,11 @@ public class CustomMsgMgr : MonoBehaviour
     void sendTransform()
     {
         CustomMessages.Instance.SendStageTransform(modelObj.position, modelObj.rotation);
+    }
+
+    void sendTransformWithScale(CustomMessages.TestMessageID id)
+    {
+        CustomMessages.Instance.SendCustomTransformWithScale(id, debugCylinder.localPosition, debugCylinder.localScale);
     }
 
     void receiveModelTransform(NetworkInMessage msg)
@@ -87,18 +95,18 @@ public class CustomMsgMgr : MonoBehaviour
         Vector3[] vertices = new Vector3[verticeLen];
         for (int i = 0; i < verticeLen; i++)
             vertices[i] = customMessages.ReadVector3(msg);
-
-        mr.updateMesh(triangles, vertices);
+        foreach( MeshRender mr in mrs)
+            mr.updateMesh(triangles, vertices);
     }
 
-    void receiveCameraTransform(NetworkInMessage msg)
+    void receiveTransformWithScale(NetworkInMessage msg)
     {
         // Parse the message
         long userID = msg.ReadInt64();
 
-        cameraObj.position = customMessages.ReadVector3(msg);
+        debugCylinder.localPosition = customMessages.ReadVector3(msg);
 
-        cameraObj.rotation = customMessages.ReadQuaternion(msg);
+        debugCylinder.localScale = customMessages.ReadVector3(msg);
 
     }
 }
