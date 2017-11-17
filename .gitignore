@@ -1,3 +1,19 @@
 */Library/
 
 */Temp/
+
+Vuforia/App*/
+
+Vuforia/app/*
+
+Vuforia/app/
+
+/Vuforia/app/*
+
+/Vuforia/app/
+
+*/Vuforia/app/
+
+*/Vuforia/app
+
+Vuforia/app/HoloPOI/obj/x86/Release/resources.resfiles.intermediate

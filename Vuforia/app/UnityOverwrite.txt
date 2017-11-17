@@ -5,24 +5,25 @@
 # Write a line equal to 'overwrite-all' (without quotes) to overwrite everything (preserved accross builds)
 # Write a line equal to 'keep-all' (without quotes) to keep files regardless their modification (preserved accross builds)
 # Default behavior is to never overwrite files
-HoloPOI.sln: 0487542932C04F9195A74875E3ECB346
-HoloPOI\App.cs: 0A1FF4DD3894B043BB3399F8528149B9
-HoloPOI\HoloPOI.csproj: E0E48DE8877DC84F12B7C75F74F215F1
-HoloPOI\HoloPOI.csproj.user: modified
-HoloPOI\Package.appxmanifest: B2A9EA7584B459646B21F198BDFC55CE
-HoloPOI\project.json: 1D02BC64BAC0D041019673A1C4C51737
-HoloPOI\Assets\SplashScreen.scale-200.png: 60618416282ED104FD1473935716045D
-HoloPOI\Assets\Square150x150Logo.scale-200.png: E02834B4A5DFB97FF8E212C1CACBB084
-HoloPOI\Assets\Square44x44Logo.scale-200.png: 6C6EF27184ABE9D870A9D564953775DE
-HoloPOI\Assets\Square44x44Logo.targetsize-24_altform-unplated.png: 156637F7B5363E983E7A46D8E533A23D
-HoloPOI\Assets\StoreLogo.png: 90BD194CA4A7CFFF3E8B8222229857FB
-HoloPOI\Assets\Wide310x150Logo.scale-200.png: C96846A80DF667F87355569CD816192D
-HoloPOI\bin\x86\Release\AppX\Assets\SplashScreen.scale-200.png: 60618416282ED104FD1473935716045D
-HoloPOI\bin\x86\Release\AppX\Assets\Square150x150Logo.scale-200.png: E02834B4A5DFB97FF8E212C1CACBB084
-HoloPOI\bin\x86\Release\AppX\Assets\Square44x44Logo.scale-200.png: 6C6EF27184ABE9D870A9D564953775DE
-HoloPOI\bin\x86\Release\AppX\Assets\Square44x44Logo.targetsize-24_altform-unplated.png: 156637F7B5363E983E7A46D8E533A23D
-HoloPOI\bin\x86\Release\AppX\Assets\StoreLogo.png: 90BD194CA4A7CFFF3E8B8222229857FB
-HoloPOI\bin\x86\Release\AppX\Assets\Wide310x150Logo.scale-200.png: C96846A80DF667F87355569CD816192D
-HoloPOI\bin\x86\Release\AppX\Properties\Default.rd.xml: 72EB282657164E79A1C42F6240984826
-HoloPOI\Properties\AssemblyInfo.cs: 81F984A8BAD923BC3741C167BA06B646
-HoloPOI\Properties\Default.rd.xml: 72EB282657164E79A1C42F6240984826
+HoloJianSan.sln: 5E8FB15463909E8F4555A573EE51C6F0
+HoloJianSan\App.cs: B1E7E0F95C871539FF34A03075741FB6
+HoloJianSan\HoloJianSan.csproj: C3A59FAA36FEB726265EC7CF97CD5C8A
+HoloJianSan\HoloJianSan.csproj.user: modified
+HoloJianSan\Package.appxmanifest: B41AE6635983EB5CE1C0B2B2440B5A5B
+HoloJianSan\project.json: 1D02BC64BAC0D041019673A1C4C51737
+HoloJianSan\Assets\SplashScreen.scale-200.png: 60618416282ED104FD1473935716045D
+HoloJianSan\Assets\Square150x150Logo.scale-200.png: E02834B4A5DFB97FF8E212C1CACBB084
+HoloJianSan\Assets\Square44x44Logo.scale-200.png: 6C6EF27184ABE9D870A9D564953775DE
+HoloJianSan\Assets\Square44x44Logo.targetsize-24_altform-unplated.png: 156637F7B5363E983E7A46D8E533A23D
+HoloJianSan\Assets\StoreLogo.png: 90BD194CA4A7CFFF3E8B8222229857FB
+HoloJianSan\Assets\Wide310x150Logo.scale-200.png: C96846A80DF667F87355569CD816192D
+HoloJianSan\bin\x86\Release\AppX\Assets\SplashScreen.scale-200.png: 60618416282ED104FD1473935716045D
+HoloJianSan\bin\x86\Release\AppX\Assets\Square150x150Logo.scale-200.png: E02834B4A5DFB97FF8E212C1CACBB084
+HoloJianSan\bin\x86\Release\AppX\Assets\Square44x44Logo.scale-200.png: 6C6EF27184ABE9D870A9D564953775DE
+HoloJianSan\bin\x86\Release\AppX\Assets\Square44x44Logo.targetsize-24_altform-unplated.png: 156637F7B5363E983E7A46D8E533A23D
+HoloJianSan\bin\x86\Release\AppX\Assets\StoreLogo.png: 90BD194CA4A7CFFF3E8B8222229857FB
+HoloJianSan\bin\x86\Release\AppX\Assets\Wide310x150Logo.scale-200.png: C96846A80DF667F87355569CD816192D
+HoloJianSan\bin\x86\Release\AppX\Properties\Default.rd.xml: 72EB282657164E79A1C42F6240984826
+HoloJianSan\obj\x86\Release\HoloJianSan.csproj.CopyComplete: D41D8CD98F00B204E9800998ECF8427E
+HoloJianSan\Properties\AssemblyInfo.cs: D465A5C698A50F54DA904BCBC117B8D0
+HoloJianSan\Properties\Default.rd.xml: 72EB282657164E79A1C42F6240984826
