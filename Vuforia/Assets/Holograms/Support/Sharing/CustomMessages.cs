@@ -2,6 +2,7 @@
 using Academy.HoloToolkit.Unity;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CustomMessages : Singleton<CustomMessages>
 {
@@ -22,6 +23,7 @@ public class CustomMessages : Singleton<CustomMessages>
         Camera,
         Model,
         Mesh,
+        Time,
         Max
     }
 
@@ -89,6 +91,8 @@ public class CustomMessages : Singleton<CustomMessages>
         }
     }
 
+
+
     protected NetworkOutMessage CreateMessage(byte MessageType)
     {
         NetworkOutMessage msg = serverConnection.CreateMessage(MessageType);
@@ -115,6 +119,25 @@ public class CustomMessages : Singleton<CustomMessages>
                 msg,
                 MessagePriority.Immediate,
                 MessageReliability.UnreliableSequenced,
+                MessageChannel.Avatar);
+        }
+    }
+
+    public void SendTime(TestMessageID id, float t)
+    {
+        // If we are connected to a session, broadcast our head info
+        if (this.serverConnection != null && this.serverConnection.IsConnected())
+        {
+            // Create an outgoing network message to contain all the info we want to send
+            NetworkOutMessage msg = CreateMessage((byte)TestMessageID.Time);
+
+            AppendFloat(msg, t);
+
+            // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
+            this.serverConnection.Broadcast(
+                msg,
+                MessagePriority.Immediate,
+                MessageReliability.ReliableOrdered,
                 MessageChannel.Avatar);
         }
     }
@@ -266,13 +289,15 @@ public class CustomMessages : Singleton<CustomMessages>
         }
     }
 
-    public void SendMesh(Mesh m)
+    public void SendMesh(int id, Mesh m)
     {
         // If we are connected to a session, broadcast our head info
         if (this.serverConnection != null && this.serverConnection.IsConnected())
         {
             // Create an outgoing network message to contain all the info we want to send
             NetworkOutMessage msg = CreateMessage((byte)TestMessageID.Mesh);
+
+            AppendInt(msg, id);
 
             int[] triangles = m.triangles;
             AppendInt(msg, triangles.Length);
@@ -286,6 +311,39 @@ public class CustomMessages : Singleton<CustomMessages>
             //AppendVector3(msg, position + (direction * 0.016f));
             // AppendVector3(msg, direction);
             print("send msg size:" + msg.ToString().Length);
+            // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
+            this.serverConnection.Broadcast(
+                msg,
+                MessagePriority.Immediate,
+                MessageReliability.Reliable,
+                MessageChannel.Avatar);
+        }
+    }
+
+    public void SendMeshWithTime(int id, Mesh m, float t)
+    {
+        // If we are connected to a session, broadcast our head info
+        if (this.serverConnection != null && this.serverConnection.IsConnected())
+        {
+            // Create an outgoing network message to contain all the info we want to send
+            NetworkOutMessage msg = CreateMessage((byte)TestMessageID.Mesh);
+
+            AppendInt(msg, id);
+
+            AppendFloat(msg, t);
+
+            int[] triangles = m.triangles;
+            AppendInt(msg, triangles.Length);
+            for (int i = 0; i < triangles.Length; i++)
+                AppendInt(msg, triangles[i]);
+
+            Vector3[] vertices = m.vertices;
+            AppendInt(msg, vertices.Length);
+            for (int i = 0; i < vertices.Length; i++)
+                AppendVector3(msg, vertices[i]);
+            //AppendVector3(msg, position + (direction * 0.016f));
+            // AppendVector3(msg, direction);
+           // print("send msg size:" + );
             // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
             this.serverConnection.Broadcast(
                 msg,
@@ -330,6 +388,11 @@ public class CustomMessages : Singleton<CustomMessages>
         msg.Write(vector.x);
         msg.Write(vector.y);
         msg.Write(vector.z);
+    }
+
+    void AppendFloat(NetworkOutMessage msg, float f)
+    {
+        msg.Write(f);
     }
 
     void AppendQuaternion(NetworkOutMessage msg, Quaternion rotation)
