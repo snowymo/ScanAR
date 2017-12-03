@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Academy.HoloToolkit.Sharing;
 using Academy.HoloToolkit.Unity;
+using System;
 
 public class CustomMsgMgr : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class CustomMsgMgr : MonoBehaviour
 
     public Transform debugCylinder;
 
+    public KeyboardHandler tuner;
+
     [SerializeField]
     float roundtrip, startTime, midTime, delta1;
 
@@ -36,6 +39,7 @@ public class CustomMsgMgr : MonoBehaviour
         //id = customMessages.generateMID();
         customMessages.MessageHandlers[CustomMessages.TestMessageID.Mesh] = this.receiveMeshWithTime;
         customMessages.MessageHandlers[CustomMessages.TestMessageID.Time] = this.receiveTime;
+        customMessages.MessageHandlers[CustomMessages.TestMessageID.Tuner] = this.receiveTuner;
         if (category == Category.Hololens)
             meshId = -1;
         else
@@ -54,8 +58,13 @@ public class CustomMsgMgr : MonoBehaviour
         //    sendMesh(CustomMessages.TestMessageID.Mesh);
         //    sendTransformWithScale(CustomMessages.TestMessageID.Camera);
         //}
-
+        if(category == Category.Scanner)
+        {
+            sendTuner(CustomMessages.TestMessageID.Tuner);
+        }
     }
+
+   
 
     public void PassMesh()
     {
@@ -84,6 +93,11 @@ public class CustomMsgMgr : MonoBehaviour
     void sendTransformWithScale(CustomMessages.TestMessageID id)
     {
         CustomMessages.Instance.SendCustomTransformWithScale(id, debugCylinder.localPosition, debugCylinder.localScale);
+    }
+
+    void sendTuner(CustomMessages.TestMessageID id)
+    {
+        CustomMessages.Instance.SendTuner(id, tuner.tunerTranslation, tuner.tunerEulerAngle, tuner.tunerScale);
     }
 
     void receiveTime(NetworkInMessage msg)
@@ -172,5 +186,14 @@ public class CustomMsgMgr : MonoBehaviour
 
         debugCylinder.localScale = customMessages.ReadVector3(msg);
 
+    }
+
+    void receiveTuner(NetworkInMessage msg)
+    {
+        // Parse the message
+        long userID = msg.ReadInt64();
+        tuner.tunerTranslation = customMessages.ReadVector3(msg);
+        tuner.tunerEulerAngle = customMessages.ReadVector3(msg);
+        tuner.tunerScale = msg.ReadFloat();
     }
 }
