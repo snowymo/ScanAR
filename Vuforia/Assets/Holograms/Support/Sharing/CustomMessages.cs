@@ -24,6 +24,9 @@ public class CustomMessages : Singleton<CustomMessages>
         Model,
         Mesh,
         Time,
+        Tuner,
+        Alignment,
+        Alignment2,
         Max
     }
 
@@ -245,6 +248,46 @@ public class CustomMessages : Singleton<CustomMessages>
             NetworkOutMessage msg = CreateMessage((byte)id);
             AppendVector3(msg, position);
             AppendVector3(msg, scale);
+
+            // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
+            this.serverConnection.Broadcast(
+                msg,
+                MessagePriority.Immediate,
+                MessageReliability.ReliableOrdered,
+                MessageChannel.Avatar);
+        }
+    }
+
+    public void SendTuner(TestMessageID id, Vector3 translation, Vector3 eulerangle, float scale)
+    {
+        // If we are connected to a session, broadcast our head info
+        if (this.serverConnection != null && this.serverConnection.IsConnected())
+        {
+            // Create an outgoing network message to contain all the info we want to send
+            NetworkOutMessage msg = CreateMessage((byte)id);
+            AppendVector3(msg, translation);
+            AppendVector3(msg, eulerangle);
+            AppendFloat(msg, scale);
+
+            // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
+            this.serverConnection.Broadcast(
+                msg,
+                MessagePriority.Immediate,
+                MessageReliability.ReliableOrdered,
+                MessageChannel.Avatar);
+        }
+    }
+
+    public void SendAlignedTransform(TestMessageID id, Vector3 translation, Quaternion rotation, float scale)
+    {
+        // If we are connected to a session, broadcast our head info
+        if (this.serverConnection != null && this.serverConnection.IsConnected())
+        {
+            // Create an outgoing network message to contain all the info we want to send
+            NetworkOutMessage msg = CreateMessage((byte)id);
+            AppendVector3(msg, translation);
+            AppendQuaternion(msg, rotation);
+            AppendFloat(msg, scale);
 
             // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
             this.serverConnection.Broadcast(

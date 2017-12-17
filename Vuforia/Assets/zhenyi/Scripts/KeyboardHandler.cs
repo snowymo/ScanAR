@@ -11,9 +11,9 @@ public class KeyboardHandler : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        tunerScale = 1.0f;
-        tunerTranslation = new Vector3();
-        tunerEulerAngle = new Vector3();
+        tunerScale = 0.6265f;
+        tunerTranslation = new Vector3(0.137f, -0.04f, -0.05f);
+        tunerEulerAngle = new Vector3(180f,0f,148.45f);
 
     }
 	
@@ -21,27 +21,27 @@ public class KeyboardHandler : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown("w"))
         {
-            tunerTranslation.y += 0.1f;
+            tunerTranslation.y += 0.001f;
         }
         else if (Input.GetKeyDown("s"))
         {
-            tunerTranslation.y -= 0.1f;
+            tunerTranslation.y -= 0.001f;
         }
         else if (Input.GetKeyDown("a"))
         {
-            tunerTranslation.x -= 0.1f;
+            tunerTranslation.x -= 0.001f;
         }
         else if (Input.GetKeyDown("d"))
         {
-            tunerTranslation.x += 0.1f;
+            tunerTranslation.x += 0.001f;
         }
         else if (Input.GetKeyDown("q"))
         {
-            tunerTranslation.z += 0.1f;
+            tunerTranslation.z += 0.001f;
         }
         else if (Input.GetKeyDown("e"))
         {
-            tunerTranslation.z -= 0.1f;
+            tunerTranslation.z -= 0.001f;
         }
         else if (Input.GetKeyDown("i"))
         {
@@ -69,11 +69,11 @@ public class KeyboardHandler : MonoBehaviour {
         }
         else if (Input.GetKeyDown("="))
         {
-            tunerScale += 0.1f;
+            tunerScale += 0.01f;
         }
         else if (Input.GetKeyDown("-"))
         {
-            tunerScale -= 0.1f;
+            tunerScale -= 0.01f;
         }
 
         foreach (GameObject go in gos)

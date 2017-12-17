@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class CameraToggle : MonoBehaviour {
     public GameObject arcmr;
+    public GameObject vivecmr;
 	// Use this for initialization
-	void Awake () {
+	void Start () {
 		if(GetComponent<CustomMsgMgr>().category == CustomMsgMgr.Category.Scanner)
         {
             arcmr.SetActive(false);
+            vivecmr.SetActive(true);
+        }else if(GetComponent<CustomMsgMgr>().category == CustomMsgMgr.Category.Hololens)
+        {
+            arcmr.SetActive(true);
+            vivecmr.SetActive(false);
         }
 	}
 	
