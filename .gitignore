@@ -23,3 +23,7 @@ DuplicateVuforia/
 HololensRef/
 
 *.meta
+
+VuforiaUnity2017.3/app-HoloScan-addVT/
+
+*.unitypackage
