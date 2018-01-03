@@ -11,7 +11,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: frl
-  productName: HoloPOI2
+  productName: HoloVive
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -274,8 +274,9 @@ PlayerSettings:
     m_Enabled: 0
     m_Devices: []
   - m_BuildTarget: Standalone
-    m_Enabled: 0
-    m_Devices: []
+    m_Enabled: 1
+    m_Devices:
+    - OpenVR
   - m_BuildTarget: Tizen
     m_Enabled: 0
     m_Devices: []
@@ -582,7 +583,7 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: vuforiatest3
+  metroPackageName: vuforiatest4
   metroPackageVersion: 1.0.0.0
   metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
@@ -622,7 +623,7 @@ PlayerSettings:
       Objects3D: False
       PhoneCall: False
       PicturesLibrary: False
-      PrivateNetworkClientServer: False
+      PrivateNetworkClientServer: True
       Proximity: False
       RemovableStorage: False
       SharedUserCertificates: False

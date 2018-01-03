@@ -22,14 +22,14 @@ public class AlignmentMgr : MonoBehaviour {
     public void AssignAlignmentResult(Transform tf)
     {
         alignedPos = tf.position;
-        alignedEulerY = tf.eulerAngles.y - 180;
+        alignedEulerY = tf.eulerAngles.y/* - 180*/;
         alignedRot = tf.rotation;
         print("pos:" + tf.position + " euler:" + alignedEulerY);
     }
 
     public void CalculateTransform(Transform vivematrix, ref Transform holomatrix)
     {
-        float alignedY = alignedEulerY - 180;
+        float alignedY = alignedEulerY/* - 180*/;
         holomatrix.localPosition = Quaternion.Euler(0, -alignedY, 0) * vivematrix.position + Quaternion.Euler(0, -alignedY, 0) * -alignedPos;
         holomatrix.localRotation = Quaternion.Euler(0, -alignedY, 0) * vivematrix.rotation;
 
