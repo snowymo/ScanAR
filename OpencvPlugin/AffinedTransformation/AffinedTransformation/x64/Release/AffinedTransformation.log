@@ -1,0 +1,7 @@
+﻿  DLLAffTransformation.cpp
+     Creating library D:\Projects\ScanAR\OpencvPlugin\AffinedTransformation\x64\Release\AffinedTransformation.lib and object D:\Projects\ScanAR\OpencvPlugin\AffinedTransformation\x64\Release\AffinedTransformation.exp
+  Generating code
+  All 26 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  AffinedTransformation.vcxproj -> D:\Projects\ScanAR\OpencvPlugin\AffinedTransformation\x64\Release\AffinedTransformation.dll
+  AffinedTransformation.vcxproj -> D:\Projects\ScanAR\OpencvPlugin\AffinedTransformation\x64\Release\AffinedTransformation.pdb (Full PDB)
