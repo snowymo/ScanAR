@@ -5,7 +5,7 @@ int main() {
 
 	std::vector<cv::Point3f> holom, vivem;
 
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		holom.push_back(cv::Point3f(i, i % 3, 1));
 		vivem.push_back(cv::Point3f(i, i % 3, 1));
