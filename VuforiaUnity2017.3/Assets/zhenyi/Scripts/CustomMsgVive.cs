@@ -23,7 +23,7 @@ public class CustomMsgVive : MonoBehaviour
 
     public KeyboardHandler tuner;
 
-    public Transform holoController, holoController2, holoCmr;
+    public Transform holoController, holoController2, holoCmr, ori;
     public SteamVR_TrackedObject vivecontroller, vivetracker;
 
     [SerializeField]
@@ -32,6 +32,8 @@ public class CustomMsgVive : MonoBehaviour
     [SerializeField]
     int meshId;
     bool readyForFusion;
+
+    StateMgr stateManager;
     //  [SerializeField]
     //  CustomMessages.TestMessageID id;
 
@@ -41,11 +43,13 @@ public class CustomMsgVive : MonoBehaviour
         customMessages = CustomMessages.Instance;
         //id = customMessages.generateMID();
         customMessages.MessageHandlers[CustomMessages.TestMessageID.Mesh] = this.receiveMeshWithTime;
-        customMessages.MessageHandlers[CustomMessages.TestMessageID.Time] = this.receiveTime;
+        //customMessages.MessageHandlers[CustomMessages.TestMessageID.Time] = this.receiveTime;
         customMessages.MessageHandlers[CustomMessages.TestMessageID.Tuner] = this.receiveTuner;
         customMessages.MessageHandlers[CustomMessages.TestMessageID.Alignment] = this.receiveAlignTransform;
         customMessages.MessageHandlers[CustomMessages.TestMessageID.Tracking] = this.receiveTrackingTransform;
         customMessages.MessageHandlers[CustomMessages.TestMessageID.Camera] = this.receiveCamera;
+        customMessages.MessageHandlers[CustomMessages.TestMessageID.Calib] = this.receiveCalib;
+        customMessages.MessageHandlers[CustomMessages.TestMessageID.Enable] = this.receiveEPT;
         /*        customMessages.MessageHandlers[CustomMessages.TestMessageID.Alignment2] = this.receiveAlignTransform2;*/
 
         switch (UnityEngine.XR.XRSettings.loadedDeviceName)
@@ -65,6 +69,7 @@ public class CustomMsgVive : MonoBehaviour
 
         UnityEngine.XR.InputTracking.disablePositionalTracking = false;
         readyForFusion = false;
+        stateManager = GetComponent<StateMgr>();
     }
 
     // Update is called once per frame
@@ -73,11 +78,19 @@ public class CustomMsgVive : MonoBehaviour
         if (category == Category.Scanner)
         {
             //sendTuner(CustomMessages.TestMessageID.Tuner);
-            sendAlignTransform(CustomMessages.TestMessageID.Alignment);
+            //sendAlignTransform(CustomMessages.TestMessageID.Alignment);
 
-            if(readyForFusion)
-                sendTrackingTransform(CustomMessages.TestMessageID.Tracking);
-/*            sendAlignTransform2(CustomMessages.TestMessageID.Alignment2);*/
+
+            /*            sendAlignTransform2(CustomMessages.TestMessageID.Alignment2);*/
+            if (stateManager.method == 0)
+            {
+                sendAlignTransform(CustomMessages.TestMessageID.Alignment);
+            }
+            else
+            {
+                if (GetComponent<CalibrateMgr>().bCalib)
+                    sendTrackingTransform(CustomMessages.TestMessageID.Tracking);
+            }
         }
         //print("[hehe] update: cmr: " + Camera.main.transform.localPosition);
     }
@@ -107,10 +120,8 @@ public class CustomMsgVive : MonoBehaviour
         CustomMessages.Instance.SendStageTransform(modelObj.position, modelObj.rotation);
     }
 
-    void sendCamera()
+    public void sendCamera()
     {
-        // disable position tracking
-        UnityEngine.XR.InputTracking.disablePositionalTracking = true;
         CustomMessages.Instance.SendCamera(Camera.main.transform.localPosition, Camera.main.transform.localRotation);
     }
 
@@ -151,12 +162,32 @@ public class CustomMsgVive : MonoBehaviour
         holoController.localRotation = customMessages.ReadQuaternion(msg);
 
         // send the hololens camera matrix out
-        if(!UnityEngine.XR.InputTracking.disablePositionalTracking)
+        // no more need because it is wrong in this logic
+//         if(!UnityEngine.XR.InputTracking.disablePositionalTracking)
+//             sendCamera();
+    }
+
+    void receiveCalib(NetworkInMessage msg)
+    {
+        // Parse the message
+        long userID = msg.ReadInt64();
+
+        // send the hololens camera matrix out
+        if (!UnityEngine.XR.InputTracking.disablePositionalTracking)
             sendCamera();
+    }
+
+    public void sendCalib()
+    {
+        CustomMessages.Instance.SendCalib(CustomMessages.TestMessageID.Calib);
     }
 
     void receiveTrackingTransform(NetworkInMessage msg)
     {
+        // disable position tracking
+        if(!UnityEngine.XR.InputTracking.disablePositionalTracking)
+            UnityEngine.XR.InputTracking.disablePositionalTracking = true;
+
         // Parse the message
         long userID = msg.ReadInt64();
 
@@ -169,19 +200,33 @@ public class CustomMsgVive : MonoBehaviour
         Camera.main.transform.localPosition = eyetf.localPosition;
     }
 
+//     void receiveCamera(NetworkInMessage msg)
+//     {
+//         // Parse the message
+//         long userID = msg.ReadInt64();
+//         
+//         Vector3 eyePos = customMessages.ReadVector3(msg);
+//         Quaternion eyeRot = customMessages.ReadQuaternion(msg);
+// 
+//         // pass to tracking ctrl for future fusion
+//         GetComponent<TrackingCtrl>().AssignEyeWhenAligning(eyePos, eyeRot);
+//         readyForFusion = true;
+// 
+//         print("[hehe]: receive Camera: assign eyes.\n");
+//     }
+
     void receiveCamera(NetworkInMessage msg)
     {
         // Parse the message
         long userID = msg.ReadInt64();
-        
+
         Vector3 eyePos = customMessages.ReadVector3(msg);
         Quaternion eyeRot = customMessages.ReadQuaternion(msg);
 
         // pass to tracking ctrl for future fusion
-        GetComponent<TrackingCtrl>().AssignEyeWhenAligning(eyePos, eyeRot);
-        readyForFusion = true;
+        GetComponent<CalibrateMgr>().addHoloPoint(eyePos);
 
-        print("[hehe]: receive Camera: assign eyes.\n");
+        print("[hehe]: add Camera point set.\n");
     }
 
     //     void receiveAlignTransform2(NetworkInMessage msg)
@@ -269,17 +314,45 @@ public class CustomMsgVive : MonoBehaviour
         
     }
 
+    //     private void sendTrackingTransform(CustomMessages.TestMessageID id)
+    //     {
+    //         if (GetComponent<StateMgr>().current_state == StateMgr.STATE.manipulation)
+    //         {
+    //             // pass vive controller's information here and apply transformation based on alignment data and send out
+    //             print("send tracking transform\n");
+    //             
+    //             GetComponent<TrackingCtrl>().fusion(vivetracker.transform, ref holoCmr);
+    //             CustomMessages.Instance.SendTrackingTransform(id, holoCmr.localPosition, holoCmr.localRotation);
+    //             //GetComponent<AlignmentMgr>().CalculateTransform2(vivecontroller.gameObject.transform, ref holoController2);
+    //         }
+    //     }
+
     private void sendTrackingTransform(CustomMessages.TestMessageID id)
     {
         if (GetComponent<StateMgr>().current_state == StateMgr.STATE.manipulation)
         {
-            // pass vive controller's information here and apply transformation based on alignment data and send out
-            print("send tracking transform\n");
-            
-            GetComponent<TrackingCtrl>().fusion(vivetracker.transform, ref holoCmr);
+            // pass vive tracker's information here and apply transformation based on calibration data and send out
+            //print("send tracking transform\n");
+
+            Vector3 vec = holoCmr.localPosition;
+            GetComponent<CalibrateMgr>().TransformFromVT2Holo(vivetracker.transform.localPosition, ref vec);
+            holoCmr.localPosition = vec;
             CustomMessages.Instance.SendTrackingTransform(id, holoCmr.localPosition, holoCmr.localRotation);
+            // to test if assigning hololens camera is working, and it works
+            //CustomMessages.Instance.SendTrackingTransform(id, ori.localPosition, ori.localRotation);
             //GetComponent<AlignmentMgr>().CalculateTransform2(vivecontroller.gameObject.transform, ref holoController2);
         }
+    }
+
+    void sendEnablePositionTracking(CustomMessages.TestMessageID id)
+    {
+        CustomMessages.Instance.SendEnable(id);
+    }
+
+    void receiveEPT(NetworkInMessage msg)
+    {
+        //TODO
+        UnityEngine.XR.InputTracking.disablePositionalTracking = false;
     }
 
     //     private void sendAlignTransform2(CustomMessages.TestMessageID id)

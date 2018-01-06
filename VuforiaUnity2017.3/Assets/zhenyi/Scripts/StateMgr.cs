@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StateMgr : MonoBehaviour {
 
+    public int method = 0;// 0 means observer method and 1 means opencv method
+
     public enum STATE { aligning, manipulation };
     
     [SerializeField]
@@ -25,14 +27,31 @@ public class StateMgr : MonoBehaviour {
         switch (current_state)
         {
             case STATE.aligning:
-                GetComponent<AlignmentMgr>().AssignAlignmentResult(tf);
-                GetComponent<TrackingCtrl>().AssignVTWhenAligning(GetComponent<CustomMsgVive>().vivetracker.transform);
-                current_state++;
+                if(method == 0)
+                {
+                    GetComponent<AlignmentMgr>().AssignAlignmentResult(tf);
+                    current_state++;
+                }
+                else
+                {
+                    GetComponent<CalibrateMgr>().addVTPoint(tf.localPosition);
+                    GetComponent<CustomMsgVive>().sendCalib();
+                }
+                //                 
+                //                 GetComponent<TrackingCtrl>().AssignVTWhenAligning(GetComponent<CustomMsgVive>().vivetracker.transform);
+                //current_state++;
+                
                 break;
             case STATE.manipulation:
                 break;
             default:
                 break;
         }
+    }
+
+    public void ControllerGripped()
+    {
+       GetComponent<CalibrateMgr>().reset();
+        current_state = STATE.aligning;
     }
 }
