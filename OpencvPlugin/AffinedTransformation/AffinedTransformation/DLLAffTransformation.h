@@ -7,6 +7,8 @@
 extern "C" {
 	TESTDLLSORT_API void TestSort(int a[], int length);
 
-	TESTDLLSORT_API void EstimateAffTrans(unsigned char * holopoints, unsigned char * vivepoints, unsigned char * transformation);
+	TESTDLLSORT_API void EstimateAffTransTT(unsigned char * holopoints, unsigned char * vivepoints, unsigned char * transformation, int typesize[]);
+
+	TESTDLLSORT_API void EstimateAffTransSF(unsigned char * holopoints, unsigned char * vivepoints, unsigned char * transformation);
 }
 //int estimateAffTrans(unsigned char * holopoints, unsigned char * vivepoints, unsigned char * transformation);

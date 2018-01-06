@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 1387417906}
   - component: {fileID: 1387417905}
   - component: {fileID: 1387417904}
-  - component: {fileID: 1387417908}
+  - component: {fileID: 1387417909}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -260,7 +260,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1387417908
+--- !u!114 &1387417909
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1387417903}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9318acae960c84a87b25d75634ee1e, type: 3}
+  m_Script: {fileID: 11500000, guid: c502e018771fbff478cfcc9b1575e0cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   holoPointSet:
@@ -287,15 +287,15 @@ MonoBehaviour:
   vivePointSet:
   - 0
   - 0
-  - 1
-  - 1
+  - 2
   - 1
   - 1
   - 2
   - 2
-  - 1
+  - 2
+  - 2
   - 3
   - 0
-  - 1
+  - 2
   result: []
-  a: 03000000
+  a: 040000000200000003000000

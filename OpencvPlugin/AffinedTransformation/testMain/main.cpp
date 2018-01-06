@@ -8,7 +8,8 @@ int main() {
 	for (int i = 0; i < 4; i++)
 	{
 		holom.push_back(cv::Point3f(i, i % 3, 1));
-		vivem.push_back(cv::Point3f(i, i % 3, 1));
+		vivem.push_back(cv::Point3f(i, i % 3, 2));
+
 	}
 
 	std::cout << "holom " << holom

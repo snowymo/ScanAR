@@ -34,5 +34,7 @@ int estimateAffTrans(std::vector<cv::Point3f> holopoints, std::vector<cv::Point3
 		<< "\nholomat " << holopoints
 		<< "\ntransmat " << transformation
 		<< "\nret " << ret;
+	cv::Mat one = cv::Mat::ones(4, 3, CV_64FC1);
+	std::cout << "\none data:" << sizeof one.data << "\n";
 	return ret;
 }
