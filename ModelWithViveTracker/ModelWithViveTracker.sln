@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelWithViveTracker", "ModelWithViveTracker.csproj", "{AC34B420-3BFC-7AAE-931D-76AD6786B5C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelWithViveTracker.Editor", "ModelWithViveTracker.Editor.csproj", "{3540CD3D-89D2-EE66-4EB4-A072387E7568}"

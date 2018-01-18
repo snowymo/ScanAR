@@ -27,3 +27,17 @@ HololensRef/
 VuforiaUnity2017.3/app-HoloScan-addVT/
 
 *.unitypackage
+
+*.VC.VC.opendb
+*.iobj
+*.ipdb
+*.exe
+*.tlog
+*.log
+
+*.vs
+*.pdf
+
+holokitsdk-tango/
+Vuforia/
+Vuforia-vive/

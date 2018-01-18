@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedHolograms", "SharedHolograms.csproj", "{1F9FAC3C-6A2F-EEF7-75B6-EFC0468BB74F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedHolograms.Editor", "SharedHolograms.Editor.csproj", "{6FC5DA02-9770-C02F-B93B-076C11F11FA9}"
