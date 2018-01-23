@@ -33,8 +33,8 @@ public class AlignmentMgr : MonoBehaviour {
         holomatrix.localPosition = Quaternion.Euler(0, -alignedY, 0) * vivematrix.position + Quaternion.Euler(0, -alignedY, 0) * -alignedPos;
         holomatrix.localRotation = Quaternion.Euler(0, -alignedY, 0) * vivematrix.rotation;
 
-        print("vive: " + vivematrix.position + " rot:" + vivematrix.rotation.eulerAngles.y);
-        print("holomatrix: " + holomatrix.position + " rot:" + holomatrix.rotation.eulerAngles.y);
+        //print("vive: " + vivematrix.position + " rot:" + vivematrix.rotation.eulerAngles.y);
+        //print("holomatrix: " + holomatrix.position + " rot:" + holomatrix.rotation.eulerAngles.y);
     }
 
     public void CalculateTransform2(Transform vivematrix, ref Transform holomatrix)
@@ -43,8 +43,8 @@ public class AlignmentMgr : MonoBehaviour {
         holomatrix.localRotation = Quaternion.Euler(0, -alignedEulerY, 0) * vivematrix.rotation;
 
 
-        print("vive 2: " + vivematrix.position + " rot:" + vivematrix.rotation.eulerAngles.y);
-        print("holomatrix 2: " + holomatrix.position + " rot:" + holomatrix.rotation.eulerAngles.y);
+        //print("vive 2: " + vivematrix.position + " rot:" + vivematrix.rotation.eulerAngles.y);
+        //print("holomatrix 2: " + holomatrix.position + " rot:" + holomatrix.rotation.eulerAngles.y);
     }
 
 //     public void CalculateTransform2(Transform vivematrix, ref Transform holomatrix)

@@ -10,7 +10,7 @@ public class TestLoader : MonoBehaviour
     public bool isAbsolute;
     public string filePath;
 
-    public string currentScan;
+    public string currentScan, currentScanOSR;
 
     void preloadTest()
     {
@@ -71,16 +71,31 @@ public class TestLoader : MonoBehaviour
     {
         
     }
-
+    bool mutex = true;
+    int i = 0;
     void Update()
     {
+        StartCoroutine(sleep500ms());
+
         // load file until success and then remove
-        if (File.Exists(currentScan))
+        if (mutex && File.Exists(currentScan))
         {
+            print("testLoader" + mutex + i++ + Time.time);
+            StartCoroutine(sleep500ms());
+            mutex = false;
             IntPtr plyIntPtr = PlyLoaderDll.LoadPly(currentScan);
-            loadPLYwithPtr(plyIntPtr);
+            //loadPLYwithPtr(plyIntPtr);
             PlyLoaderDll.UnLoadPly(plyIntPtr);
-            File.Delete(currentScan);
+            //File.Delete(currentScan);
+            File.Move(currentScan, currentScanOSR);
+            mutex = true;
         }
+    }
+
+    IEnumerator sleep500ms()
+    {
+        //print(Time.time);
+        yield return new WaitForSeconds(0.5f);
+        //print(Time.time);
     }
 }
