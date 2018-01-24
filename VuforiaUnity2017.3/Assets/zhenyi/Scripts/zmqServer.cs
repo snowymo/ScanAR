@@ -7,6 +7,7 @@ public class zmqServer : MonoBehaviour {
 
     public bool Connected;
     private NetMqPublisher _netMqPublisher;
+    [SerializeField]
     private string _response;
 
     public float[] matrix1, matrix2;
@@ -39,6 +40,14 @@ public class zmqServer : MonoBehaviour {
         for(int i = 0; i < matrix2.Length; i++)
             matrix2[i] = System.BitConverter.ToSingle(message, i * 4);
         return _response;
+    }
+
+    private string HandleMessage2(string message)
+    {
+        print("handle message");
+        print(message);
+        _response = message;
+        return "ok";
     }
 
     private void OnDestroy()

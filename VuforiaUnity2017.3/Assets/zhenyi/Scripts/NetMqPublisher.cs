@@ -12,7 +12,11 @@ public class NetMqPublisher
 
     public delegate string MessageDelegate(byte[] message);
 
+    public delegate string MessageStrDelegate(string message);
+
     private readonly MessageDelegate _messageDelegate;
+
+    private readonly MessageStrDelegate _messageStrDelegate;
 
     private readonly Stopwatch _contactWatch;
 
@@ -30,13 +34,22 @@ public class NetMqPublisher
             while (!_listenerCancelled)
             {
                 Connected = _contactWatch.ElapsedMilliseconds < ContactThreshold;
-                byte[] message;
-                if (!server.TryReceiveFrameBytes(out message)) continue;
+
+//                 byte[] message;
+//                 if (!server.TryReceiveFrameBytes(out message)) continue;
+
+                string msgStr;
+                if (!server.TryReceiveFrameString(out msgStr)) continue;
+
                 //_contactWatch.Restart();
                 _contactWatch.Stop();
                 _contactWatch.Start();
-                var response = _messageDelegate(message);
+
+                //var response = _messageDelegate(message);
+                var response = _messageStrDelegate(msgStr);
+
                 server.SendFrame(response);
+                
             }
         }
         NetMQConfig.Cleanup();
@@ -49,6 +62,15 @@ public class NetMqPublisher
         _contactWatch.Start();
         _listenerWorker = new Thread(ListenerWork);
     }
+
+    public NetMqPublisher(MessageStrDelegate messageDelegate)
+    {
+        _messageStrDelegate = messageDelegate;
+        _contactWatch = new Stopwatch();
+        _contactWatch.Start();
+        _listenerWorker = new Thread(ListenerWork);
+    }
+
 
     public void Start()
     {

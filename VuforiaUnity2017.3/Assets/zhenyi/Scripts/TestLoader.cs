@@ -10,6 +10,8 @@ public class TestLoader : MonoBehaviour
     public bool isAbsolute;
     public string filePath;
 
+    public zmqClient zc;
+
     public string currentScan, currentScanOSR;
 
     void preloadTest()
@@ -64,6 +66,8 @@ public class TestLoader : MonoBehaviour
         mf.mesh = mesh;
         MeshRenderer mr = go.AddComponent<MeshRenderer>();
         mr.material = new Material(Shader.Find("UCLA Game Lab/Wireframe/Double-Sided"));
+
+        zc.cmv.davidMeshMgr.setMesh(mesh.vertices, mesh.triangles);
     }
 
     // Use this for initialization
@@ -75,21 +79,11 @@ public class TestLoader : MonoBehaviour
     int i = 0;
     void Update()
     {
-        StartCoroutine(sleep500ms());
-
-        // load file until success and then remove
-        if (mutex && File.Exists(currentScan))
+        if(zc.cmd[0] == 1)
         {
-            print("testLoader" + mutex + i++ + Time.time);
-            StartCoroutine(sleep500ms());
-            mutex = false;
-            IntPtr plyIntPtr = PlyLoaderDll.LoadPly(currentScan);
-            //loadPLYwithPtr(plyIntPtr);
-            PlyLoaderDll.UnLoadPly(plyIntPtr);
-            //File.Delete(currentScan);
-            File.Move(currentScan, currentScanOSR);
-            mutex = true;
-        }
+            zc.cmd[0] = 0;
+            receiveMesh();
+        }   
     }
 
     IEnumerator sleep500ms()
@@ -97,5 +91,24 @@ public class TestLoader : MonoBehaviour
         //print(Time.time);
         yield return new WaitForSeconds(0.5f);
         //print(Time.time);
+    }
+
+    public void receiveMesh()
+    {
+        // load file until success and then remove
+        if (mutex && File.Exists(currentScan))
+        {
+            print("testLoader" + mutex + i++ + Time.time);
+            //StartCoroutine(sleep500ms());
+            mutex = false;
+            // generate new obj
+            zc.cmv.davidMeshMgr.generateNew();
+            IntPtr plyIntPtr = PlyLoaderDll.LoadPly(currentScan);
+            loadPLYwithPtr(plyIntPtr);
+            PlyLoaderDll.UnLoadPly(plyIntPtr);
+            //File.Delete(currentScan);
+            File.Move(currentScan, currentScanOSR);
+            mutex = true;
+        }
     }
 }
