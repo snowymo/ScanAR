@@ -34,6 +34,8 @@ public class CustomMsgVive : MonoBehaviour
     bool readyForFusion;
 
     StateMgr stateManager;
+
+    public DavidMeshMgr davidMeshMgr;
     //  [SerializeField]
     //  CustomMessages.TestMessageID id;
 
@@ -50,6 +52,7 @@ public class CustomMsgVive : MonoBehaviour
         customMessages.MessageHandlers[CustomMessages.TestMessageID.Camera] = this.receiveCamera;
         customMessages.MessageHandlers[CustomMessages.TestMessageID.Calib] = this.receiveCalib;
         customMessages.MessageHandlers[CustomMessages.TestMessageID.Enable] = this.receiveEPT;
+        customMessages.MessageHandlers[CustomMessages.TestMessageID.DAVIDMESH] = this.receiveDavidMesh;
         /*        customMessages.MessageHandlers[CustomMessages.TestMessageID.Alignment2] = this.receiveAlignTransform2;*/
 
         switch (UnityEngine.XR.XRSettings.loadedDeviceName)
@@ -70,6 +73,7 @@ public class CustomMsgVive : MonoBehaviour
         UnityEngine.XR.InputTracking.disablePositionalTracking = false;
         readyForFusion = false;
         stateManager = GetComponent<StateMgr>();
+        davidMeshMgr = new DavidMeshMgr();
     }
 
     // Update is called once per frame
@@ -90,6 +94,11 @@ public class CustomMsgVive : MonoBehaviour
             {
                 if (GetComponent<CalibrateMgr>().bCalib)
                     sendTrackingTransform(CustomMessages.TestMessageID.Tracking);
+            }
+            // check mesh and send
+            if (davidMeshMgr.readyForSend())
+            {
+                sendDavidMesh(CustomMessages.TestMessageID.DAVIDMESH);
             }
         }
         //print("[hehe] update: cmr: " + Camera.main.transform.localPosition);
@@ -355,6 +364,52 @@ public class CustomMsgVive : MonoBehaviour
         UnityEngine.XR.InputTracking.disablePositionalTracking = false;
     }
 
+    void receiveDavidMesh(NetworkInMessage msg)
+    {
+        // receive mesh[f,v]
+        davidMeshMgr.generateNew();
+
+        int triangleLen = msg.ReadInt32();
+        int[] triangles = new int[triangleLen];
+        for (int i = 0; i < triangleLen; i++)
+            triangles[i] = msg.ReadInt32();
+
+        int verticeLen = msg.ReadInt32();
+        Vector3[] vertices = new Vector3[verticeLen];
+        for (int i = 0; i < verticeLen; i++)
+            vertices[i] = customMessages.ReadVector3(msg);
+
+        davidMeshMgr.setMesh(vertices, triangles);
+
+        // receive matrix
+        float[] tmp = new float[16];
+        for(int i = 0; i < 16; i++)
+        {
+            tmp[i] = msg.ReadFloat();
+        }
+        davidMeshMgr.setMatrix4x4(0, tmp);
+        for (int i = 0; i < 16; i++)
+        {
+            tmp[i] = msg.ReadFloat();
+        }
+        davidMeshMgr.setMatrix4x4(1, tmp);
+        for (int i = 0; i < 16; i++)
+        {
+            tmp[i] = msg.ReadFloat();
+        }
+        davidMeshMgr.setMatrix4x4(2, tmp);
+        for (int i = 0; i < 16; i++)
+        {
+            tmp[i] = msg.ReadFloat();
+        }
+        davidMeshMgr.setMatrix4x4(3, tmp);
+    }
+
+    void sendDavidMesh(CustomMessages.TestMessageID id)
+    {
+        CustomMessages.Instance.SendDavidMesh(id, davidMeshMgr.getLatest());
+        
+    }
     //     private void sendAlignTransform2(CustomMessages.TestMessageID id)
     //     {
     //         if (GetComponent<StateMgr>().current_state == StateMgr.STATE.manipulation)

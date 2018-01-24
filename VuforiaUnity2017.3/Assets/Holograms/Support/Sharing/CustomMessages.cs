@@ -30,6 +30,7 @@ public class CustomMessages : Singleton<CustomMessages>
         Tracking,
         Calib,
         Enable,
+        DAVIDMESH,
         Max
     }
 
@@ -363,6 +364,51 @@ public class CustomMessages : Singleton<CustomMessages>
             NetworkOutMessage msg = CreateMessage((byte)id);
             AppendVector3(msg, translation);
             AppendQuaternion(msg, rotation);
+
+            // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
+            this.serverConnection.Broadcast(
+                msg,
+                MessagePriority.Immediate,
+                MessageReliability.ReliableOrdered,
+                MessageChannel.Avatar);
+        }
+    }
+
+    public void SendDavidMesh(TestMessageID id, DavidMesh dm)
+    {
+        // If we are connected to a session, broadcast our head info
+        if (this.serverConnection != null && this.serverConnection.IsConnected())
+        {
+            // Create an outgoing network message to contain all the info we want to send
+            NetworkOutMessage msg = CreateMessage((byte)id);
+            //AppendInt(msg, id);
+
+            int[] triangles = dm.faces;
+            AppendInt(msg, triangles.Length);
+            for (int i = 0; i < triangles.Length; i++)
+                AppendInt(msg, triangles[i]);
+
+            Vector3[] vertices = dm.vertices;
+            AppendInt(msg, vertices.Length);
+            for (int i = 0; i < vertices.Length; i++)
+                AppendVector3(msg, vertices[i]);
+
+            for(int i = 0; i < 16; i++)
+            {
+                AppendFloat(msg, dm.transformUncalibrated[i]);
+            }
+            for (int i = 0; i < 16; i++)
+            {
+                AppendFloat(msg, dm.transformCalibrated[i]);
+            }
+            for (int i = 0; i < 16; i++)
+            {
+                AppendFloat(msg, dm.scannerControllerMatrix[i]);
+            }
+            for (int i = 0; i < 16; i++)
+            {
+                AppendFloat(msg, dm.transformScannerControllerToDavidSystem[i]);
+            }
 
             // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
             this.serverConnection.Broadcast(
