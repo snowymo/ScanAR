@@ -20,6 +20,8 @@ public class CustomMessages : Singleton<CustomMessages>
         ResetStage,
         ExplodeTarget,
         Transform,
+        MARKERS4,
+        CAMERA,
         Max
     }
 
@@ -252,6 +254,44 @@ public class CustomMessages : Singleton<CustomMessages>
 
     //zhenyi
     public void SendTransform(TestMessageID id, Vector3 position, Quaternion rotation)
+    {
+        // If we are connected to a session, broadcast our head info
+        if (this.serverConnection != null && this.serverConnection.IsConnected())
+        {
+            // Create an outgoing network message to contain all the info we want to send
+            NetworkOutMessage msg = CreateMessage((byte)id);
+
+            AppendTransform(msg, position, rotation);
+
+            // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
+            this.serverConnection.Broadcast(
+                msg,
+                MessagePriority.Immediate,
+                MessageReliability.ReliableOrdered,
+                MessageChannel.Avatar);
+        }
+    }
+
+    public void SendMarkers(TestMessageID id, Transform[] positions)
+    {
+        // If we are connected to a session, broadcast our head info
+        if (this.serverConnection != null && this.serverConnection.IsConnected())
+        {
+            // Create an outgoing network message to contain all the info we want to send
+            NetworkOutMessage msg = CreateMessage((byte)id);
+            for(int i = 0; i < positions.Length; i++)
+                AppendVector3(msg, positions[i].position);
+
+            // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
+            this.serverConnection.Broadcast(
+                msg,
+                MessagePriority.Immediate,
+                MessageReliability.ReliableOrdered,
+                MessageChannel.Avatar);
+        }
+    }
+
+    public void SendMarkers(TestMessageID id, Vector3 position, Quaternion rotation)
     {
         // If we are connected to a session, broadcast our head info
         if (this.serverConnection != null && this.serverConnection.IsConnected())
