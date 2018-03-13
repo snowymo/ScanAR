@@ -62,9 +62,13 @@ public class TrackableMarker : Holojam.Tools.Trackable
     protected override void UpdateTracking()
     {
         //base.UpdateTracking();
-        for(int i = 0; i < markers.Length; i++)
+        if (Tracked)
         {
-            markers[i].position = data.vector3s[i];
+            for (int i = 0; i < markers.Length; i++)
+            {
+                markers[i].position = data.vector3s[i];
+            }
         }
+        
     }
 }

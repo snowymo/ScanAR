@@ -321,6 +321,7 @@
     <Compile Include="Assets\LenovoHackSDK\StereoCamera\Scripts\TangoPhoneSpaceController.cs" />
     <Compile Include="Assets\Scripts\Applications\Calibrate.cs" />
     <Compile Include="Assets\Scripts\Applications\GlobalCtrl.cs" />
+    <Compile Include="Assets\Scripts\Applications\SyncMtx.cs" />
     <Compile Include="Assets\Scripts\Applications\TrackableMarker.cs" />
   </ItemGroup>
   <ItemGroup>
