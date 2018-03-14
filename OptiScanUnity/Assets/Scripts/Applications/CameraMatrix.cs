@@ -76,21 +76,21 @@ public class CameraMatrix : Holojam.Tools.SynchronizableTrackable
         mtxEye = Matrix4x4.identity;
         mtxTrackerEye = Matrix4x4.identity;
 
-        mtxEye[0, 0] = -0.29322964f;
-        mtxEye[1, 0] = 0.84660488f;
-        mtxEye[2, 0] = -0.44415826f;
+        mtxEye[0, 0] = -0.2760f;
+        mtxEye[1, 0] = 0.6731f;
+        mtxEye[2, 0] = -0.6861f;
 
-        mtxEye[0, 1] = -0.46558685f;
-        mtxEye[1, 1] = 0.27931203f;
-        mtxEye[2, 1] = 0.83977002f;
+        mtxEye[0, 1] = -0.9604f;
+        mtxEye[1, 1] = -0.2218f;
+        mtxEye[2, 1] = 0.1688f;
 
-        mtxEye[0, 2] = 0.83501213f;
-        mtxEye[1, 2] = 0.45303971f;
-        mtxEye[2, 2] = 0.31226553f;
+        mtxEye[0, 2] = -0.0386f;
+        mtxEye[1, 2] = 0.7055f;
+        mtxEye[2, 2] = 0.7076f;
 
-        mtxEye[0, 3] = 1.40892117f;
-        mtxEye[1, 3] = -0.53082655f;
-        mtxEye[2, 3] = -0.45353763f;
+        mtxEye[0, 3] = 2.2189f;
+        mtxEye[1, 3] = -0.5611f;
+        mtxEye[2, 3] = 1.1244f;
     }
 
     public void SetMtxEYE(float[] f)

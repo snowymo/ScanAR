@@ -47,6 +47,59 @@ public class SyncMtx102 : Holojam.Tools.SynchronizableTrackable
     }
 
     public bool isWrote = false;
+    void writedownPointset()
+    {
+        string path = "Assets/Resources/pointsets.txt";
+        StreamWriter writer = new StreamWriter(path, true);
+        for (int i = 0; i < data.vector3s.Length; i++)
+            writer.WriteLine(data.vector3s[i].ToString("F4"));
+        writer.Close();
+        print("isWrote");
+        print(data.vector3s);
+    }
+
+    void writedownResult()
+    {
+        string path = "Assets/Resources/result.txt";
+        StreamWriter writer = new StreamWriter(path, true);
+        for (int i = 0; i < result.Length; i++)
+        {
+            writer.Write(result[i].ToString("F4"));
+            if (i % 4 == 3)
+                writer.Write("\n");
+            else
+                writer.Write("\t");
+        }
+        writer.Write("\n");
+        writer.Close();
+    }
+
+    float[] result;
+    void prepareDataForSVD()
+    {
+        float[] pa = new float[4 * 3];
+        for (int i = 0; i < pa.Length / 3; i++)
+        {
+            pa[i * 3] = data.vector3s[i][0];
+            pa[i * 3 + 1] = data.vector3s[i][1];
+            pa[i * 3 + 2] = data.vector3s[i][2];
+        }
+
+        float[] pb = new float[4 * 3];
+        for (int i = 0; i < pb.Length / 3; i++)
+        {
+            pb[i * 3] = data.vector3s[i + 4][0];
+            pb[i * 3 + 1] = data.vector3s[i + 4][1];
+            pb[i * 3 + 2] = data.vector3s[i + 4][2];
+        }
+        result = new float[16];
+        for (int i = 0; i < result.Length; i++)
+            result[i] = 1.0f;
+        Calib(pa, pb, pa.Length, result);
+        for (int i = 0; i < result.Length; i++)
+            print(result[i]);
+    }
+
     // Override Sync() to include the scale vector
     protected override void Sync()
     {
@@ -61,36 +114,14 @@ public class SyncMtx102 : Holojam.Tools.SynchronizableTrackable
             if (Tracked && Application.platform == RuntimePlatform.WindowsEditor && !isWrote)
             {
                 isWrote = true;
-                string path = "Assets/Resources/pointsets.txt";
-                StreamWriter writer = new StreamWriter(path, true);
-                for(int i = 0; i < data.vector3s.Length; i++)
-                    writer.WriteLine(data.vector3s[i].ToString("F4"));
-                writer.Close();
-                print("isWrote");
-                print(data.vector3s);
+
+                writedownPointset();
 
                 // call c++ dll to calculate svd
-                float[] pa = new float[4 * 3];
-                for(int i = 0; i < pa.Length / 3; i++)
-                {
-                    pa[i * 3] = data.vector3s[i][0];
-                    pa[i * 3 + 1] = data.vector3s[i][1];
-                    pa[i * 3 + 2] = data.vector3s[i][2];
-                }
+                prepareDataForSVD();
 
-                float[] pb = new float[4 * 3];
-                for (int i = 0; i < pb.Length / 3; i++)
-                {
-                    pb[i * 3] = data.vector3s[i+4][0];
-                    pb[i * 3 + 1] = data.vector3s[i+4][1];
-                    pb[i * 3 + 2] = data.vector3s[i+4][2];
-                }
-                float[] result = new float[16];
-                for (int i = 0; i < result.Length; i++)
-                    result[i] = 1.0f;
-                Calib(pa,pb,pa.Length, result);
-                for (int i = 0; i < result.Length; i++)
-                    print(result[i]);
+                writedownResult();
+
                 // assign to CameraMatrix.mtxEye
                 cm.SetMtxEYE(result);
             }
