@@ -1,6 +1,7 @@
 from numpy import *
 from math import sqrt
 
+
 # Input: expects Nx3 matrix of points
 # Returns R,t
 # R = 3x3 rotation matrix
@@ -27,7 +28,7 @@ def rigid_transform_3D(A, B):
 
     # special reflection case
     if linalg.det(R) < 0:
-       print ("Reflection detected")
+       print "Reflection detected"
        Vt[2,:] *= -1
        R = Vt.T * U.T
 
@@ -53,21 +54,11 @@ if linalg.det(R) < 0:
    R = U*Vt
 
 # number of points
-n = 4
+n = 10
 
-# A = mat(random.rand(n,3));
-A = array([[0.1756, 2.8244, 0.1526],
-              [0.2307, 2.8520, 0.0513],
-              [0.1928, 2.8307, 0.1067],
-              [0.2103, 2.8893, 0.1278]]);
-A = asmatrix(A);
-# B = R*A.T + tile(t, (1, n))
-# B = B.T;
-B = array([[0.1698, 0.4759, 1.8881],
-              [0.0561, 0.4843, 1.8550],
-              [0.1236, 0.4714, 1.8712],
-              [0.1089, 0.5121, 1.9193]]);
-B = asmatrix(B);
+A = mat(random.rand(n,3));
+B = R*A.T + tile(t, (1, n))
+B = B.T;
 
 # recover the transformation
 ret_R, ret_t = rigid_transform_3D(A, B)
@@ -82,21 +73,21 @@ err = multiply(err, err)
 err = sum(err)
 rmse = sqrt(err/n);
 
-print ("Points A")
-print (A)
-print ("")
+print "Points A"
+print A
+print ""
 
-print ("Points B")
-print (B)
-print ("")
+print "Points B"
+print B
+print ""
 
-print ("Rotation")
-print (R)
-print ("")
+print "Rotation"
+print R
+print ""
 
-print ("Translation")
-print (t)
-print ("")
+print "Translation"
+print t
+print ""
 
-print ("RMSE:", rmse)
-print ("If RMSE is near zero, the function is correct!")
+print "RMSE:", rmse
+print "If RMSE is near zero, the function is correct!"

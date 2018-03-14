@@ -8,8 +8,8 @@ public class TangoPhoneSpaceController : PhoneSpaceControllerBase
     public Camera LeftCamera;
     public Camera RightCamera;
 
-    public float LocalFrameOffsetX = 0.15f;
-    public float LocalFrameOffsetY = 0.2f;
+    public float LocalFrameOffsetX = 0.133f;
+    public float LocalFrameOffsetY = 0.245f;
     public float LocalFrameAllX = 0.015f;
     private BarrelDistortion leftBarrel;
     private BarrelDistortion rightBarrel;
