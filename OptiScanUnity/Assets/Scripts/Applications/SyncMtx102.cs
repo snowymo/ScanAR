@@ -66,11 +66,11 @@ public class SyncMtx102 : Holojam.Tools.SynchronizableTrackable
         {
             writer.Write(result[i].ToString("F4"));
             if (i % 4 == 3)
-                writer.Write("\n");
+                writer.WriteLine("");
             else
                 writer.Write("\t");
         }
-        writer.Write("\n");
+        writer.WriteLine("\r");
         writer.Close();
     }
 
@@ -96,8 +96,8 @@ public class SyncMtx102 : Holojam.Tools.SynchronizableTrackable
         for (int i = 0; i < result.Length; i++)
             result[i] = 1.0f;
         Calib(pa, pb, pa.Length, result);
-        for (int i = 0; i < result.Length; i++)
-            print(result[i]);
+//         for (int i = 0; i < result.Length; i++)
+//             print(result[i]);
     }
 
     // Override Sync() to include the scale vector
