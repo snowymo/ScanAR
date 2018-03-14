@@ -15,6 +15,7 @@ public class TangoPhoneSpaceController : PhoneSpaceControllerBase
     private BarrelDistortion rightBarrel;
 
     private bool previousCameraSeeThrough;
+
     public override float FrameAllX
     {
         get
@@ -24,14 +25,7 @@ public class TangoPhoneSpaceController : PhoneSpaceControllerBase
         set
         {
             LocalFrameAllX = value;
-            Rect leftRect = LeftCamera.rect;
-            Rect rightRect = RightCamera.rect;
-            leftRect.x = LocalFrameAllX + LocalFrameOffsetX;
-            leftRect.width = 0.5f - LocalFrameOffsetX;
-            rightRect.x = 0.5f + LocalFrameAllX;
-            rightRect.width = leftRect.width;
-            LeftCamera.rect = leftRect;
-            RightCamera.rect = rightRect;
+            ApplyCameraRectChange();
         }
     }
 
@@ -44,14 +38,7 @@ public class TangoPhoneSpaceController : PhoneSpaceControllerBase
         set
         {
             LocalFrameOffsetX = value;
-            Rect leftRect = LeftCamera.rect;
-            Rect rightRect = RightCamera.rect;
-            leftRect.x = LocalFrameOffsetX + LocalFrameAllX;
-            leftRect.width = 0.5f - LocalFrameOffsetX;
-            rightRect.x = 0.5f + LocalFrameAllX;
-            rightRect.width = leftRect.width;
-            LeftCamera.rect = leftRect;
-            RightCamera.rect = rightRect;
+            ApplyCameraRectChange();
         }
     }
 
@@ -64,14 +51,7 @@ public class TangoPhoneSpaceController : PhoneSpaceControllerBase
         set
         {
             LocalFrameOffsetY = value;
-            Rect leftRect = LeftCamera.rect;
-            Rect rightRect = RightCamera.rect;
-            leftRect.y = LocalFrameOffsetY;
-            rightRect.y = LocalFrameOffsetY;
-            leftRect.height = 1.0f - Mathf.Abs(LocalFrameOffsetY);
-            rightRect.height = 1.0f - Mathf.Abs(LocalFrameOffsetY);
-            LeftCamera.rect = leftRect;
-            RightCamera.rect = rightRect;
+            ApplyCameraRectChange();
         }
     }
     public override float FOV
@@ -128,12 +108,26 @@ public class TangoPhoneSpaceController : PhoneSpaceControllerBase
         }
     }
 
+    void ApplyCameraRectChange()
+    {
+        Rect leftRect = LeftCamera.rect;
+        Rect rightRect = RightCamera.rect;
+        leftRect.x = LocalFrameOffsetX + LocalFrameAllX;
+        leftRect.width = 0.5f - LocalFrameOffsetX;
+        rightRect.x = 0.5f + LocalFrameAllX;
+        rightRect.width = leftRect.width;
+        LeftCamera.rect = leftRect;
+        RightCamera.rect = rightRect;
+    }
+
     void Start()
     {
         leftBarrel = LeftCamera.GetComponent<BarrelDistortion>();
         rightBarrel = RightCamera.GetComponent<BarrelDistortion>();
 
-		StartCoroutine(fullScreenClear());
+        ApplyCameraRectChange();
+
+        StartCoroutine(fullScreenClear());
     }
 
 	private IEnumerator fullScreenClear() {

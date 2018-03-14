@@ -126,9 +126,15 @@ public class CalibrationTuner : MonoBehaviour {
 			float value = param.ValueOnUpdate();
 			value -= Mathf.Pow(deltaBase, deltaPows[SelectedIndex]);
 			param.SetValue(value);
-		}
+        }
+        else if (Input.GetKey(KeyCode.Space) ||
+          RemoteKeyboardReceiver.Instance.GetKeyDown('p'))
+        {
+            // hide the panel
+            transform.parent.gameObject.GetComponent<Canvas>().enabled = false;
+        }
 
-		deltaLabel.text = string.Format("Delta = {0}", Mathf.Pow(deltaBase, deltaPows[SelectedIndex]));
+        deltaLabel.text = string.Format("Delta = {0}", Mathf.Pow(deltaBase, deltaPows[SelectedIndex]));
 	}
 
 	private void CreateParam(string name, Func<float> valueOnUpdate, Action<float> setValue, int deltaPow = -1) {
