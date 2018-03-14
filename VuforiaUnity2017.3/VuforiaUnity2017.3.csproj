@@ -271,6 +271,9 @@
     <Reference Include="UnityEditor.Graphs">
       <HintPath>D:/Program Files/Unity_2017.3.0f3/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>D:/Program Files/Unity_2017.3.0f3/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.WSA.Extensions">
       <HintPath>D:/Program Files/Unity_2017.3.0f3/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.WSA.Extensions.dll</HintPath>
     </Reference>
@@ -279,6 +282,24 @@
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+    </Reference>
+    <Reference Include="Holojam.Core">
+      <HintPath>Assets/Holojam/Plugins/Holojam.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Holojam">
+      <HintPath>Assets/Holojam/Plugins/Holojam.dll</HintPath>
+    </Reference>
+    <Reference Include="Holojam.Editor">
+      <HintPath>Assets/Holojam/Plugins/Holojam.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Holojam.Vive">
+      <HintPath>Assets/Holojam/Plugins/Holojam.Vive.dll</HintPath>
+    </Reference>
+    <Reference Include="Holojam.Vive.Editor">
+      <HintPath>Assets/Holojam/Plugins/Holojam.Vive.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="FlatBuffers">
+      <HintPath>Assets/Holojam/Plugins/FlatBuffers/FlatBuffers.dll</HintPath>
     </Reference>
     <Reference Include="AsyncIO">
       <HintPath>Assets/zmq/AsyncIO.dll</HintPath>
@@ -331,6 +352,14 @@
     <Compile Include="Assets\Holograms\Support\SpatialMapping\SpatialMappingDeformation.cs" />
     <Compile Include="Assets\Holograms\Support\Underworld\UnderworldReset.cs" />
     <Compile Include="Assets\Holograms\Support\Underworld\UnderworldSound.cs" />
+    <Compile Include="Assets\Holojam\Demo\Scripts\Examples\ActorAvatar.cs" />
+    <Compile Include="Assets\Holojam\Demo\Scripts\Examples\Spectator.cs" />
+    <Compile Include="Assets\Holojam\Demo\Scripts\Examples\SynchronizableComponent.cs" />
+    <Compile Include="Assets\Holojam\Demo\Scripts\Examples\Templates\ControllerTemplate.cs" />
+    <Compile Include="Assets\Holojam\Demo\Scripts\Examples\Templates\SynchronizableTemplate.cs" />
+    <Compile Include="Assets\Holojam\Demo\Scripts\Examples\TrackableComponent.cs" />
+    <Compile Include="Assets\Holojam\Demo\Scripts\Rainbow.cs" />
+    <Compile Include="Assets\Holojam\Utility\HolojamUnity.cs" />
     <Compile Include="Assets\HoloToolkit-Sharing-240\Input\CursorManager.cs" />
     <Compile Include="Assets\HoloToolkit-Sharing-240\Input\GazeManager.cs" />
     <Compile Include="Assets\HoloToolkit-Sharing-240\Input\GestureManager.cs" />
@@ -427,6 +456,12 @@
     <Compile Include="Assets\HoloToolkit-Sharing-240\SpatialMapping\SpatialMappingSource.cs" />
     <Compile Include="Assets\HoloToolkit-Sharing-240\Utilities\Billboard.cs" />
     <Compile Include="Assets\HoloToolkit-Sharing-240\Utilities\Singleton.cs" />
+    <Compile Include="Assets\OptiTrack\Plugins\Managed\NatNetLib\Client.cs" />
+    <Compile Include="Assets\OptiTrack\Plugins\Managed\NatNetLib\Native.cs" />
+    <Compile Include="Assets\OptiTrack\Scripts\OptitrackHmd.cs" />
+    <Compile Include="Assets\OptiTrack\Scripts\OptitrackRigidBody.cs" />
+    <Compile Include="Assets\OptiTrack\Scripts\OptitrackSkeletonAnimator.cs" />
+    <Compile Include="Assets\OptiTrack\Scripts\OptitrackStreamingClient.cs" />
     <Compile Include="Assets\PlyLoader\PlyLoaderDll.cs" />
     <Compile Include="Assets\Scripts\ActivationZoneManagerTom.cs" />
     <Compile Include="Assets\Scripts\ActivationZoneManagerToni.cs" />
@@ -576,12 +611,15 @@
     <Compile Include="Assets\zhenyi\Scripts\CustomMsgVive.cs" />
     <Compile Include="Assets\zhenyi\Scripts\DavidMesh.cs" />
     <Compile Include="Assets\zhenyi\Scripts\DavidMeshMgr.cs" />
+    <Compile Include="Assets\zhenyi\Scripts\HololenRotRetrieve.cs" />
     <Compile Include="Assets\zhenyi\Scripts\KeyboardHandler.cs" />
     <Compile Include="Assets\zhenyi\Scripts\MaintainZero.cs" />
     <Compile Include="Assets\zhenyi\Scripts\MeshRender.cs" />
     <Compile Include="Assets\zhenyi\Scripts\NetMqListener.cs" />
     <Compile Include="Assets\zhenyi\Scripts\NetMqPublisher.cs" />
     <Compile Include="Assets\zhenyi\Scripts\PLYLoader.cs" />
+    <Compile Include="Assets\zhenyi\Scripts\RigidTransformCal.cs" />
+    <Compile Include="Assets\zhenyi\Scripts\SensorFusion.cs" />
     <Compile Include="Assets\zhenyi\Scripts\StateMgr.cs" />
     <Compile Include="Assets\zhenyi\Scripts\TestDll.cs" />
     <Compile Include="Assets\zhenyi\Scripts\TestLoader.cs" />
@@ -610,6 +648,10 @@
     <None Include="Assets\HoloToolkit-Sharing-240\Shaders\VertexLitConfigurable.shader" />
     <None Include="Assets\HoloToolkit-Sharing-240\Shaders\VertexLitConfigurableTransparent.shader" />
     <None Include="Assets\HoloToolkit-Sharing-240\Shaders\Wireframe.shader" />
+    <None Include="Assets\Holojam\Plugins\FlatBuffers\LICENSE.txt" />
+    <None Include="Assets\Holojam\SampleConfig.xml" />
+    <None Include="Assets\OptiTrack\Editor\Materials\MarkerShader.shader" />
+    <None Include="Assets\OptiTrack\README_OptiTrack_Unity.txt" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\iOS\Vuforia.UnityExtensions.iOS.XML" />
     <None Include="Assets\Resources\DebugNormals.shader" />

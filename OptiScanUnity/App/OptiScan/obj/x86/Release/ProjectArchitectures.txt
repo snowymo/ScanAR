@@ -1,0 +1,1 @@
+D:\Projects\ScanAR\OptiScan\App\OptiScan\OptiScan.csproj;x86

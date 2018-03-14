@@ -1,0 +1,1 @@
+D:\Projects\ScanAR\OptiScanHololens\App\OptiScanHololens\OptiScanHololens.csproj;x86
