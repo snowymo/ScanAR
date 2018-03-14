@@ -22,6 +22,8 @@ public class CustomMessages : Singleton<CustomMessages>
         Transform,
         MARKERS4,
         CAMERA,
+        CALIB,
+        HLLCMR,
         Max
     }
 
@@ -272,7 +274,7 @@ public class CustomMessages : Singleton<CustomMessages>
         }
     }
 
-    public void SendMarkers(TestMessageID id, Transform[] positions)
+    public void SendMarkers4(TestMessageID id, Transform[] positions)
     {
         // If we are connected to a session, broadcast our head info
         if (this.serverConnection != null && this.serverConnection.IsConnected())
@@ -291,7 +293,7 @@ public class CustomMessages : Singleton<CustomMessages>
         }
     }
 
-    public void SendMarkers(TestMessageID id, Vector3 position, Quaternion rotation)
+    public void SendOptiCmr(TestMessageID id, Vector3 position, Quaternion rotation)
     {
         // If we are connected to a session, broadcast our head info
         if (this.serverConnection != null && this.serverConnection.IsConnected())
@@ -310,12 +312,72 @@ public class CustomMessages : Singleton<CustomMessages>
         }
     }
 
+    public void SendMatrix(TestMessageID id, Matrix4x4 m)
+    {
+        // If we are connected to a session, broadcast our head info
+        if (this.serverConnection != null && this.serverConnection.IsConnected())
+        {
+            // Create an outgoing network message to contain all the info we want to send
+            NetworkOutMessage msg = CreateMessage((byte)id);
+
+            AppendMatrix(msg, m);
+
+            // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
+            this.serverConnection.Broadcast(
+                msg,
+                MessagePriority.Immediate,
+                MessageReliability.ReliableOrdered,
+                MessageChannel.Avatar);
+        }
+    }
+
+    public void SendHLLCmr(TestMessageID id, Vector3 position, Quaternion rotation)
+    {
+        // If we are connected to a session, broadcast our head info
+        if (this.serverConnection != null && this.serverConnection.IsConnected())
+        {
+            // Create an outgoing network message to contain all the info we want to send
+            NetworkOutMessage msg = CreateMessage((byte)id);
+
+            AppendTransform(msg, position, rotation);
+
+            // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.
+            this.serverConnection.Broadcast(
+                msg,
+                MessagePriority.Immediate,
+                MessageReliability.ReliableOrdered,
+                MessageChannel.Avatar);
+        }
+    }
+
+
     #region HelperFunctionsForWriting
 
     void AppendTransform(NetworkOutMessage msg, Vector3 position, Quaternion rotation)
     {
         AppendVector3(msg, position);
         AppendQuaternion(msg, rotation);
+    }
+
+    //zhenyi
+    void AppendMatrix(NetworkOutMessage msg, Matrix4x4 m)
+    {
+        msg.Write(m.m00);
+        msg.Write(m.m01);
+        msg.Write(m.m02);
+        msg.Write(m.m03);
+        msg.Write(m.m10);
+        msg.Write(m.m11);
+        msg.Write(m.m12);
+        msg.Write(m.m13);
+        msg.Write(m.m20);
+        msg.Write(m.m21);
+        msg.Write(m.m22);
+        msg.Write(m.m23);
+        msg.Write(m.m30);
+        msg.Write(m.m31);
+        msg.Write(m.m32);
+        msg.Write(m.m33);
     }
 
     void AppendVector3(NetworkOutMessage msg, Vector3 vector)
@@ -345,6 +407,15 @@ public class CustomMessages : Singleton<CustomMessages>
     public Quaternion ReadQuaternion(NetworkInMessage msg)
     {
         return new Quaternion(msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat());
+    }
+
+    public Matrix4x4 ReadMatrix(NetworkInMessage msg)
+    {
+        Vector4 col0 = new Vector4(msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat());
+        Vector4 col1 = new Vector4(msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat());
+        Vector4 col2 = new Vector4(msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat());
+        Vector4 col3 = new Vector4(msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat(), msg.ReadFloat());
+        return new Matrix4x4(col0,col1, col2, col3);
     }
 
     #endregion HelperFunctionsForReading

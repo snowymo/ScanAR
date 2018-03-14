@@ -414,6 +414,7 @@
     <Compile Include="Assets\HoloToolkit-Sharing-240\SpatialMapping\SpatialMappingSource.cs" />
     <Compile Include="Assets\HoloToolkit-Sharing-240\Utilities\Billboard.cs" />
     <Compile Include="Assets\HoloToolkit-Sharing-240\Utilities\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Application\Calibration.cs" />
     <Compile Include="Assets\Scripts\Application\CusMsg.cs" />
     <Compile Include="Assets\Scripts\AppStateManager.cs" />
     <Compile Include="Assets\Scripts\AvatarSelector.cs" />
