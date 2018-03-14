@@ -102,5 +102,7 @@ public class CameraMatrix : Holojam.Tools.SynchronizableTrackable
                 mtxEye[i, j] = f[i + j * 4];
             }
         }
+
+        SetHost(true);
     }
 }

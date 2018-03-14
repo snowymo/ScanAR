@@ -50,7 +50,9 @@ public class Calibrate102 : MonoBehaviour {
         
 
         //
-        GetComponent<SyncMtx102>().SetHost(true);
+        if(trackerEye.gameObject.GetComponent<TrackableComponent>().Tracked &&
+            trackerPoints[0].parent.gameObject.GetComponent<TrackableMarker>().Tracked)
+                GetComponent<SyncMtx102>().SetHost(true);
     }
 
     public Vector3[] GetPointPairs()
@@ -59,7 +61,7 @@ public class Calibrate102 : MonoBehaviour {
         Vector3[] pp = new Vector3[8];
         // T: TrackCmr
         // p3: positions from optitrack
-        Matrix4x4 mtrackerEye = Matrix4x4.TRS(trackerEye.position, trackerEye.rotation, new Vector3(1, 1, 1));
+        Matrix4x4 mtrackerEye = Matrix4x4.TRS(trackerEye.position, trackerEye.rotation, Vector3.one);
         for (int i = 0; i < 4; i++)
         {
             Vector3 v = mtrackerEye.MultiplyPoint(trackerPoints[i].position);
