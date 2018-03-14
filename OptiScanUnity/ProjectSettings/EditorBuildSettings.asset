@@ -6,14 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/tut101.unity
-    guid: 43be317e0dc91b343a8bf40551051683
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Scenes/tut102-holojam.unity
-    guid: 64387dd00830c9942bd57ad1e6436a84
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Scenes/HologramCube.unity
-    guid: 3729df7f72e67b14197ad45612e810f5
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/mirage101.unity
-    guid: e7add05f7dca64745aa576f544ebaf7c
+    path: Assets/Scenes/HologramCube.unity
+    guid: 9dabaf65128c771449aacc093b9639e6
