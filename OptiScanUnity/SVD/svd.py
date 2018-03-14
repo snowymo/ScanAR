@@ -91,11 +91,11 @@ print (B)
 print ("")
 
 print ("Rotation")
-print (R)
+print (ret_R)
 print ("")
 
 print ("Translation")
-print (t)
+print (ret_t)
 print ("")
 
 print ("RMSE:", rmse)

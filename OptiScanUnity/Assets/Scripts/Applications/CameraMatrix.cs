@@ -6,7 +6,7 @@ public class CameraMatrix : Holojam.Tools.SynchronizableTrackable
 {
 
     public Transform TrackerEye;
-    Matrix4x4 mtxEye;
+    public Matrix4x4 mtxEye;
     Matrix4x4 mtxTrackerEye;
 
     [SerializeField] string label = "CameraMatrix102";
@@ -76,22 +76,31 @@ public class CameraMatrix : Holojam.Tools.SynchronizableTrackable
         mtxEye = Matrix4x4.identity;
         mtxTrackerEye = Matrix4x4.identity;
 
-        mtxEye[0, 0] = 0.96238678f;
-        mtxEye[1, 0] = 0.26480658f;
-        mtxEye[2, 0] = 0.06073844f;
+        mtxEye[0, 0] = -0.29322964f;
+        mtxEye[1, 0] = 0.84660488f;
+        mtxEye[2, 0] = -0.44415826f;
 
-        mtxEye[0, 1] = -0.22966831f;
-        mtxEye[1, 1] = 0.67353648f;
-        mtxEye[2, 1] = 0.70256748f;
+        mtxEye[0, 1] = -0.46558685f;
+        mtxEye[1, 1] = 0.27931203f;
+        mtxEye[2, 1] = 0.83977002f;
 
-        mtxEye[0, 2] = 0.14513494f;
-        mtxEye[1, 2] = 0.69009135f;
-        mtxEye[2, 2] = 0.70902029f;
+        mtxEye[0, 2] = 0.83501213f;
+        mtxEye[1, 2] = 0.45303971f;
+        mtxEye[2, 2] = 0.31226553f;
 
-        mtxEye[0, 3] = 0.91881409f;
-        mtxEye[1, 3] = 0.3781517f;
-        mtxEye[2, 3] = 0.89873414f;
+        mtxEye[0, 3] = 1.40892117f;
+        mtxEye[1, 3] = -0.53082655f;
+        mtxEye[2, 3] = -0.45353763f;
     }
 
-	
+    public void SetMtxEYE(float[] f)
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            for(int j = 0; j < 4; j++)
+            {
+                mtxEye[i, j] = f[i + j * 4];
+            }
+        }
+    }
 }

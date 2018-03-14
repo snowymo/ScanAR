@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
+using System.Runtime.InteropServices;
 
 public class SyncMtx102 : Holojam.Tools.SynchronizableTrackable
 {
@@ -32,6 +34,11 @@ public class SyncMtx102 : Holojam.Tools.SynchronizableTrackable
     public override bool Host { get { return host; } }
     public override bool AutoHost { get { return autoHost; } }
 
+    [DllImport("svd", EntryPoint = "Calib")]
+    private static extern void Calib(float[] a, float[] b, int len, float[] transform);
+
+    public CameraMatrix cm;
+
     // Add the scale vector to Trackable, which by default only contains position/rotation
     public override void ResetData()
     {
@@ -61,6 +68,31 @@ public class SyncMtx102 : Holojam.Tools.SynchronizableTrackable
                 writer.Close();
                 print("isWrote");
                 print(data.vector3s);
+
+                // call c++ dll to calculate svd
+                float[] pa = new float[4 * 3];
+                for(int i = 0; i < pa.Length / 3; i++)
+                {
+                    pa[i * 3] = data.vector3s[i][0];
+                    pa[i * 3 + 1] = data.vector3s[i][1];
+                    pa[i * 3 + 2] = data.vector3s[i][2];
+                }
+
+                float[] pb = new float[4 * 3];
+                for (int i = 0; i < pb.Length / 3; i++)
+                {
+                    pb[i * 3] = data.vector3s[i+4][0];
+                    pb[i * 3 + 1] = data.vector3s[i+4][1];
+                    pb[i * 3 + 2] = data.vector3s[i+4][2];
+                }
+                float[] result = new float[16];
+                for (int i = 0; i < result.Length; i++)
+                    result[i] = 1.0f;
+                Calib(pa,pb,pa.Length, result);
+                for (int i = 0; i < result.Length; i++)
+                    print(result[i]);
+                // assign to CameraMatrix.mtxEye
+                cm.SetMtxEYE(result);
             }
         }
     }
