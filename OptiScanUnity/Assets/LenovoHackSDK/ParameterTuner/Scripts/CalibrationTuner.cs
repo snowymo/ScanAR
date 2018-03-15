@@ -127,12 +127,12 @@ public class CalibrationTuner : MonoBehaviour {
 			value -= Mathf.Pow(deltaBase, deltaPows[SelectedIndex]);
 			param.SetValue(value);
         }
-        else if (Input.GetKey(KeyCode.Space) ||
-          RemoteKeyboardReceiver.Instance.GetKeyDown('p'))
-        {
-            // hide the panel
-            transform.parent.gameObject.GetComponent<Canvas>().enabled = false;
-        }
+//         else if (Input.GetKey(KeyCode.Space) ||
+//           RemoteKeyboardReceiver.Instance.GetKeyDown('p'))
+//         {
+//             // hide the panel
+//             transform.parent.gameObject.GetComponent<Canvas>().enabled = false;
+//         }
 
         deltaLabel.text = string.Format("Delta = {0}", Mathf.Pow(deltaBase, deltaPows[SelectedIndex]));
 	}

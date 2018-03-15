@@ -64,9 +64,16 @@ public class TrackableMarker : Holojam.Tools.Trackable
         //base.UpdateTracking();
         if (Tracked)
         {
+            Vector3 mnp = GetComponent<ManualMatrix>().manual_pos;
+            Vector3 mneuler = GetComponent<ManualMatrix>().manual_euler_angle;
+            Matrix4x4 mr = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(mneuler), Vector3.one);
+            Matrix4x4 mp = Matrix4x4.TRS(mnp, Quaternion.identity, Vector3.one);
             for (int i = 0; i < markers.Length; i++)
             {
-                markers[i].position = data.vector3s[i];
+                // apply transformation here
+                Vector3 v = mr.MultiplyPoint3x4(data.vector3s[i]);
+                v = mp.MultiplyPoint3x4(v);
+                markers[i].position = v;
             }
         }
         

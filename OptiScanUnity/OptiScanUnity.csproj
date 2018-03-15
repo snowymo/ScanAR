@@ -348,6 +348,8 @@
     <Compile Include="Assets\LenovoHackSDK\Network\Tracker.cs" />
     <Compile Include="Assets\LenovoHackSDK\ParameterTuner\Scripts\CalibrationParam.cs" />
     <Compile Include="Assets\LenovoHackSDK\ParameterTuner\Scripts\CalibrationTuner.cs" />
+    <Compile Include="Assets\LenovoHackSDK\ParameterTuner\Scripts\ManualCalibration.cs" />
+    <Compile Include="Assets\LenovoHackSDK\ParameterTuner\Scripts\ManualMatrix.cs" />
     <Compile Include="Assets\LenovoHackSDK\ParameterTuner\Scripts\PhoneSpaceControllerBase.cs" />
     <Compile Include="Assets\LenovoHackSDK\ParameterTuner\Scripts\RemoteKeyboardReceiver.cs" />
     <Compile Include="Assets\LenovoHackSDK\ParameterTuner\Scripts\Rotation.cs" />
@@ -359,6 +361,7 @@
     <Compile Include="Assets\Scripts\Applications\Calibrate102.cs" />
     <Compile Include="Assets\Scripts\Applications\CameraMatrix.cs" />
     <Compile Include="Assets\Scripts\Applications\GlobalCtrl.cs" />
+    <Compile Include="Assets\Scripts\Applications\KeyboardCtrl.cs" />
     <Compile Include="Assets\Scripts\Applications\SyncMtx.cs" />
     <Compile Include="Assets\Scripts\Applications\SyncMtx102.cs" />
     <Compile Include="Assets\Scripts\Applications\TrackableMarker.cs" />
