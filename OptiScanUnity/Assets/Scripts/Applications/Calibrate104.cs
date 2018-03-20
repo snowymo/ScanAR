@@ -10,6 +10,7 @@ public class Calibrate104 : MonoBehaviour {
     public Transform p_obj;
 
     public Matrix4x4 Mheadset, Moffset, Mvobj, Mpobj;
+    public Matrix4x4 curOffset;
 
     public Text visualOffset;
     // Use this for initialization
@@ -25,7 +26,11 @@ public class Calibrate104 : MonoBehaviour {
 
         Moffset = Mheadset.inverse * Mpobj * Mvobj.inverse;
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            curOffset = Moffset;
+            
+        }
         visualOffset.text = "rot:" + Moffset.rotation.ToString("F4") + "\npos:" + Moffset.GetColumn(3).ToString("F4");
-
     }
 }
