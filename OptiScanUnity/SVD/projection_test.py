@@ -91,18 +91,23 @@ A2 = A2.T
 #print(np.tile(ret_t, (1, amount)).shape)
 
 # Find the error
+# amount delta position
 err = A2 - D
-
+##print(err)
+##err = np.multiply(err, err)
+##print(err.shape)
+##err = np.sum(err, axis=1)
+### amount dis
+##err = np.sqrt(err);
+##print(err)
+### sd
+##err = np.multiply(err, err)
+##err = sum(err)/amount
+##print(err)
+##rmse = np.sqrt(err);
 err = np.multiply(err, err)
-print(err)
-err = sum(err)
-print(err)
+err = np.sum(err)
 rmse = np.sqrt(err/amount);
-
-
-ax.scatter(C[:,0],C[:,1],C[:,2], zdir='z', c= 'red')
-ax.scatter(D[:,0],D[:,1],D[:,2], zdir='z', c= 'blue')
-plt.show()
 
 print ("Points C")
 print (C)
@@ -122,3 +127,7 @@ print ("")
 
 print ("RMSE:", rmse)
 print ("If RMSE is near zero, the function is correct!")
+
+ax.scatter(C[:,0],C[:,1],C[:,2], zdir='z', c= 'red')
+ax.scatter(D[:,0],D[:,1],D[:,2], zdir='z', c= 'blue')
+plt.show()
