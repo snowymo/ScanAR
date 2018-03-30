@@ -54,14 +54,42 @@ def rigid_transform_3D(A, B):
 
     return R, t
 
+fig = plt.figure(1)
+ax = fig.add_subplot(1,2,1, projection='3d')
+bx = fig.add_subplot(133)
+
 # Test with random data
 
 amount = 20
 
-p_eye = np.array([0,0,0]).reshape(1,3)
-gaze_eye = np.array([0,0,-1])
-up_eye = np.array([0,1,0])
+# generate Meye
+# Random rotation and translation
+R = np.mat(np.random.rand(3,3))
+t = np.mat(np.random.rand(3,1))
+t = np.array([0,0,0])
 
+# make R a proper rotation matrix, force orthonormal
+U, S, Vt = LA.svd(R)
+R = U*Vt
+
+# remove reflection
+if LA.det(R) < 0:
+   Vt[2,:] *= -1
+   R = U*Vt
+print(R)
+#R = np.array([[1,0,0],[0,1,0],[0,0,1]])
+print(t)
+Meye = np.concatenate(
+    (np.concatenate((R.T,t.reshape(1,3))).T, np.array([0,0,0,1]).reshape(1,4)))
+print(Meye)
+
+p_eye0 = np.matmul(Meye,np.array([0,0,0,1]))
+p_eye = np.squeeze(np.asarray(p_eye0))[:3].reshape(1,3)
+gaze_eye = np.squeeze(np.asarray(np.matmul(Meye,np.array([0,0,-1,1]))))[:3].reshape(1,3)
+up_eye = np.squeeze(np.asarray(np.matmul(Meye,np.array([0,1,0,1]))))[:3].reshape(1,3)
+print("\tpos eye:\t" + str(p_eye) + "\n\tgaze:\t" + str(gaze_eye) + "\n\tup:\t" + str(up_eye))
+ax.plot([0,gaze_eye[0][0]],[0,gaze_eye[0][1]],[0,gaze_eye[0][2]],c='y')
+ax.plot([0,up_eye[0][0]],[0,up_eye[0][1]],[0,up_eye[0][2]],c='b')
 # change gaze and up every frame
 w_eye = -gaze_eye/LA.norm(gaze_eye)
 u_eye = np.cross(up_eye, w_eye)
@@ -72,6 +100,7 @@ u_eye = u_eye.reshape(1,3)
 ##print(w_eye)
 ##print(u_eye)
 ##print(v_eye)
+print("\tw_eye:\t" + str(w_eye) + "\n\tu_eye:\t" + str(u_eye) + "\n\tv_eye:\t" + str(v_eye))
 Mcmr0 = np.concatenate((u_eye, v_eye, w_eye, p_eye), axis=0)
 #print(Mcmr0)
 Mcmr1 = Mcmr0.T
@@ -83,26 +112,20 @@ Mcmr = LA.inv(Mcmr2)
 
 near = 1
 Mproj = np.array([[1,0,0,0],[0,1,0,0],[0,0,0,0],[0,0,-1/near,0]])
-print(Mproj)
+#print(Mproj)
 
-pos_obj = np.array([10,2,-2,1])
+##pos_obj = np.array([10,2,-2,1])
+pos_obj = np.concatenate((gaze_eye.T,np.array([1]).reshape(1,1)))
+print(pos_obj)
 mtx =  np.matmul(Mproj, Mcmr)
 screen_pos = np.matmul(mtx, pos_obj)
 screen_pos = screen_pos/screen_pos[3]
 print("screen_pos" + str(screen_pos))
 
-fig = plt.figure(1)
-ax = fig.add_subplot(1,2,1, projection='3d')
-##print(str(pos_obj[0]) + str(pos_obj[1]) + str(pos_obj[2]))
+
 ax.scatter(p_eye[:,0],p_eye[:,1],p_eye[:,2], zdir='z', c= 'red')
 ax.scatter(pos_obj[0],pos_obj[1],pos_obj[2], zdir='z', c= 'blue')
-##
-bx = fig.add_subplot(133)
-##print(str(pos_obj[0]) + str(pos_obj[1]) + str(pos_obj[2]))
-##ax.scatter(p_eye[:,0],p_eye[:,1],p_eye[:,2], zdir='z', c= 'red')
-##ax.scatter(pos_obj[0],pos_obj[1],pos_obj[2], zdir='z', c= 'blue')
-##plt.show()
-##
+
 bx.scatter(screen_pos[0],screen_pos[1], c= 'green')
 
 ##f, axarr = plt.subplots(2)
