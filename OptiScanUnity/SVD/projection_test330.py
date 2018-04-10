@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from numpy import linalg as LA
 import math as math
+import scipy.optimize as optimize
 
 # Input: expects Nx3 matrix of points
 # Returns R,t
@@ -146,7 +147,70 @@ def random_test():
 
     bx.scatter(screen_pos[0],screen_pos[1], c= 'green')
     #plt.axis([-4,4,-4,4])
-    plt.show()
+    #plt.show()
+
+def random_test2():
+    # Test with random data
+    amount = 20
+
+    # generate Meye
+    # Random rotation and translation
+    R = np.mat(np.random.rand(3,3))
+    t = np.mat(np.random.rand(3,1))
+    t = np.array([1,1,1]) # eye position
+
+    # make R a proper rotation matrix, force orthonormal
+    U, S, Vt = LA.svd(R)
+    R = U*Vt
+
+    # remove reflection
+    if LA.det(R) < 0:
+       Vt[2,:] *= -1
+       R = U*Vt
+    print(R)
+    #R = np.array([[1,0,0],[0,1,0],[0,0,1]])
+    print(t)
+    Meye = np.concatenate(
+        (np.concatenate((R.T,t.reshape(1,3))).T, np.array([0,0,0,1]).reshape(1,4)))
+    print(Meye)
+
+    p_eye0 = np.matmul(Meye,np.array([0,0,0,1]))
+    p_eye = np.squeeze(np.asarray(p_eye0))[:3].reshape(1,3)
+    gaze_eye = np.squeeze(np.asarray(np.matmul(Meye,np.array([0,0,-1,0]))))[:3].reshape(1,3)
+    up_eye = np.squeeze(np.asarray(np.matmul(Meye,np.array([0,1,0,0]))))[:3].reshape(1,3)
+    print("\tpos eye:\t" + str(p_eye) + "\n\tgaze:\t" + str(gaze_eye) + "\n\tup:\t" + str(up_eye) + "\np_eye+gaze_eye:\t" + str((p_eye+gaze_eye).shape))
+    gazeplot = np.squeeze(np.asarray(np.concatenate((p_eye,p_eye+gaze_eye),axis=0)))
+    upplot = np.squeeze(np.asarray(np.concatenate((p_eye,p_eye+up_eye),axis=0)))
+    ax.plot(gazeplot[:,0],gazeplot[:,1],gazeplot[:,2],c='y')
+    ax.plot(upplot[:,0],upplot[:,1],upplot[:,2],c='b')
+    
+    Mcmr = LA.inv(Meye)
+    #print(Mcmr)
+
+    near = 1
+    n = 1
+    f = 5
+    r = 4
+    t = 3
+    Mproj = np.array([[n/r,0,0,0],[0,n/t,0,0],[0,0,-(f+n)/(f-n),-2*f*n/(f-n)],[0,0,-1,0]])
+    #print(Mproj)
+
+    ##pos_obj = np.array([10,2,-2,1])
+    pos_obj = np.concatenate((gaze_eye.T * 3 + p_eye.T,np.array([1]).reshape(1,1)))
+    print(pos_obj)
+    mtx =  np.matmul(Mproj, Mcmr)
+    screen_pos = np.matmul(mtx, pos_obj)
+    #screen_pos = screen_pos/screen_pos[3]
+    print("screen_pos" + str(screen_pos[0].shape) + str(screen_pos))
+
+
+    ax.scatter(p_eye[:,0],p_eye[:,1],p_eye[:,2], zdir='z', c= 'red')
+    ax.scatter(pos_obj[0],pos_obj[1],pos_obj[2], zdir='z', c= 'blue')
+
+    bx.scatter(np.array(screen_pos[0]),np.array(screen_pos[1]), c= 'green')
+#    bx.scatter(0,0, c= 'green')
+    #plt.axis([-4,4,-4,4])
+    #plt.show()
 
 def ken_math_test(amount, screen_pos, predefine_pos, Mheadset, Mproj):
     Mleft = np.zeros((amount,3))
@@ -197,16 +261,49 @@ def ken_math_test(amount, screen_pos, predefine_pos, Mheadset, Mproj):
 ##    ken_screen_pos = np.matmul(Mheadset_test, predefine_pos)
     
 
-def hehe_math_test():
-    amount = 4
-    screen_pos = np.array([0,0,0,1])
-    predefine_pos = np.array([0,0.5,0,1])
-    Mheadset = np.array([
-        [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
-        [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
-        [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
-        [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
-        ])
+def hehe_math_test(amount, screen_pos, predefine_pos, Mheadset, Mproj):
+    Mleft = np.zeros((amount,3))
+    Mright = np.zeros((amount,3))
+    for i in range(0, amount):
+        Mleft[i] = np.matmul(LA.inv(Mproj),screen_pos)[:3].reshape(1,3)
+        #tmp = np.matmul(LA.inv(Mheadset[i]), predefine_pos[i])
+        #print(tmp)
+        #print(tmp.shape)
+        Mright[i] = np.matmul(LA.inv(Mheadset[i]), predefine_pos[i])[:3].reshape(1,3)
+        print("Mleft:" + str(np.matmul(LA.inv(Mproj),screen_pos)))
+        print("Mright:" + str(np.matmul(LA.inv(Mheadset[i]), predefine_pos[i])))
+
+        #Meyecmr = construct_camera_matrix(np.matmul(Mheadset[i],Moffset))
+        #sp = np.matmul(np.matmul(Mproj, LA.inv(Meyecmr)), predefine_pos[i])
+        #bx.scatter(sp[0],sp[1], c= 'green')
+
+    R,t = rigid_transform_3D(Mleft, Mright)
+
+    # test
+    MRt34 = np.concatenate((R,t),axis=1)
+    #print(MRt34.shape)
+    MRt = np.concatenate((MRt34,np.array([0,0,0,1]).reshape(1,4)))
+    #print("Mrt " + str(MRt))
+    A2 = np.matmul(Mproj,np.matmul(MRt,LA.inv(Mheadset)))
+    A3 = np.matmul(A2, predefine_pos)
+    print(A3)
+    #for i in range(0, amount):
+#        A3[i] /= A3[i][3][0]
+    #print(A3)
+    tilepos = np.tile(screen_pos.reshape(4,1),(amount,1,1))
+    #print(tilepos)
+    err = A3 - tilepos
+    #print(err)
+    err = np.multiply(err,err)
+    #print(err)
+    err = np.sum(err)
+    #print(err)
+    err = sqrt(err/amount)
+    print("RMSE:", err)
+    
+    #print(R)
+    #print(t)
+    return R,t
 
 # get one pair of headset mtx and point position
 def prepare(Moffset):   # we need to fix the Moffset each time
@@ -244,11 +341,33 @@ def prepare(Moffset):   # we need to fix the Moffset each time
 
     return Mheadset, Pobj
 
+def func(data, MoffR11, MoffR12, MoffR13, MoffR14, MoffR31, MoffR32, MoffR33, MoffR34): # data is the Pheadset[x,y,z,1] and exapnd the Moffset13 to 8 parameters
+    Pcmr0 = MoffR11 * data[:,0,0] + MoffR12 * data[:,1,0] + MoffR13 * data[:,2,0] + MoffR14 * data[:,3,0]
+    Pcmr1 = MoffR31 * data[:,0,0] + MoffR32 * data[:,1,0] + MoffR33 * data[:,2,0] + MoffR34 * data[:,3,0]
+    return Pcmr0 / Pcmr1
+
+def funcx(data, MoffR11, MoffR12, MoffR13, MoffR14): # data is the Pheadset[x,y,z,1] and exapnd the Moffset13 to 8 parameters
+    Pcmr0 = MoffR11 * data[:,0,0] + MoffR12 * data[:,1,0] + MoffR13 * data[:,2,0] + MoffR14 * data[:,3,0]
+    return Pcmr0
+
+def funcy(data, MoffR21, MoffR22, MoffR23, MoffR24): # data is the Pheadset[x,y,z,1] and exapnd the Moffset13 to 8 parameters
+    Pcmr1 = MoffR21 * data[:,0,0] + MoffR22 * data[:,1,0] + MoffR23 * data[:,2,0] + MoffR24 * data[:,3,0]
+    return Pcmr1
+    
+def nonlinear(amount, Pcmr, Pheadsets):
+    res = np.transpose(np.tile(Pcmr[0]/Pcmr[2],amount))
+    
+    params, pcov = optimize.curve_fit(funcx, Pheadsets, res)
+    print(params)
+
+    params2, pcov2 = optimize.curve_fit(funcy, Pheadsets, res)
+    print(params)
+
 screen_pos = np.array([0,0,0,1])
 near = 1
 Mproj = np.array([[1,0,0,0],[0,1,0,0],[0,0,0,0],[0,0,-1/near,0]])
 
-random_test()
+random_test2()
 #ken_math_test()
 
 
@@ -256,6 +375,7 @@ amount = 20 #20 + 4
 Mheadsets = np.zeros((amount,4,4),dtype=np.float64)
 #print("M headsets:\n" +str(Mheadsets))
 Pobjs = np.zeros((amount,4,1),dtype=np.float64)
+Pheadsets = np.zeros((amount,4,1),dtype=np.float64)
 #print("P objs:\n" +str(Pobjs))
 
 Moffset = np.concatenate((np.random.rand(3,4),np.array([0,0,0,1]).reshape(1,4)))
@@ -265,9 +385,21 @@ for i in range(0, amount):
     Mheadset, Pobj = prepare(Moffset)
     Mheadsets[i] = Mheadset
     Pobjs[i] = Pobj
-
+    Pheadsets[i] = np.matmul(LA.inv(Mheadset), Pobj)
+    
 #print("M headsets:\n" +str(Mheadsets))
 #print("P objs:\n" +str(Pobjs))
 
-R,t = ken_math_test(amount, screen_pos, Pobjs, Mheadsets, Mproj)
+#R,t = ken_math_test(amount, screen_pos, Pobjs, Mheadsets, Mproj)
+
+n = 1
+f = 5
+r = 4
+t = 3
+Mproj = np.array([[n/r,0,0,0],[0,n/t,0,0],[0,0,-(f+n)/(f-n),-2*f*n/(f-n)],[0,0,-1,0]])
+screen_pos[2] = -n
+#R,t = hehe_math_test(amount, screen_pos, Pobjs, Mheadsets, Mproj)
+Pcmr = np.array([0,0,1,1])
+nonlinear(amount,Pcmr ,Pheadsets)
+
 plt.show()
