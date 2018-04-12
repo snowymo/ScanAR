@@ -55,6 +55,33 @@ def prepare(Moffset):   # we need to fix the Moffset each time
 
     return Mheadset, Pobj, Poverlap
 
+# get one pair of headset mtx and point position
+def prepare(Moffset, Poverlap):   # we need to fix the Moffset each time
+    pitchx = np.random.randint(-90,90)* math.pi/180
+    rolly = np.random.randint(-90,90)* math.pi/180
+    yawz = np.random.randint(-90,90)* math.pi/180
+    Theadset = np.random.rand(3,1) * 1.5
+    Mheadset = np.concatenate(
+        (np.concatenate(
+            (euler2mat(pitchx, yawz, rolly, 'szxy'),Theadset),axis=1
+            ),np.array([0,0,0,1]).reshape(1,4))
+        )
+    Meye = np.matmul(Mheadset, Moffset)
+
+    Pobj = np.matmul(Meye,Poverlap * np.random.rand(1,1) * 1.5)
+    #print("Meye[:,3]" + str(Meye[:,3].reshape(4,1)) + "\nPobj:\n" + str(Pobj))
+    Peye = np.matmul(LA.inv(Meye), Pobj)
+
+    ax.scatter(Meye[:,3][0],Meye[:,3][1],Meye[:,3][2], zdir='z', c= 'red')
+    ax.scatter(Pobj[0],Pobj[1],Pobj[2], zdir='z', c= 'blue')
+    ax.scatter(Peye[0],Peye[1],Peye[2], zdir='z', c= 'green')
+    Mplot = np.squeeze(np.asarray(np.concatenate((Meye[:,3].reshape(4,1),Pobj),axis=1)))
+    ax.plot(Mplot[0],Mplot[1],Mplot[2],c='y')
+    
+    #plt.show()
+
+    return Mheadset, Pobj
+
 # (m * pi) / ||m * pi|| - (po / ||po||)
 def func(m, po, pi):
     mpi = np.matmul(pi, m.reshape(12,1))
@@ -76,6 +103,18 @@ def nllsm(Poverlaps, Pheadsets):
 fig = plt.figure(1)
 ax = fig.add_subplot(1,2,1, projection='3d')
 bx = fig.add_subplot(1,2,2, projection='3d')
+ax.set_xlim3d(0, 2)
+ax.set_ylim3d(2,0)
+ax.set_zlim3d(0,2)
+ax.set_xlabel('X Label' )
+ax.set_ylabel('Y Label')
+ax.set_zlabel('Z Label')
+bx.set_xlim3d(0, 2)
+bx.set_ylim3d(2,0)
+bx.set_zlim3d(0,2)
+bx.set_xlabel('X Label)' )
+bx.set_ylabel('Y Label')
+bx.set_zlabel('Z Label')
 #cx = fig.add_subplot(1,3,3, projection='3d')
 
 amount = 20 #20 + 4
@@ -88,18 +127,18 @@ Poverlaps = np.zeros((amount,3,12),dtype=np.float64)
 
 #Moffset = np.concatenate((np.random.rand(3,4),np.array([0,0,0,1]).reshape(1,4)))
 Moffset = generate_offset_euler()
-#Poverlap31 = np.random.rand(3,1)
-#Poverlap31 = Poverlap31 / LA.norm(Poverlap31)
-#Poverlap = np.concatenate((Poverlap31, np.array([[1]]))) #(4,1)
+Poverlap31 = np.random.rand(3,1)
+Poverlap31 = Poverlap31 / LA.norm(Poverlap31)
+Poverlap = np.concatenate((Poverlap31, np.array([[1]]))) #(4,1)
 #Poverlap312 = np.array([[ Poverlap[0][0], Poverlap[1][0], Poverlap[2][0], 0,0,0, 0,0,0, 1,0,0],
 #                        [ 0,0,0, Poverlap[0][0], Poverlap[1][0], Poverlap[2][0], 0,0,0, 0,1,0],
 #                        [ 0,0,0, 0,0,0, Poverlap[0][0], Poverlap[1][0], Poverlap[2][0], 0,0,1]])
 
 print("offset:" + str(Moffset))
-#print("Poverlaps:" + str(Poverlaps))
+print("Poverlap:" + str(Poverlap))
 
 for i in range(0, amount):
-    Mheadset, Pobj, Poverlap = prepare(Moffset)
+    Mheadset, Pobj = prepare(Moffset, Poverlap)
     Mheadsets[i] = Mheadset
     Pobjs[i] = Pobj
     Pheadsets[i] = np.matmul(LA.inv(Mheadset), Pobj)
