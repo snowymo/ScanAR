@@ -6,6 +6,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from numpy import linalg as LA
 import math as math
 import scipy.optimize as optimize
+from transforms3d.euler import euler2mat, mat2euler
 
 # Input: expects Nx3 matrix of points
 # Returns R,t
@@ -305,24 +306,70 @@ def hehe_math_test(amount, screen_pos, predefine_pos, Mheadset, Mproj):
     #print(t)
     return R,t
 
+def generateOffset():
+    # Random rotation and translation
+    R = np.mat(np.random.rand(3,3))
+    t = np.mat(np.random.rand(3,1))
+
+    # make R a proper rotation matrix, force orthonormal
+    U, S, Vt = LA.svd(R)
+    R = U*Vt
+
+    # remove reflection
+    if LA.det(R) < 0:
+       Vt[2,:] *= -1
+       R = U*Vt
+
+    print(R.shape)
+    print(t)
+    #print(zeroone.shape)
+    t14 = np.concatenate((t, np.array([1]).reshape(1,1) ))
+    #print(t41)
+    R34 = np.concatenate((R, np.array([0,0,0]).reshape(1,3) ))
+    #print(R34)
+    return np.concatenate((R34,t14 ), axis=1)
+
+def generateOffsetEuler():
+    pitchx = np.random.randint(-10,10)* math.pi/180
+    rolly = np.random.randint(-10,10)* math.pi/180
+    yawz = np.random.randint(-10,10)* math.pi/180
+    R = euler2mat(pitchx, yawz, rolly, 'szxy')
+    t = np.array([np.random.randint(-10,10)/10,
+                  np.random.randint(-10,10)/10,
+                  np.random.randint(-10,10)/10]).reshape(3,1)
+
+    print(R.shape)
+    print(t)
+    #print(zeroone.shape)
+    t14 = np.concatenate((t, np.array([1]).reshape(1,1) ))
+    #print(t41)
+    R34 = np.concatenate((R, np.array([0,0,0]).reshape(1,3) ))
+    #print(R34)
+    return np.concatenate((R34,t14 ), axis=1)
+
 # get one pair of headset mtx and point position
 def prepare(Moffset):   # we need to fix the Moffset each time
-    yangle = np.random.randint(-90,90)* math.pi/180
-    xangle = np.random.randint(-90,90)* math.pi/180
-    Mrotx = np.matrix([[1,0,0],
-                       [0, math.cos(xangle), -math.sin(xangle)],
-                       [0, math.sin(xangle), math.cos(xangle)]])
-    Mroty = np.matrix([[math.cos(yangle),0,math.sin(yangle)],
-                       [0, 1, 0],
-                       [-math.sin(xangle),0, math.cos(xangle)]])
-    Pheadset = np.random.rand(3,1) * 1.5
+    pitchx = np.random.randint(-90,90)* math.pi/180
+    rolly = np.random.randint(-90,90)* math.pi/180
+    yawz = np.random.randint(-90,90)* math.pi/180
+##    Mrotx = np.matrix([[math.cos(pitchx), math.sin(pitchx), 0],
+##                       [-math.sin(pitchx), math.cos(pitchx), 0],
+##                       [0, 0, 1]])
+##    Mroty = np.matrix([[math.cos(rolly),0,-math.sin(rolly)],
+##                       [0, 1, 0],
+##                       [math.sin(rolly),0, math.cos(rolly)]])
+##    Mrotz = np.matrix([[1,0,0],
+##                       [0, math.cos(yawz), math.sin(yawz)],
+##                       [0, -math.sin(yawz), math.cos(yawz)]])
+    Theadset = np.random.rand(3,1) * 1.5
     Mheadset = np.concatenate(
         (np.concatenate(
-            (np.matmul(Mrotx,Mroty),Pheadset),axis=1
+            (euler2mat(pitchx, yawz, rolly, 'szxy'),Theadset),axis=1
             ),np.array([0,0,0,1]).reshape(1,4))
         )
     #print("Mrotx:" + str(Mrotx) + "\nMroty:" + str(Mroty) + "\nPheadset:" + str(Pheadset) + "\nMheadset:" + str(Mheadset))
     #print("\nMheadset:" + str(Mheadset))
+
 
     Meye = np.matmul(Mheadset, Moffset)
     #print("Meye:\n" + str(Meye))
@@ -330,12 +377,12 @@ def prepare(Moffset):   # we need to fix the Moffset each time
     gaze = np.squeeze(np.asarray(np.matmul(Meye,np.array([0,0,-1,0])))).reshape(4,1)
     #print("gaze:\n" + str(gaze))
 
-    Pobj = Meye[:,3] + gaze * np.random.rand(1,1) * 1.5
-    #print("Meye[:,3]" + str(Meye[:,3]) + "\nPobj:\n" + str(Pobj))
+    Pobj = Meye[:,3].reshape(4,1) + gaze * np.random.rand(1,1) * 1.5
+    #print("Meye[:,3]" + str(Meye[:,3].reshape(4,1)) + "\nPobj:\n" + str(Pobj))
 
     ax.scatter(Meye[:,3][0],Meye[:,3][1],Meye[:,3][2], zdir='z', c= 'red')
     ax.scatter(Pobj[0],Pobj[1],Pobj[2], zdir='z', c= 'blue')
-    Mplot = np.squeeze(np.asarray(np.concatenate((Meye[:,3],Meye[:,3]+gaze),axis=1)))
+    Mplot = np.squeeze(np.asarray(np.concatenate((Meye[:,3].reshape(4,1),Meye[:,3].reshape(4,1)+gaze),axis=1)))
     ax.plot(Mplot[0],Mplot[1],Mplot[2],c='y')
     #plt.show()
 
@@ -350,6 +397,18 @@ def funcx(data, MoffR11, MoffR12, MoffR13, MoffR14): # data is the Pheadset[x,y,
     Pcmr0 = MoffR11 * data[:,0,0] + MoffR12 * data[:,1,0] + MoffR13 * data[:,2,0] + MoffR14 * data[:,3,0]
     return Pcmr0
 
+def funceuler(data, pitch, roll, yaw, MoffR14): # data is the Pheadset[x,y,z,1]
+    Pcmr0 = math.cos(pitch) * math.cos(yaw) * data[:,0,0]
+    + (math.sin(roll) * math.sin(pitch) * math.cos(yaw) - math.cos(roll) * math.sin(yaw)) * data[:,1,0]
+    + (math.cos(roll) * math.sin(pitch) * math.cos(yaw) + math.sin(roll) * math.sin(yaw)) * data[:,2,0] + MoffR14 * data[:,3,0]
+    return Pcmr0
+
+def funceuler1(data, pitch, roll, yaw, MoffR14): # data is the Pheadset[x,y,z,1]
+    Pcmr1 = math.cos(pitch) * math.sin(yaw) * data[:,0,0]
+    + (math.sin(roll) * math.sin(pitch) * math.sin(yaw) + math.cos(roll) * math.cos(yaw)) * data[:,1,0]
+    + (math.cos(roll) * math.sin(pitch) * math.sin(yaw) - math.sin(roll) * math.cos(yaw)) * data[:,2,0] + MoffR14 * data[:,3,0]
+    return Pcmr1
+
 def funcy(data, MoffR21, MoffR22, MoffR23, MoffR24): # data is the Pheadset[x,y,z,1] and exapnd the Moffset13 to 8 parameters
     Pcmr1 = MoffR21 * data[:,0,0] + MoffR22 * data[:,1,0] + MoffR23 * data[:,2,0] + MoffR24 * data[:,3,0]
     return Pcmr1
@@ -357,17 +416,17 @@ def funcy(data, MoffR21, MoffR22, MoffR23, MoffR24): # data is the Pheadset[x,y,
 def nonlinear(amount, Pcmr, Pheadsets):
     res = np.transpose(np.tile(Pcmr[0]/Pcmr[2],amount))
     
-    params, pcov = optimize.curve_fit(funcx, Pheadsets, res)
+    params, pcov = optimize.curve_fit(funceuler, Pheadsets, res, method='lm')
     print(params)
 
-    params2, pcov2 = optimize.curve_fit(funcy, Pheadsets, res)
-    print(params)
+    params2, pcov2 = optimize.curve_fit(funceuler1, Pheadsets, res, method='lm')
+    print(params2)
 
-screen_pos = np.array([0,0,0,1])
-near = 1
-Mproj = np.array([[1,0,0,0],[0,1,0,0],[0,0,0,0],[0,0,-1/near,0]])
+#screen_pos = np.array([0,0,0,1])
+#near = 1
+#Mproj = np.array([[1,0,0,0],[0,1,0,0],[0,0,0,0],[0,0,-1/near,0]])
 
-random_test2()
+#random_test2()
 #ken_math_test()
 
 
@@ -378,7 +437,8 @@ Pobjs = np.zeros((amount,4,1),dtype=np.float64)
 Pheadsets = np.zeros((amount,4,1),dtype=np.float64)
 #print("P objs:\n" +str(Pobjs))
 
-Moffset = np.concatenate((np.random.rand(3,4),np.array([0,0,0,1]).reshape(1,4)))
+#Moffset = np.concatenate((np.random.rand(3,4),np.array([0,0,0,1]).reshape(1,4)))
+Moffset = generateOffsetEuler()
 print("offset:" + str(Moffset))
 
 for i in range(0, amount):
@@ -397,7 +457,7 @@ f = 5
 r = 4
 t = 3
 Mproj = np.array([[n/r,0,0,0],[0,n/t,0,0],[0,0,-(f+n)/(f-n),-2*f*n/(f-n)],[0,0,-1,0]])
-screen_pos[2] = -n
+#screen_pos[2] = -n
 #R,t = hehe_math_test(amount, screen_pos, Pobjs, Mheadsets, Mproj)
 Pcmr = np.array([0,0,1,1])
 nonlinear(amount,Pcmr ,Pheadsets)
