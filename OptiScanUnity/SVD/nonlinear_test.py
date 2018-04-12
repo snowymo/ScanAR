@@ -8,6 +8,24 @@ import math as math
 from scipy.optimize import least_squares
 from transforms3d.euler import euler2mat, mat2euler
 
+# figure setup
+fig = plt.figure(1)
+ax = fig.add_subplot(1,2,1, projection='3d')
+bx = fig.add_subplot(1,2,2, projection='3d')
+ax.set_xlim3d(0, 2)
+ax.set_ylim3d(2,0)
+ax.set_zlim3d(0,2)
+ax.set_xlabel('X Label' )
+ax.set_ylabel('Y Label')
+ax.set_zlabel('Z Label')
+bx.set_xlim3d(0, 2)
+bx.set_ylim3d(2,0)
+bx.set_zlim3d(0,2)
+bx.set_xlabel('X Label)' )
+bx.set_ylabel('Y Label')
+bx.set_zlabel('Z Label')
+#cx = fig.add_subplot(1,3,3, projection='3d')
+
 # generate offset matrix based on euler angles
 def generate_offset_euler():
     pitchx = np.random.randint(-10,10)* math.pi/180
@@ -28,7 +46,7 @@ def generate_offset_euler():
     return np.concatenate((R34,t14 ), axis=1)
 
 # get one pair of headset mtx and point position
-def prepare(Moffset):   # we need to fix the Moffset each time
+def prepare0(Moffset):   # we need to fix the Moffset each time
     pitchx = np.random.randint(-90,90)* math.pi/180
     rolly = np.random.randint(-90,90)* math.pi/180
     yawz = np.random.randint(-90,90)* math.pi/180
@@ -43,13 +61,16 @@ def prepare(Moffset):   # we need to fix the Moffset each time
     Poverlap31 = np.random.rand(3,1)
     Poverlap31 = Poverlap31 / LA.norm(Poverlap31)
     Poverlap = np.concatenate((Poverlap31, np.array([[1]]))) #(4,1)
-
-    Pobj = Meye[:,3].reshape(4,1) + Poverlap * np.random.rand(1,1) * 1.5
+    Pscale_overlap = np.append(Poverlap[0:3,:] * np.random.rand(1,1) * 1.5,1).reshape(4,1)
+    
+    Pobj = np.matmul(Meye,Pscale_overlap)
+    Peye = np.matmul(LA.inv(Meye), Pobj)
     #print("Meye[:,3]" + str(Meye[:,3].reshape(4,1)) + "\nPobj:\n" + str(Pobj))
 
     ax.scatter(Meye[:,3][0],Meye[:,3][1],Meye[:,3][2], zdir='z', c= 'red')
     ax.scatter(Pobj[0],Pobj[1],Pobj[2], zdir='z', c= 'blue')
-    Mplot = np.squeeze(np.asarray(np.concatenate((Meye[:,3].reshape(4,1),Meye[:,3].reshape(4,1)+Poverlap*2),axis=1)))
+    ax.scatter(Peye[0],Peye[1],Peye[2], zdir='z', c= 'green')
+    Mplot = np.squeeze(np.asarray(np.concatenate((Meye[:,3].reshape(4,1),Pobj),axis=1)))
     ax.plot(Mplot[0],Mplot[1],Mplot[2],c='y')
     #plt.show()
 
@@ -67,8 +88,12 @@ def prepare(Moffset, Poverlap):   # we need to fix the Moffset each time
             ),np.array([0,0,0,1]).reshape(1,4))
         )
     Meye = np.matmul(Mheadset, Moffset)
+    Pscale_overlap = np.append(Poverlap[0:3,:] * np.random.rand(1,1) * 1.5,1).reshape(4,1)
+    #print("check")
+    #print(Poverlap)
+    #print(Pscale_overlap.shape)
+    Pobj = np.matmul(Meye,  Pscale_overlap)
 
-    Pobj = np.matmul(Meye,Poverlap * np.random.rand(1,1) * 1.5)
     #print("Meye[:,3]" + str(Meye[:,3].reshape(4,1)) + "\nPobj:\n" + str(Pobj))
     Peye = np.matmul(LA.inv(Meye), Pobj)
 
@@ -95,27 +120,18 @@ def nllsm(Poverlaps, Pheadsets):
                  0.0, 0.0, 1.0,
                  0.0, 0.0, 0.0])
     res_lsq = least_squares(func, m, args=(Poverlaps, Pheadsets), method = 'lm')
-    
-    print(res_lsq.x.reshape(3,4))
-    return res_lsq.x.reshape(3,4)
+    moffinv = np.array([np.concatenate(    (res_lsq.x[0:3].reshape(1,3),np.array([res_lsq.x[9]]).reshape(1,1)) , axis=1),
+                        np.concatenate(    (res_lsq.x[3:6].reshape(1,3),np.array([res_lsq.x[10]]).reshape(1,1)) , axis=1),
+                        np.concatenate(    (res_lsq.x[6:9].reshape(1,3),np.array([res_lsq.x[11]]).reshape(1,1)) , axis=1)])
+    moffinv = np.array([[res_lsq.x[0],res_lsq.x[1],res_lsq.x[2],res_lsq.x[9]],
+                            [res_lsq.x[3],res_lsq.x[4],res_lsq.x[5],res_lsq.x[10]],
+                           [res_lsq.x[6],res_lsq.x[7],res_lsq.x[8],res_lsq.x[11]]])
+    #print("minv-12:" + str(res_lsq.x))
+    #print("minv-34:" + str(moffinv.shape))
+    #print(moffinv)
+    return moffinv
 
-# figure setup
-fig = plt.figure(1)
-ax = fig.add_subplot(1,2,1, projection='3d')
-bx = fig.add_subplot(1,2,2, projection='3d')
-ax.set_xlim3d(0, 2)
-ax.set_ylim3d(2,0)
-ax.set_zlim3d(0,2)
-ax.set_xlabel('X Label' )
-ax.set_ylabel('Y Label')
-ax.set_zlabel('Z Label')
-bx.set_xlim3d(0, 2)
-bx.set_ylim3d(2,0)
-bx.set_zlim3d(0,2)
-bx.set_xlabel('X Label)' )
-bx.set_ylabel('Y Label')
-bx.set_zlabel('Z Label')
-#cx = fig.add_subplot(1,3,3, projection='3d')
+
 
 amount = 20 #20 + 4
 Mheadsets = np.zeros((amount,4,4),dtype=np.float64)
@@ -138,8 +154,10 @@ print("offset:" + str(Moffset))
 print("Poverlap:" + str(Poverlap))
 
 for i in range(0, amount):
+    #Mheadset, Pobj, Poverlap = prepare0(Moffset)
     Mheadset, Pobj = prepare(Moffset, Poverlap)
     Mheadsets[i] = Mheadset
+    #print("pobj:" + str(Pobj))
     Pobjs[i] = Pobj
     Pheadsets[i] = np.matmul(LA.inv(Mheadset), Pobj)
     Pheadsets312[i] = np.array([[ Pheadsets[i][0][0], Pheadsets[i][1][0], Pheadsets[i][2][0], 0,0,0, 0,0,0, 1,0,0],
@@ -148,7 +166,22 @@ for i in range(0, amount):
     Poverlaps[i] = np.array([[ Poverlap[0][0], Poverlap[1][0], Poverlap[2][0], 0,0,0, 0,0,0, 1,0,0],
                              [ 0,0,0, Poverlap[0][0], Poverlap[1][0], Poverlap[2][0], 0,0,0, 0,1,0],
                              [ 0,0,0, 0,0,0, Poverlap[0][0], Poverlap[1][0], Poverlap[2][0], 0,0,1]])
-
+    # test func
+    #print("Moffset[0:3,:] " + str(Moffset[0:3,:]))
+    MoffsetInv = LA.inv(Moffset)
+    MoffsetInv12 = np.append(MoffsetInv[0,0:3], [MoffsetInv[1,0:3], MoffsetInv[2,0:3], MoffsetInv[0:3,3]]).reshape(12,1)
+    #print("Pheadsets312 " + str(Pheadsets312[i]))
+    #print("MoffsetInv12 " + str(MoffsetInv12))
+    
+    validatePcmr = np.matmul(Pheadsets312[i], MoffsetInv12)
+    bx.scatter(validatePcmr[0],validatePcmr[1],validatePcmr[2], zdir='z', c= 'blue')
+    validatePcmr2 = np.matmul(MoffsetInv, Pheadsets[i])
+    ax.scatter(validatePcmr2[0],validatePcmr2[1],validatePcmr2[2], zdir='z', c= 'purple')
+    #print("validatePcmr:" + str(validatePcmr))
+    #print("---")
+    #print("Pheadsets " + str(Pheadsets[i]))
+    #print("MoffsetInv " + str(MoffsetInv))
+    #print("validatePcmr2:" + str(validatePcmr2))
     
 
 #Poverlaps = np.tile(Poverlap[0:3,:], (amount,1,1)) #(20,3,12)
@@ -157,7 +190,7 @@ Moffinv34 = nllsm(Poverlaps, Pheadsets312)
 Moffinv44 = np.concatenate((Moffinv34, np.array([0,0,0,1]).reshape(1,4)))
 print(Moffinv44)
 
-#validate Pcameras=M * Pheadset to cx
+#validate Pcameras=M * Pheadset
 for i in range(0, amount):
     #show original Pcameras to bx
     Pcmr_ori = np.matmul(LA.inv(Moffset), Pheadsets[i])
