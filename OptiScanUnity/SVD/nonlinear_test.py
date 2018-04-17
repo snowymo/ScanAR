@@ -27,8 +27,8 @@ bx.set_xlabel('X Label)' )
 bx.set_ylabel('Y Label')
 bx.set_zlabel('Z Label')
 cx.set_xlim3d(-2, 2)
-#cx.set_ylim3d(2,-2)
-#cx.set_zlim3d(-2, 2)
+cx.set_ylim3d(2,-2)
+cx.set_zlim3d(-2, 2)
 cx.set_xlabel('X Label' )
 cx.set_ylabel('Y Label')
 cx.set_zlabel('Z Label')
@@ -214,7 +214,7 @@ def prepare(Moffset, Poverlap, i, twod = False):   # we need to fix the Moffset 
 # (m * pi) / ||m * pi|| - (po / ||po||)
 def func(m, po, pi):
     mpi = np.matmul(pi, m.reshape(12,1))
-    delta = mpi / LA.norm(mpi)# - po
+    delta = mpi / LA.norm(mpi) - po
     #print(mpi.shape)
     #print(po.shape)
     return delta.flatten()
@@ -274,6 +274,36 @@ def nllsm(Poverlaps, Pheadsets, med):
     #print("calculated offset:" + str(moff))
     return moffinv
 
+# prepare one predefined point series
+def prepare_one_line (amount, Moffset):
+    Poverlap31 = np.random.rand(3,1).reshape(3,1)
+    Poverlap31[0][0] = 0
+    Poverlap31 = Poverlap31 / LA.norm(Poverlap31)
+    Poverlap = np.concatenate((Poverlap31, np.array([[1]]))) #(4,1)
+    print("Poverlap:" + str(Poverlap))
+
+    # prepare the return vars
+    Pobjs = np.zeros((amount,4,1),dtype=np.float64)
+    Poverlaps = np.zeros((amount,3,1),dtype=np.float64)
+    Pheadsets312 = np.zeros((amount,3,12),dtype=np.float64)
+    Pheadsets = np.zeros((amount,4,1),dtype=np.float64)
+    
+    for i in range(0, amount):
+        #Mheadset, Pobj, Poverlap = prepare0(Moffset)
+        Mheadset, Pobj = prepare1(Moffset, Poverlap, True)
+        #print(Mheadset)
+        #print("pobj:" + str(Pobj))
+        Pobjs[i] = Pobj
+        Pheadsets[i] = np.matmul(LA.inv(Mheadset), Pobj)
+        Pheadsets312[i] = np.array([[ Pheadsets[i][0][0], Pheadsets[i][1][0], Pheadsets[i][2][0], 0,0,0, 0,0,0, 1,0,0],
+                                    [ 0,0,0, Pheadsets[i][0][0], Pheadsets[i][1][0], Pheadsets[i][2][0], 0,0,0, 0,1,0],
+                                    [ 0,0,0, 0,0,0, Pheadsets[i][0][0], Pheadsets[i][1][0], Pheadsets[i][2][0], 0,0,1]])
+        Poverlaps[i] = Poverlap31
+
+    #print (Poverlaps.shape)
+    #print (Pheadsets312)
+    return Poverlaps, Pheadsets312, Pheadsets
+        
 
 # initialize the var
 amount = 20 #20 + 4
@@ -282,47 +312,72 @@ Pobjs = np.zeros((amount,4,1),dtype=np.float64)
 Pheadsets = np.zeros((amount,4,1),dtype=np.float64)
 Pheadsets312 = np.zeros((amount,3,12),dtype=np.float64)
 Poverlaps = np.zeros((amount,3,1),dtype=np.float64)
+
+Pheadsets2 = np.zeros((amount,4,1),dtype=np.float64)
+Pheadsets3122 = np.zeros((amount,3,12),dtype=np.float64)
+Poverlaps2 = np.zeros((amount,3,1),dtype=np.float64)
+
 #print("P objs:\n" +str(Pobjs))
 
 #Moffset = np.concatenate((np.random.rand(3,4),np.array([0,0,0,1]).reshape(1,4)))
 # randomize the offset
 Moffset = generate_offset_euler(True)
-Poverlap31 = np.random.rand(3,1)
-# fix overlap points for testing
-Poverlap31 = np.array([0,1,-1]).reshape(3,1)
 
-Poverlap31 = Poverlap31 / LA.norm(Poverlap31)
-Poverlap = np.concatenate((Poverlap31, np.array([[1]]))) #(4,1)
+
+#Poverlap31 = np.random.rand(3,1)
+# fix overlap points for testing
+#Poverlap31 = np.array([0,1,-1]).reshape(3,1)
+
+#Poverlap31 = Poverlap31 / LA.norm(Poverlap31)
+#Poverlap = np.concatenate((Poverlap31, np.array([[1]]))) #(4,1)
 #Poverlap312 = np.array([[ Poverlap[0][0], Poverlap[1][0], Poverlap[2][0], 0,0,0, 0,0,0, 1,0,0],
 #                        [ 0,0,0, Poverlap[0][0], Poverlap[1][0], Poverlap[2][0], 0,0,0, 0,1,0],
 #                        [ 0,0,0, 0,0,0, Poverlap[0][0], Poverlap[1][0], Poverlap[2][0], 0,0,1]])
 
 print("offset:" + str(Moffset))
 print("offset inv:" + str(LA.inv(Moffset)))
-print("Poverlap:" + str(Poverlap))
+#print("Poverlap:" + str(Poverlap))
 
-for i in range(0, amount):
-    #Mheadset, Pobj, Poverlap = prepare0(Moffset)
-    Mheadset, Pobj = prepare1(Moffset, Poverlap, True)
-    Mheadsets[i] = Mheadset
-    #print("pobj:" + str(Pobj))
-    Pobjs[i] = Pobj
-    Pheadsets[i] = np.matmul(LA.inv(Mheadset), Pobj)
-    Pheadsets312[i] = np.array([[ Pheadsets[i][0][0], Pheadsets[i][1][0], Pheadsets[i][2][0], 0,0,0, 0,0,0, 1,0,0],
-                                [ 0,0,0, Pheadsets[i][0][0], Pheadsets[i][1][0], Pheadsets[i][2][0], 0,0,0, 0,1,0],
-                                [ 0,0,0, 0,0,0, Pheadsets[i][0][0], Pheadsets[i][1][0], Pheadsets[i][2][0], 0,0,1]])
-    Poverlaps[i] = Poverlap31
+Poverlaps, Pheadsets312, Pheadsets = prepare_one_line (amount, Moffset)
+Poverlaps2, Pheadsets3122, Pheadsets2 = prepare_one_line (amount, Moffset)
+Poverlaps = np.concatenate((Poverlaps, Poverlaps2), axis = 1)
+Pheadsets312 = np.concatenate((Pheadsets312, Pheadsets3122), axis = 1)
+Pheadsets = np.concatenate((Pheadsets, Pheadsets2), axis = 0)
+print(Poverlaps.shape)
+print(Pheadsets312.shape)
+print(Pheadsets.shape)
+#print(Pheadsets312)
+##Poverlap31 = np.random.rand(3,1)
+### fix overlap points for testing
+##Poverlap31 = np.array([0,1,-1]).reshape(3,1)
+##
+##Poverlap31 = Poverlap31 / LA.norm(Poverlap31)
+##Poverlap = np.concatenate((Poverlap31, np.array([[1]]))) #(4,1)
+##Poverlap312 = np.array([[ Poverlap[0][0], Poverlap[1][0], Poverlap[2][0], 0,0,0, 0,0,0, 1,0,0],
+##                        [ 0,0,0, Poverlap[0][0], Poverlap[1][0], Poverlap[2][0], 0,0,0, 0,1,0],
+##                        [ 0,0,0, 0,0,0, Poverlap[0][0], Poverlap[1][0], Poverlap[2][0], 0,0,1]])
+##for i in range(0, amount):
+##    #Mheadset, Pobj, Poverlap = prepare0(Moffset)
+##    Mheadset, Pobj = prepare1(Moffset, Poverlap, True)
+##    Mheadsets[i] = Mheadset
+##    #print("pobj:" + str(Pobj))
+##    Pobjs[i] = Pobj
+##    Pheadsets[i] = np.matmul(LA.inv(Mheadset), Pobj)
+##    Pheadsets312[i] = np.array([[ Pheadsets[i][0][0], Pheadsets[i][1][0], Pheadsets[i][2][0], 0,0,0, 0,0,0, 1,0,0],
+##                                [ 0,0,0, Pheadsets[i][0][0], Pheadsets[i][1][0], Pheadsets[i][2][0], 0,0,0, 0,1,0],
+##                                [ 0,0,0, 0,0,0, Pheadsets[i][0][0], Pheadsets[i][1][0], Pheadsets[i][2][0], 0,0,1]])
+##    Poverlaps[i] = Poverlap31
     # test func
     #print("Moffset[0:3,:] " + str(Moffset[0:3,:]))
-    MoffsetInv = LA.inv(Moffset)
-    MoffsetInv12 = np.append(MoffsetInv[0,0:3], [MoffsetInv[1,0:3], MoffsetInv[2,0:3], MoffsetInv[0:3,3]]).reshape(12,1)
+    #MoffsetInv = LA.inv(Moffset)
+    #MoffsetInv12 = np.append(MoffsetInv[0,0:3], [MoffsetInv[1,0:3], MoffsetInv[2,0:3], MoffsetInv[0:3,3]]).reshape(12,1)
     #print("Pheadsets312 " + str(Pheadsets312[i]))
     #print("MoffsetInv12 " + str(MoffsetInv12))
     
-    validatePcmr = np.matmul(Pheadsets312[i], MoffsetInv12)
-    cx.scatter(validatePcmr[0],validatePcmr[1],validatePcmr[2], zdir='z', c= 'blue')
-    validatePcmr2 = np.matmul(MoffsetInv, Pheadsets[i])
-    cx.scatter(validatePcmr2[0],validatePcmr2[1],validatePcmr2[2], zdir='z', c= 'purple')
+    #validatePcmr = np.matmul(Pheadsets312[i], MoffsetInv12)
+    #cx.scatter(validatePcmr[0],validatePcmr[1],validatePcmr[2], zdir='z', c= 'blue')
+    #validatePcmr2 = np.matmul(MoffsetInv, Pheadsets[i])
+    #cx.scatter(validatePcmr2[0],validatePcmr2[1],validatePcmr2[2], zdir='z', c= 'purple')
     #print("validatePcmr:" + str(validatePcmr))
     #print("---")
     #print("Pheadsets " + str(Pheadsets[i]))
@@ -343,20 +398,39 @@ Moff44 = LA.inv(Moffinv44)
 print(Moff44)
 
 #validate Pcameras=M * Pheadset
+#calculate the Toffset
+Toffset = np.zeros((4,1),dtype=np.float64)
 for i in range(0, amount):
     #show original Pcameras to bx
     Pcmr_ori = np.matmul(LA.inv(Moffset), Pheadsets[i])
     cx.scatter(Pcmr_ori[0],Pcmr_ori[1],Pcmr_ori[2], zdir='z', c= 'green')
 
     Pcmr_cal = np.matmul(Moffinv44, Pheadsets[i])
+
+    Toffset = Toffset + (Pcmr_ori-Pcmr_cal)
+    #bx.scatter(Pcmr_cal[0],Pcmr_cal[1],Pcmr_cal[2], zdir='z', c= 'red')
+    #bx.scatter(Pcmr_ori[0],Pcmr_ori[1],Pcmr_ori[2], zdir='z', c= 'green')
+    #Mplot = np.squeeze(np.asarray(np.concatenate((Pcmr_ori,Pcmr_cal),axis=1)))
+    #print("Pcmr_ori:" + str(Pcmr_ori))
+    #print("Pcmr_cal:" + str(Pcmr_cal))
+    #print("Mplot:" + str(Mplot))
+    #bx.plot([Pcmr_ori[0],Pcmr_cal[0]],Mplot[1],Mplot[2],c='y')
+Toffset /= amount
+print(Toffset)
+for i in range(0, amount):
+    #show original Pcameras to bx
+    Pcmr_ori = np.matmul(LA.inv(Moffset), Pheadsets[i])
+    #cx.scatter(Pcmr_ori[0],Pcmr_ori[1],Pcmr_ori[2], zdir='z', c= 'green')
+
+    Pcmr_cal = np.matmul(Moffinv44, Pheadsets[i])# + Toffset
+
     bx.scatter(Pcmr_cal[0],Pcmr_cal[1],Pcmr_cal[2], zdir='z', c= 'red')
-    bx.scatter(Pcmr_ori[0],Pcmr_ori[1],Pcmr_ori[2], zdir='z', c= 'green')
+    #bx.scatter(Pcmr_ori[0],Pcmr_ori[1],Pcmr_ori[2], zdir='z', c= 'green')
     Mplot = np.squeeze(np.asarray(np.concatenate((Pcmr_ori,Pcmr_cal),axis=1)))
     #print("Pcmr_ori:" + str(Pcmr_ori))
     #print("Pcmr_cal:" + str(Pcmr_cal))
     #print("Mplot:" + str(Mplot))
-    bx.plot([Pcmr_ori[0],Pcmr_cal[0]],Mplot[1],Mplot[2],c='y')
-
+    #bx.plot([Pcmr_ori[0],Pcmr_cal[0]],Mplot[1],Mplot[2],c='y')
 
 print("---default---")
 Moffinv44 = nllsm(Poverlaps, Pheadsets312, "other")
@@ -365,15 +439,34 @@ Moff44 = LA.inv(Moffinv44)
 print(Moff44)
 
 #validate Pcameras=M * Pheadset
+Toffset = np.zeros((4,1),dtype=np.float64)
 for i in range(0, amount):
     #show original Pcameras to bx
     Pcmr_ori = np.matmul(LA.inv(Moffset), Pheadsets[i])
     #bx.scatter(Pcmr_ori[0],Pcmr_ori[1],Pcmr_ori[2], zdir='z', c= 'green')
 
     Pcmr_cal = np.matmul(Moffinv44, Pheadsets[i])
-    dx.scatter(Pcmr_cal[0],Pcmr_cal[1],Pcmr_cal[2], zdir='z', c= 'red')
-    dx.scatter(Pcmr_ori[0],Pcmr_ori[1],Pcmr_ori[2], zdir='z', c= 'green')
-    Mplot = np.squeeze(np.asarray(np.concatenate((Pcmr_ori,Pcmr_cal),axis=1)))
-    dx.plot([Pcmr_ori[0],Pcmr_cal[0]],Mplot[1],Mplot[2],c='y')
+    Toffset = Toffset + (Pcmr_ori-Pcmr_ori)
+    
+    #dx.scatter(Pcmr_cal[0],Pcmr_cal[1],Pcmr_cal[2], zdir='z', c= 'red')
+    #dx.scatter(Pcmr_ori[0],Pcmr_ori[1],Pcmr_ori[2], zdir='z', c= 'green')
+    #Mplot = np.squeeze(np.asarray(np.concatenate((Pcmr_ori,Pcmr_cal),axis=1)))
+    #dx.plot([Pcmr_ori[0],Pcmr_cal[0]],Mplot[1],Mplot[2],c='y')
+Toffset /= amount
+print(Toffset)
+for i in range(0, amount):
+    #show original Pcameras to bx
+    Pcmr_ori = np.matmul(LA.inv(Moffset), Pheadsets[i])
+    #cx.scatter(Pcmr_ori[0],Pcmr_ori[1],Pcmr_ori[2], zdir='z', c= 'green')
 
+    Pcmr_cal = np.matmul(Moffinv44, Pheadsets[i])# + Toffset
+
+    dx.scatter(Pcmr_cal[0],Pcmr_cal[1],Pcmr_cal[2], zdir='z', c= 'red')
+    #dx.scatter(Pcmr_ori[0],Pcmr_ori[1],Pcmr_ori[2], zdir='z', c= 'green')
+    Mplot = np.squeeze(np.asarray(np.concatenate((Pcmr_ori,Pcmr_cal),axis=1)))
+    #print("Pcmr_ori:" + str(Pcmr_ori))
+    #print("Pcmr_cal:" + str(Pcmr_cal))
+    #print("Mplot:" + str(Mplot))
+    #dx.plot([Pcmr_ori[0],Pcmr_cal[0]],Mplot[1],Mplot[2],c='y')
+    
 plt.show()
