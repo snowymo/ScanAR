@@ -7,6 +7,7 @@ from numpy import linalg as LA
 import math as math
 from scipy.optimize import least_squares
 from transforms3d.euler import euler2mat, mat2euler
+import rmsd
 
 # figure setup
 fig = plt.figure(1)
@@ -290,13 +291,44 @@ def calculate_intersection(Ndirs, Pcens):
         sigmaR += Ri
         Qi = np.matmul(Ri, Pcens[i].reshape(3,1))
         sigmaQ += Qi
-    print(sigmaR)
-    print(sigmaQ)
+    #print(sigmaR)
+    #print(sigmaQ)
     P = np.matmul(LA.inv(sigmaR), sigmaQ)
     print(P)
     cx.scatter(P[0],P[1],P[2], zdir='z', c= 'black', s=[80])
+    return P
 
+def calculate_rotation(Th2c, Pcens, Dirs):
+    # calculate pLocal
+    Pcmrs = np.zeros((line_amount,3))
+    Plocals = np.zeros((line_amount,3))
+    for i in range(0, line_amount):
+        Pcmr = Dirs[i] / LA.norm(Dirs[i])
+        Pcmrs[i] = Pcmr
+        #print("Pcens:" + str(Pcens[i]))
+        #print("Th2c:" + str(Th2c.flatten()))
+        Plocal = Pcens[i] - Th2c.flatten()
+        #print(Plocal)
+        Plocals[i] = Plocal / LA.norm(Plocal)
+    #print(Pcmrs)
+    #print(Plocals.T)
+    C = np.matmul(Plocals.T, Pcmrs)
+    U, S, Vt = LA.svd(C)
+    #print("U:" + str(U))
+    #print("S:" + str(S))
+    #print("Vt:" + str(Vt))
+    VUT = np.matmul(Vt.T, U.T)
+    d = LA.det(VUT)
+    mid = np.identity(3)
+    mid[2,2] = d
+    print(mid)
+    Roffset = np.matmul(np.matmul(Vt.T,mid),U.T)
+    print("Roffset" + str(Roffset))
+    print("Roffset-1" + str(LA.inv(Roffset)))
 
+    print ("RMSD after translation: "+ str(rmsd.kabsch(Plocals, Pcmrs)))
+    return Roffset
+    
 # initialize the var
 amount = 10 #20 + 4
 
@@ -321,7 +353,14 @@ Peyess = np.zeros((line_amount, amount,4,1),dtype=np.float64)
 #nihe()
 Pcens, Pdirs = stackoverflow()
 print(Pdirs)
-calculate_intersection(Pdirs, Pcens)
+Th2c = calculate_intersection(Pdirs, Pcens)
+Rh2c = calculate_rotation(Th2c, Pcens, Pdirs)
+
+# apply transformation from Pheadsets and show
+for line_i in range(0, line_amount):
+    for i in range(0, amount):
+        p = np.matmul(Rh2c, (Pheadsetss[line_i][i][0:3] - Th2c.reshape(3,1)))
+        bx.scatter(p[0][0],p[1][0],p[2][0], zdir='z', c= 'blue', s=[5])
 
 #print(Dirs)
 #print(Pheadsetss)
@@ -356,6 +395,7 @@ for line_i in range(0, line_amount):
         
         #cx.text(Pheadsetss[line_i][i][0][0],Pheadsetss[line_i][i][1][0],Pheadsetss[line_i][i][2][0],show_point)
         cx.scatter(Peyess[line_i][i][0],Peyess[line_i][i][1],Peyess[line_i][i][2], zdir='z', c= 'green', s=[5])
+        bx.scatter(Peyess[line_i][i][0],Peyess[line_i][i][1],Peyess[line_i][i][2], zdir='z', c= 'green', s=[5])
         #cx.scatter(Pheadsets[i][0][0],Pheadsets[i][1][0],Pheadsets[i][2][0], zdir='z', c= 'blue')
         #cx.scatter(Pheadsets[i][4][0],Pheadsets[i][5][0],Pheadsets[i][6][0], zdir='z', c= 'blue')
     cx.plot([0,Dirs[line_i][0]],[0,Dirs[line_i][1]], [0,Dirs[line_i][2]],c='y')
