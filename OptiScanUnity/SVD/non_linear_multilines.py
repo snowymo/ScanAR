@@ -151,9 +151,129 @@ def prepare_one_line (amount, Moffset):
     #print (Pheadsets312)
     return Poverlap31, Pheadsets, Peyes
         
+def nicoSVD():
+    for i in range(0, line_amount):
+        Dirs[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
+        # solve each line equation with svd
+        Pcentroid = np.mean(Pheadsetss[i], axis=0)[0:3,:]
+        Ph_minus_c = (Pheadsetss[i][:,0:3,:]-Pcentroid)
+        print(Ph_minus_c)
+        Psigma =  np.zeros((amount,3,3),dtype=np.float64)
+        for j in range(0, amount):
+            Psigma[j] = np.matmul(Ph_minus_c[j],Ph_minus_c[j].T)
+        C = np.sum(Psigma, axis=0)
+        #print(Pheadsetss[i])
+        #print(Pcentroid)
+        print(C)
+        U, S, Vt = LA.svd(C)
+        # let us form the line, use x=0, 0.5, 1, 1.5 to calculate y
+        # totally does not work, sigh, try the chinese paper
+        points = np.zeros((2,3,1), dtype=np.float64)
+        points[0] = np.matmul(U, np.array([[0],[-2],[-2]])) + Pcentroid
+        points[1] = np.matmul(U, np.array([[0],[2],[2]])) + Pcentroid
+        
+        print("U" + str(U))
+        print("Vt" + str(Vt))
+        print(points)
+        cx.scatter(Pcentroid[0],Pcentroid[1],Pcentroid[2], zdir='z', c= 'purple')
+        cx.plot([points[0][0][0],points[1][0][0]],[points[0][1][0],points[1][1][0]],
+                [points[0][2][0],points[1][2][0]],c='red')
+
+
+# chinese paper
+def TLSSVD():
+    for i in range(0, line_amount):
+        Dirs[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
+        print(Dirs[i])
+        #print(Pheadsetss[i])
+        # solve each line equation with svd tls eiv
+        L = np.zeros((amount * 2,1), dtype = np.float64)
+        B = np.zeros((amount * 2,4), dtype = np.float64)
+        for j in range(0, amount):
+            L[j*2][0] = Peyess[i][j][0][0]
+            L[j*2+1][0] = Peyess[i][j][1][0]
+            B[j*2][0] = Peyess[i][j][2][0]
+            B[j*2][1] = 1
+            B[j*2+1][3] = Peyess[i][j][2][0]
+            B[j*2+1][2] = 1
+        #print("L" + str(L))
+        #print("B" + str(B))
+        Ab = np.concatenate((B,L), axis=1)
+        #print(Ab)
+        U, S, Vt = LA.svd(Ab)
+        #print("U" + str(U))
+        print("Vt" + str(Vt))
+        parameters = - Vt.T[4][0:4] / Vt[4][4]
+        print(parameters)
+        # draw the line
+        points = np.array([[parameters[1], parameters[1] + 1 * parameters[0]],
+                           [parameters[3], parameters[3] + 1 * parameters[2]],
+                           [0,1]])
+        cx.plot(points[0], points[1], points[2], c='red')
+
+# direct ni he
+def nihe():
+    for i in range(0, line_amount):
+        Dirs[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
+        Pheadsetssi = Pheadsetss[i][:,0:3,:]
+        print("Pheadsetssi:" + str(Pheadsetssi.shape) + "\n" + str(Pheadsetssi) + "\n")
+        sigma = np.sum(Pheadsetssi, axis=0)
+        #print(sigma)
+        sigmax = sigma[0][0]
+        sigmay = sigma[1][0]
+        sigmaz = sigma[2][0]
+        sq = np.multiply(Pheadsetssi, Pheadsetssi)
+        #print(sq)
+        sigmasq = np.sum(sq, axis=0)
+        #print(sigmasq)
+        sigmasqx = sigmasq[0][0]
+        sigmasqy = sigmasq[1][0]
+        xy = np.multiply(Pheadsetssi[:,0,0],Pheadsetssi[:,1,0])
+        print(xy)
+        sigmaxy = np.sum(xy, axis=0)
+        print(sigmaxy)
+        xz = np.multiply(Pheadsetssi[:,0,0],Pheadsetssi[:,2,0])
+        print(xz)
+        sigmaxz = np.sum(xz, axis=0)
+        print(sigmaxz)
+        yz = np.multiply(Pheadsetssi[:,1,0],Pheadsetssi[:,2,0])
+        print(yz)
+        sigmayz = np.sum(yz, axis=0)
+        print(sigmayz)
+        m1=[[amount,sigmax,sigmay],[sigmax,sigmasqx,sigmaxy],[sigmay,sigmaxy,sigmasqy]]
+        mat1 = np.matrix(m1)
+        m2=[[sigmaz],[sigmaxz],[sigmayz]]
+        mat2 = np.matrix(m2)
+        _mat1 =mat1.getI()
+        mat3 = _mat1*mat2
+
+        m3=mat3.tolist()
+        a0 = m3[0][0]
+        a1 = m3[1][0]
+        a2 = m3[2][0]
+
+        x = np.linspace(-1,1)
+        y = np.linspace(-1,1)
+        z = a0+a1*x+a2*y
+        cx.plot(x,y,z, c='red')
+
+def stackoverflow():
+    for i in range(0, line_amount):
+        Dirs[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
+        Pheadsetssi = Pheadsetss[i][:,0:3,:].reshape(amount,3)
+        print(Pheadsetssi.shape)
+        # Calculate the mean of the points, i.e. the 'center' of the cloud
+        Phmean = Pheadsetssi.mean(axis=0)
+
+        # Do an SVD on the mean-centered data.
+        uu, dd, vv = LA.svd(Pheadsetssi - Phmean)
+
+        # form a line based on vv and mean
+        linepts = vv[0] * np.mgrid[-2:2:2j][:, np.newaxis] + Phmean
+        cx.plot3D(*linepts.T)
 
 # initialize the var
-amount = 4 #20 + 4
+amount = 20 #20 + 4
 
 # set up the figure
 setup_figure(True)
@@ -166,37 +286,15 @@ print("offset inv:" + str(LA.inv(Moffset)))
 #print("Poverlap:" + str(Poverlap))
 
 # Let's try two lines at the beginning and it should be many lines later
-
-line_amount = 1
+line_amount = 5
 Dirs = np.zeros((line_amount,3,1),dtype=np.float64)
 Pheadsetss = np.zeros((line_amount, amount,4,1),dtype=np.float64)
 Peyess = np.zeros((line_amount, amount,4,1),dtype=np.float64)
-for i in range(0, line_amount):
-    Dirs[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
-    # solve each line equation with svd
-    Pcentroid = np.mean(Pheadsetss[i], axis=0)[0:3,:]
-    Ph_minus_c = (Pheadsetss[i][:,0:3,:]-Pcentroid)
-    print(Ph_minus_c)
-    Psigma =  np.zeros((amount,3,3),dtype=np.float64)
-    for j in range(0, amount):
-        Psigma[j] = np.matmul(Ph_minus_c[j],Ph_minus_c[j].T)
-    C = np.sum(Psigma, axis=0)
-    #print(Pheadsetss[i])
-    #print(Pcentroid)
-    print(C)
-    U, S, Vt = LA.svd(C)
-    # let us form the line, use x=0, 0.5, 1, 1.5 to calculate y
-    # totally does not work, sigh, try the chinese paper
-    points = np.zeros((2,3,1), dtype=np.float64)
-    points[0] = np.matmul(U, np.array([[0],[-2],[-2]])) + Pcentroid
-    points[1] = np.matmul(U, np.array([[0],[2],[2]])) + Pcentroid
-    
-    print("U" + str(U))
-    print("Vt" + str(Vt))
-    print(points)
-    cx.scatter(Pcentroid[0],Pcentroid[1],Pcentroid[2], zdir='z', c= 'purple')
-    cx.plot([points[0][0][0],points[1][0][0]],[points[0][1][0],points[1][1][0]],
-            [points[0][2][0],points[1][2][0]],c='red')
+
+#nicoSVD()
+#TLSSVD()
+#nihe()
+stackoverflow()
 
 #print(Dirs)
 #print(Pheadsetss)
@@ -226,9 +324,11 @@ for line_i in range(0, line_amount):
         #show original Pcameras to bx
         #Pcmr_ori1 = np.matmul(LA.inv(Moffset), Pheadsets1[i])
         #Pcmr_ori2 = np.matmul(LA.inv(Moffset), Pheadsets2[i])
-        cx.scatter(Pheadsetss[line_i][i][0],Pheadsetss[line_i][i][1],Pheadsetss[line_i][i][2], zdir='z', c= 'blue')
-        cx.scatter(Peyess[line_i][i][0],Peyess[line_i][i][1],Peyess[line_i][i][2], zdir='z', c= 'green')
+        cx.scatter(Pheadsetss[line_i][i][0][0],Pheadsetss[line_i][i][1][0],Pheadsetss[line_i][i][2][0], zdir='z', c= 'blue')
+        show_point = "["+ str(format(Pheadsetss[line_i][i][0][0],'7.2f')) +","+ str(format(Pheadsetss[line_i][i][1][0],'7.2f'))+","+str(format(Pheadsetss[line_i][i][2][0],'7.2f')) + "]"
         
+        #cx.text(Pheadsetss[line_i][i][0][0],Pheadsetss[line_i][i][1][0],Pheadsetss[line_i][i][2][0],show_point)
+        cx.scatter(Peyess[line_i][i][0],Peyess[line_i][i][1],Peyess[line_i][i][2], zdir='z', c= 'green')
         #cx.scatter(Pheadsets[i][0][0],Pheadsets[i][1][0],Pheadsets[i][2][0], zdir='z', c= 'blue')
         #cx.scatter(Pheadsets[i][4][0],Pheadsets[i][5][0],Pheadsets[i][6][0], zdir='z', c= 'blue')
     cx.plot([0,Dirs[line_i][0]],[0,Dirs[line_i][1]], [0,Dirs[line_i][2]],c='y')
