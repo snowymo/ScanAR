@@ -115,7 +115,7 @@ def prepare1(Moffset, Poverlap, twod = False):   # we need to fix the Moffset ea
     Mplot = np.squeeze(np.asarray(np.concatenate((Meye[:,3].reshape(4,1),Mheadset[:,3].reshape(4,1)),axis=1)))
     ax.plot(Mplot[0],Mplot[1],Mplot[2],c='y')
 
-    cx.scatter(Peye[0],Peye[1],Peye[2], zdir='z', c= 'green')
+    #cx.scatter(Peye[0],Peye[1],Peye[2], zdir='z', c= 'green')
     
     #plt.show()
 
@@ -258,10 +258,12 @@ def nihe():
         cx.plot(x,y,z, c='red')
 
 def stackoverflow():
+    Pcen = np.zeros((line_amount,3), dtype=np.float64)
+    Pdir = np.zeros((line_amount,3), dtype=np.float64)
     for i in range(0, line_amount):
         Dirs[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
         Pheadsetssi = Pheadsetss[i][:,0:3,:].reshape(amount,3)
-        print(Pheadsetssi.shape)
+        #print(Pheadsetssi.shape)
         # Calculate the mean of the points, i.e. the 'center' of the cloud
         Phmean = Pheadsetssi.mean(axis=0)
 
@@ -270,10 +272,33 @@ def stackoverflow():
 
         # form a line based on vv and mean
         linepts = vv[0] * np.mgrid[-2:2:2j][:, np.newaxis] + Phmean
-        cx.plot3D(*linepts.T)
+        Pdir[i] = vv[0]
+        Pcen[i] = Phmean
+        #print(vv[0])
+        #print(Phmean)
+        cx.plot3D(*linepts.T, c="red")
+    return Pcen, Pdir
+
+def calculate_intersection(Ndirs, Pcens):
+    print("calculate intersection point")
+    # minimize the sum of squared distance
+    # sigma(a-p)T(I-nnT)(a-p), a = center point, n = dir, p = unknown intersection point
+    sigmaR = np.zeros((3,3),dtype=np.float64)
+    sigmaQ = np.zeros((3,1),dtype=np.float64)
+    for i in range (0, line_amount):
+        Ri = np.identity(Ndirs[i].shape[0]) - np.matmul(Ndirs[i].reshape(3,1), Ndirs[i].reshape(1,3))
+        sigmaR += Ri
+        Qi = np.matmul(Ri, Pcens[i].reshape(3,1))
+        sigmaQ += Qi
+    print(sigmaR)
+    print(sigmaQ)
+    P = np.matmul(LA.inv(sigmaR), sigmaQ)
+    print(P)
+    cx.scatter(P[0],P[1],P[2], zdir='z', c= 'black', s=[80])
+
 
 # initialize the var
-amount = 20 #20 + 4
+amount = 10 #20 + 4
 
 # set up the figure
 setup_figure(True)
@@ -294,7 +319,9 @@ Peyess = np.zeros((line_amount, amount,4,1),dtype=np.float64)
 #nicoSVD()
 #TLSSVD()
 #nihe()
-stackoverflow()
+Pcens, Pdirs = stackoverflow()
+print(Pdirs)
+calculate_intersection(Pdirs, Pcens)
 
 #print(Dirs)
 #print(Pheadsetss)
@@ -324,11 +351,11 @@ for line_i in range(0, line_amount):
         #show original Pcameras to bx
         #Pcmr_ori1 = np.matmul(LA.inv(Moffset), Pheadsets1[i])
         #Pcmr_ori2 = np.matmul(LA.inv(Moffset), Pheadsets2[i])
-        cx.scatter(Pheadsetss[line_i][i][0][0],Pheadsetss[line_i][i][1][0],Pheadsetss[line_i][i][2][0], zdir='z', c= 'blue')
+        cx.scatter(Pheadsetss[line_i][i][0][0],Pheadsetss[line_i][i][1][0],Pheadsetss[line_i][i][2][0], zdir='z', c= 'blue', s=[5])
         show_point = "["+ str(format(Pheadsetss[line_i][i][0][0],'7.2f')) +","+ str(format(Pheadsetss[line_i][i][1][0],'7.2f'))+","+str(format(Pheadsetss[line_i][i][2][0],'7.2f')) + "]"
         
         #cx.text(Pheadsetss[line_i][i][0][0],Pheadsetss[line_i][i][1][0],Pheadsetss[line_i][i][2][0],show_point)
-        cx.scatter(Peyess[line_i][i][0],Peyess[line_i][i][1],Peyess[line_i][i][2], zdir='z', c= 'green')
+        cx.scatter(Peyess[line_i][i][0],Peyess[line_i][i][1],Peyess[line_i][i][2], zdir='z', c= 'green', s=[5])
         #cx.scatter(Pheadsets[i][0][0],Pheadsets[i][1][0],Pheadsets[i][2][0], zdir='z', c= 'blue')
         #cx.scatter(Pheadsets[i][4][0],Pheadsets[i][5][0],Pheadsets[i][6][0], zdir='z', c= 'blue')
     cx.plot([0,Dirs[line_i][0]],[0,Dirs[line_i][1]], [0,Dirs[line_i][2]],c='y')
