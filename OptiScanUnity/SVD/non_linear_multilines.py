@@ -359,7 +359,7 @@ Rh2c = calculate_rotation(Th2c, Pcens, Pdirs)
 # apply transformation from Pheadsets and show
 for line_i in range(0, line_amount):
     for i in range(0, amount):
-        p = np.matmul(Rh2c, (Pheadsetss[line_i][i][0:3] - Th2c.reshape(3,1)))
+        p = np.matmul(LA.inv(Rh2c), (Pheadsetss[line_i][i][0:3] - Th2c.reshape(3,1)))
         bx.scatter(p[0][0],p[1][0],p[2][0], zdir='z', c= 'blue', s=[5])
 
 #print(Dirs)
