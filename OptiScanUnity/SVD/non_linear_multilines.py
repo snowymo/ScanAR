@@ -154,7 +154,7 @@ def prepare_one_line (amount, Moffset):
         
 def nicoSVD():
     for i in range(0, line_amount):
-        Dirs[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
+        Scrpoints[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
         # solve each line equation with svd
         Pcentroid = np.mean(Pheadsetss[i], axis=0)[0:3,:]
         Ph_minus_c = (Pheadsetss[i][:,0:3,:]-Pcentroid)
@@ -184,7 +184,7 @@ def nicoSVD():
 # chinese paper
 def TLSSVD():
     for i in range(0, line_amount):
-        Dirs[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
+        Scrpoints[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
         print(Dirs[i])
         #print(Pheadsetss[i])
         # solve each line equation with svd tls eiv
@@ -215,7 +215,7 @@ def TLSSVD():
 # direct ni he
 def nihe():
     for i in range(0, line_amount):
-        Dirs[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
+        Scrpoints[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
         Pheadsetssi = Pheadsetss[i][:,0:3,:]
         print("Pheadsetssi:" + str(Pheadsetssi.shape) + "\n" + str(Pheadsetssi) + "\n")
         sigma = np.sum(Pheadsetssi, axis=0)
@@ -260,9 +260,9 @@ def nihe():
 
 def stackoverflow():
     Pcen = np.zeros((line_amount,3), dtype=np.float64)
-    Pdir = np.zeros((line_amount,3), dtype=np.float64)
+    ks = np.zeros((line_amount,3), dtype=np.float64)
     for i in range(0, line_amount):
-        Dirs[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
+        Scrpoints[i], Pheadsetss[i], Peyess[i] = prepare_one_line (amount, Moffset)
         Pheadsetssi = Pheadsetss[i][:,0:3,:].reshape(amount,3)
         #print(Pheadsetssi.shape)
         # Calculate the mean of the points, i.e. the 'center' of the cloud
@@ -273,12 +273,14 @@ def stackoverflow():
 
         # form a line based on vv and mean
         linepts = vv[0] * np.mgrid[-2:2:2j][:, np.newaxis] + Phmean
-        Pdir[i] = vv[0]
+        ks[i] = vv[0]
         Pcen[i] = Phmean
-        #print(vv[0])
+        #print("overlap:" + str(Scrpoints[i]))
+        #print("k:" + str(ks[i]))
         #print(Phmean)
+        cx.scatter([Phmean[0]],[Phmean[1]],[Phmean[2]],c="black")
         cx.plot3D(*linepts.T, c="red")
-    return Pcen, Pdir
+    return Pcen, ks
 
 def calculate_intersection(Ndirs, Pcens):
     print("calculate intersection point")
@@ -298,18 +300,22 @@ def calculate_intersection(Ndirs, Pcens):
     cx.scatter(P[0],P[1],P[2], zdir='z', c= 'black', s=[80])
     return P
 
-def calculate_rotation(Th2c, Pcens, Dirs):
+def calculate_rotation(Th2c, Pcens, Screenpoints):
     # calculate pLocal
     Pcmrs = np.zeros((line_amount,3))
     Plocals = np.zeros((line_amount,3))
+    #print(Screenpoints)
     for i in range(0, line_amount):
-        Pcmr = Dirs[i] / LA.norm(Dirs[i])
+        #print(LA.norm(Screenpoints[i]))
+        Pcmr = Screenpoints[i].flatten() / LA.norm(Screenpoints[i].flatten())
         Pcmrs[i] = Pcmr
         #print("Pcens:" + str(Pcens[i]))
         #print("Th2c:" + str(Th2c.flatten()))
         Plocal = Pcens[i] - Th2c.flatten()
         #print(Plocal)
         Plocals[i] = Plocal / LA.norm(Plocal)
+        #bx.scatter(Plocals[i][0],Plocals[i][1],Plocals[i][2], zdir='z', c= 'black')
+        #bx.scatter(Pcmr[0],Pcmr[1],Pcmr[2], zdir='z', c= 'yellow')
     #print(Pcmrs)
     #print(Plocals.T)
     C = np.matmul(Plocals.T, Pcmrs)
@@ -321,10 +327,10 @@ def calculate_rotation(Th2c, Pcens, Dirs):
     d = LA.det(VUT)
     mid = np.identity(3)
     mid[2,2] = d
-    print(mid)
+    #print(mid)
     Roffset = np.matmul(np.matmul(Vt.T,mid),U.T)
     print("Roffset" + str(Roffset))
-    print("Roffset-1" + str(LA.inv(Roffset)))
+    #print("Roffset-1" + str(LA.inv(Roffset)))
 
     print ("RMSD after translation: "+ str(rmsd.kabsch(Plocals, Pcmrs)))
     return Roffset
@@ -344,23 +350,25 @@ print("offset inv:" + str(LA.inv(Moffset)))
 
 # Let's try two lines at the beginning and it should be many lines later
 line_amount = 5
-Dirs = np.zeros((line_amount,3,1),dtype=np.float64)
+Scrpoints = np.zeros((line_amount,3,1),dtype=np.float64)
 Pheadsetss = np.zeros((line_amount, amount,4,1),dtype=np.float64)
 Peyess = np.zeros((line_amount, amount,4,1),dtype=np.float64)
 
 #nicoSVD()
 #TLSSVD()
 #nihe()
-Pcens, Pdirs = stackoverflow()
-print(Pdirs)
-Th2c = calculate_intersection(Pdirs, Pcens)
-Rh2c = calculate_rotation(Th2c, Pcens, Pdirs)
+Pcens, ks = stackoverflow()
+#print(ks)
+Th2c = calculate_intersection(ks, Pcens)
+Rh2c = calculate_rotation(Th2c, Pcens, Scrpoints)
 
 # apply transformation from Pheadsets and show
 for line_i in range(0, line_amount):
     for i in range(0, amount):
-        p = np.matmul(LA.inv(Rh2c), (Pheadsetss[line_i][i][0:3] - Th2c.reshape(3,1)))
-        bx.scatter(p[0][0],p[1][0],p[2][0], zdir='z', c= 'blue', s=[5])
+        Pshift = Pheadsetss[line_i][i][0:3] - Th2c.reshape(3,1)
+        p = np.matmul(Rh2c, Pshift)
+        bx.scatter(p[0][0],p[1][0],p[2][0], zdir='z', c= 'blue', s=[20], alpha = 0.5)
+        #bx.scatter(Pshift[0][0],Pshift[1][0],Pshift[2][0], zdir='z', c= 'purple', s=[5])
 
 #print(Dirs)
 #print(Pheadsetss)
@@ -398,7 +406,7 @@ for line_i in range(0, line_amount):
         bx.scatter(Peyess[line_i][i][0],Peyess[line_i][i][1],Peyess[line_i][i][2], zdir='z', c= 'green', s=[5])
         #cx.scatter(Pheadsets[i][0][0],Pheadsets[i][1][0],Pheadsets[i][2][0], zdir='z', c= 'blue')
         #cx.scatter(Pheadsets[i][4][0],Pheadsets[i][5][0],Pheadsets[i][6][0], zdir='z', c= 'blue')
-    cx.plot([0,Dirs[line_i][0]],[0,Dirs[line_i][1]], [0,Dirs[line_i][2]],c='y')
+    cx.plot([0,Scrpoints[line_i][0]],[0,Scrpoints[line_i][1]], [0,Scrpoints[line_i][2]],c='y')
     
 ##for i in range(0, amount):
 ##    Pcmr_cal1 = np.matmul(Moffinv44, Pheadsets1[i])# + Toffset
