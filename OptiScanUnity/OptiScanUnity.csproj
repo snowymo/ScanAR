@@ -357,11 +357,14 @@
     <Compile Include="Assets\LenovoHackSDK\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsBase.cs" />
     <Compile Include="Assets\LenovoHackSDK\StereoCamera\Scripts\BarrelDistortion.cs" />
     <Compile Include="Assets\LenovoHackSDK\StereoCamera\Scripts\TangoPhoneSpaceController.cs" />
+    <Compile Include="Assets\Scripts\Applications\ApplyTransform.cs" />
     <Compile Include="Assets\Scripts\Applications\Calibrate.cs" />
     <Compile Include="Assets\Scripts\Applications\Calibrate102.cs" />
+    <Compile Include="Assets\Scripts\Applications\Calibrate104.cs" />
     <Compile Include="Assets\Scripts\Applications\CameraMatrix.cs" />
     <Compile Include="Assets\Scripts\Applications\GlobalCtrl.cs" />
     <Compile Include="Assets\Scripts\Applications\KeyboardCtrl.cs" />
+    <Compile Include="Assets\Scripts\Applications\OverlapCalib.cs" />
     <Compile Include="Assets\Scripts\Applications\SyncMtx.cs" />
     <Compile Include="Assets\Scripts\Applications\SyncMtx102.cs" />
     <Compile Include="Assets\Scripts\Applications\TrackableMarker.cs" />

@@ -339,10 +339,10 @@ def calculate_rotation(Th2c, Pcens, Screenpoints):
 amount = 10 #20 + 4
 
 # set up the figure
-setup_figure(True)
+setup_figure()
 
 # randomize the offset
-Moffset = generate_offset_euler(True)
+Moffset = generate_offset_euler()
 
 print("offset:" + str(Moffset))
 print("offset inv:" + str(LA.inv(Moffset)))
