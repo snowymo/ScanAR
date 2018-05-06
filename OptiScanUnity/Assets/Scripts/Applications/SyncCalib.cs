@@ -22,14 +22,18 @@ public class SyncCalib : Holojam.Tools.SynchronizableTrackable
     public override bool Host { get { return host; } }
     public override bool AutoHost { get { return autoHost; } }
 
-    public OverlapCalib calibCtrl;
+    public CalibCollection calibCtrl;
+
+    public bool isReady;
+
+    public CalibrateRay cr;
 
     public override void ResetData()
     {
-        data = new Holojam.Network.Flake(2 * calibCtrl.calibLineAmount * calibCtrl.calibPointPerLine + calibCtrl.calibLineAmount);
+        data = new Holojam.Network.Flake(calibCtrl.calibLineAmount * calibCtrl.calibPointPerLine + calibCtrl.calibLineAmount,0,0,1);
         host = true;
         host = (Application.platform == RuntimePlatform.Android);
-        
+        isReady = false;
     }
 
     // Override Sync() to include the scale vector
@@ -44,6 +48,8 @@ public class SyncCalib : Holojam.Tools.SynchronizableTrackable
         else
         {
             // receive all the vectors as a windows calculater
+            if(data.ints[0] == 1)
+                cr.CalibrateRays(data.vector3s, calibCtrl.calibLineAmount, calibCtrl.calibPointPerLine);
         }
     }
 
@@ -57,17 +63,19 @@ public class SyncCalib : Holojam.Tools.SynchronizableTrackable
     {
         print("set collected data for sync");
         int index = 0;
-        for(int i = 0; i < objPoints.Count; i++, index++)
+        for (int i = 0; i < objPoints.Count; i++, index++)
         {
             data.vector3s[index] = objPoints[i];
         }
-        for (int i = 0; i < headsetPoints.Count; i++, index++)
-        {
-            data.vector3s[index] = headsetPoints[i];
-        }
+//         for (int i = 0; i < headsetPoints.Count; i++, index++)
+//         {
+//             data.vector3s[index] = headsetPoints[i];
+//         }
         for (int i = 0; i < overlayPoints.Count; i++, index++)
         {
             data.vector3s[index] = overlayPoints[i];
         }
+        isReady = true;
+        data.ints[0] = 1;
     }
 }

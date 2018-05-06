@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OverlapCalib : MonoBehaviour {
+public class CalibCollection : MonoBehaviour {
 
     public Transform objMarker;
     public Transform predefinedPoint;
@@ -25,6 +25,8 @@ public class OverlapCalib : MonoBehaviour {
     public SyncCalib syncCalib;
 
     bool isSending;
+
+    // TODO: reset, so that we can redo calibration several times
 
 	// Use this for initialization
 	void Start () {
@@ -54,6 +56,10 @@ public class OverlapCalib : MonoBehaviour {
         // add to list
         collectedData.Add(objMarker.position);
         headsetRBPos.Add(headsetRB.position);
+        
+        //TODO: // transfer collectedData to Pheadset based on points and headset
+        // use headsetRB's pos and rot to create a matrix and get the inverse and apply to obj.pos to get Pheadset and collect only that
+
         //print("collect one, now " + collectedData.Count + " points");
         ++curPointCount;
         if(curPointCount == calibPointPerLine)
