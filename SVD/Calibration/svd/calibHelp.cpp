@@ -60,3 +60,16 @@ Eigen::Affine3f calibrate(std::vector<Eigen::Vector3f> pointsetA, std::vector<Ei
 	
 	return transformAtoB;
 }
+
+Eigen::Vector3f pureSVD(Eigen::Matrix3Xf  meanData) {
+	Eigen::JacobiSVD<Eigen::Matrix3f> svd(meanData, Eigen::ComputeFullU | Eigen::ComputeFullV);
+	Eigen::Matrix3f vt = svd.matrixV();
+	Eigen::Vector3f vv0 = vt.row(0);
+	return vv0;
+}
+
+Eigen::Vector3f pureSVD(Eigen::MatrixXf  meanData) {
+	Eigen::JacobiSVD<Eigen::MatrixXf> svd(meanData, Eigen::ComputeFullU | Eigen::ComputeFullV);
+	Eigen::Matrix3f vt = svd.matrixV();
+	return vt.col(0);
+}

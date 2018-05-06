@@ -23,4 +23,14 @@ extern "C" {
 		memcpy(transform, mtx.data(), sizeof(float) * 16);
 		OutputDebugStringA(std::to_string(transform[0]).c_str());
 	}
+
+	void SVD(float* a, int len, float* k)
+	{
+		Eigen::MatrixXf mean(len, 3);
+		for (int i = 0; i < len * 3; i++) {
+			mean << a[i];
+		}
+		Eigen::Vector3f vvo = pureSVD(mean);
+		memcpy(k, vvo.data(), sizeof(float) * 3);
+	}
 }

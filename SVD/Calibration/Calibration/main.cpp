@@ -94,34 +94,66 @@ int calibrate(std::vector<Eigen::Vector3f> pointsetA, std::vector<Eigen::Vector3
 	return 0;
 }
 
+Eigen::Vector3f pureSVD(Eigen::MatrixXf  meanData) {
+	Eigen::JacobiSVD<Eigen::MatrixXf> svd(meanData, Eigen::ComputeFullU | Eigen::ComputeFullV);
+	Eigen::Matrix3f vt = svd.matrixV();
+	Eigen::Vector3f vv0 = vt.row(0);
+	Eigen::Matrix3f vtt = vt.transpose();
+	Eigen::Matrix3f vti = vt.inverse();
+	//std::cout << "vtt:" << vtt << "\nvti";
+	//std::cout << vti << "\n";
+	return vt.col(0);
+}
+
 int main() {
-	std::vector<Eigen::Vector3f> pas, pbs;
-	Eigen::Vector3f v3(3);
-	v3 << 0.1756, 2.8244, 0.1526;
-	pas.push_back(v3);
-	
-	//v3.resize(0);
-	v3 << 0.2307, 2.8520, 0.0513;
-	pas.push_back(v3);
+// 	std::vector<Eigen::Vector3f> pas, pbs;
+// 	Eigen::Vector3f v3(3);
+// 	v3 << 0.1756, 2.8244, 0.1526;
+// 	pas.push_back(v3);
+// 	
+// 	//v3.resize(0);
+// 	v3 << 0.2307, 2.8520, 0.0513;
+// 	pas.push_back(v3);
+// 
+// 	v3 << 0.1928, 2.8307, 0.1067;
+// 	pas.push_back(v3);
+// 
+// 	v3 << 0.2103, 2.8893, 0.1278;
+// 	pas.push_back(v3);
+// 
+// 	v3 << 0.1698, 0.4759, 1.8881;
+// 	pbs.push_back(v3);
+// 
+// 	v3 << 0.0561, 0.4843, 1.8550;
+// 	pbs.push_back(v3);
+// 
+// 	v3 << 0.1236, 0.4714, 1.8712;
+// 	pbs.push_back(v3);
+// 
+// 	v3 << 0.1089, 0.5121, 1.9193;
+// 	pbs.push_back(v3);
+// 
+// 	calibrate(pas, pbs);
 
-	v3 << 0.1928, 2.8307, 0.1067;
-	pas.push_back(v3);
+	//test
+// 	Eigen::MatrixXf m = Eigen::MatrixXf::Random(10, 3);
+// 	std::cout << "Here is the matrix m:" << std::endl << m << std::endl;
+// 	Eigen::JacobiSVD<Eigen::MatrixXf> svd(m, Eigen::ComputeThinU | Eigen::ComputeThinV);
 
-	v3 << 0.2103, 2.8893, 0.1278;
-	pas.push_back(v3);
-
-	v3 << 0.1698, 0.4759, 1.8881;
-	pbs.push_back(v3);
-
-	v3 << 0.0561, 0.4843, 1.8550;
-	pbs.push_back(v3);
-
-	v3 << 0.1236, 0.4714, 1.8712;
-	pbs.push_back(v3);
-
-	v3 << 0.1089, 0.5121, 1.9193;
-	pbs.push_back(v3);
-
-	calibrate(pas, pbs);
+	Eigen::MatrixXf mean(10,3);
+	mean << 0.00437297, 0.04020982, 0.07199235,
+		0.01279119, 0.11761607, 0.21058184,
+		0.04527895, 0.41634373, 0.74542896,
+		-0.0128667, -0.11831038, -0.21182494,
+		-0.02001746, -0.18406224, -0.32954819,
+		-0.01319987, -0.12137395, -0.21731,
+		0.01280345, 0.11772883, 0.21078372,
+		-0.01623453, -0.14927783, -0.26726959,
+		-0.01769715, -0.16272675, -0.29134876,
+		0.00476915, 0.0438527, 0.07851462;
+	std::cout << "Here is the matrix m:" << std::endl << mean << std::endl;
+	Eigen::Vector3f vv0 = pureSVD(mean);
+	//std::cout << "vv:" << vv <<"\n";
+	std::cout << vv0 << "\n";
 	return 0;
 }

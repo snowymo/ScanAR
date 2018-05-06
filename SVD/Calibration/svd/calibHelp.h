@@ -7,3 +7,5 @@
 #include <Eigen/Dense>
 
 Eigen::Affine3f calibrate(std::vector<Eigen::Vector3f> pointsetA, std::vector<Eigen::Vector3f> pointsetB);
+
+Eigen::Vector3f pureSVD(Eigen::MatrixXf  meanData);
