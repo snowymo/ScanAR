@@ -22,7 +22,9 @@ public class OverlapCalib : MonoBehaviour {
     [SerializeField]
     List<Vector3> headsetRBPos;
 
-    bool isCalibrated;
+    public SyncCalib syncCalib;
+
+    bool isSending;
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +33,7 @@ public class OverlapCalib : MonoBehaviour {
         headsetRBPos = new List<Vector3>();
         curLineCount = 0;
         curPointCount = 0;
-        isCalibrated = false;
+        isSending = false;
         generateNewScreenPoint();
     }
 	
@@ -46,13 +48,13 @@ public class OverlapCalib : MonoBehaviour {
 
     void collectData()
     {
-        if (isCalibrated)
+        if (isSending)
             return;
 
         // add to list
         collectedData.Add(objMarker.position);
         headsetRBPos.Add(headsetRB.position);
-        print("collect one, now " + collectedData.Count + " points");
+        //print("collect one, now " + collectedData.Count + " points");
         ++curPointCount;
         if(curPointCount == calibPointPerLine)
         {
@@ -61,7 +63,7 @@ public class OverlapCalib : MonoBehaviour {
             if (curLineCount >= calibLineAmount)
             {
                 print("already collected " + collectedData.Count + " points");
-                calibrate();
+                syncCollectData();
             }
             else
                 // generate a new predefine point
@@ -78,13 +80,16 @@ public class OverlapCalib : MonoBehaviour {
         if (predefinedPoint.localPosition.z < 0)
             predefinedPoint.localPosition *= -1;
         overlayPos.Add(predefinedPoint.localPosition);
+        print("generate new one: " + predefinedPoint.localPosition);
     }
 
-    void calibrate()
+    void syncCollectData()
     {
-        if (!isCalibrated)
+        if (!isSending)
         {
-            isCalibrated = true;
+            //
+            syncCalib.SetCollectedData(collectedData, headsetRBPos, overlayPos);
+            isSending = true;
         }
     }
 }

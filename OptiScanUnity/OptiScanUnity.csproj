@@ -365,9 +365,11 @@
     <Compile Include="Assets\Scripts\Applications\GlobalCtrl.cs" />
     <Compile Include="Assets\Scripts\Applications\KeyboardCtrl.cs" />
     <Compile Include="Assets\Scripts\Applications\OverlapCalib.cs" />
+    <Compile Include="Assets\Scripts\Applications\SyncCalib.cs" />
     <Compile Include="Assets\Scripts\Applications\SyncMtx.cs" />
     <Compile Include="Assets\Scripts\Applications\SyncMtx102.cs" />
     <Compile Include="Assets\Scripts\Applications\TrackableMarker.cs" />
+    <Compile Include="Assets\Scripts\Utility\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Holojam\Plugins\FlatBuffers\LICENSE.txt" />
