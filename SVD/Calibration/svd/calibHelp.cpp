@@ -61,15 +61,79 @@ Eigen::Affine3f calibrate(std::vector<Eigen::Vector3f> pointsetA, std::vector<Ei
 	return transformAtoB;
 }
 
-Eigen::Vector3f pureSVD(Eigen::Matrix3Xf  meanData) {
-	Eigen::JacobiSVD<Eigen::Matrix3f> svd(meanData, Eigen::ComputeFullU | Eigen::ComputeFullV);
-	Eigen::Matrix3f vt = svd.matrixV();
-	Eigen::Vector3f vv0 = vt.row(0);
-	return vv0;
-}
-
 Eigen::Vector3f pureSVD(Eigen::MatrixXf  meanData) {
 	Eigen::JacobiSVD<Eigen::MatrixXf> svd(meanData, Eigen::ComputeFullU | Eigen::ComputeFullV);
-	Eigen::Matrix3f vt = svd.matrixV();
-	return vt.col(0);
+	Eigen::Matrix3f v = svd.matrixV();
+	OutputDebugStringA("\nv\n");
+	for (int i = 0; i < v.size(); i++)
+		OutputDebugStringA((std::to_string(v.data()[i]) + "\t").c_str());
+	return v.col(0);
+}
+
+Eigen::Vector3f calIntersection(Eigen::MatrixXf pCens, Eigen::MatrixXf ks)
+{
+	Eigen::Matrix3f sigmaR = Eigen::Matrix3f::Zero();
+	Eigen::Vector3f sigmaQ = Eigen::Vector3f::Zero();
+	for (int i = 0; i < pCens.rows(); i++) {
+		Eigen::Matrix3f Ri = Eigen::Matrix3f::Identity() - ks.row(i).transpose() * ks.row(i);
+		sigmaR += Ri;
+		Eigen::Vector3f Qi = Ri * pCens.row(i).transpose();
+		sigmaQ += Qi;
+	}
+	Eigen::Vector3f p = sigmaR.inverse() * sigmaQ;
+	return p;
+}
+
+Eigen::Matrix3f calRotation(Eigen::Vector3f tOffset, Eigen::MatrixXf pHeadsets, Eigen::MatrixXf pCmrs)
+{
+	Eigen::MatrixXf pLocal(pHeadsets.rows(), pHeadsets.cols());
+	pLocal = pHeadsets.rowwise() - tOffset.transpose();
+	//Eigen::MatrixXf pLocalNorm(pCens.rows(), pCens.cols());
+	Eigen::MatrixXf pLocalNorm2(pHeadsets.rows(), pHeadsets.cols());
+	//pLocalNorm = pLocal.rowwise() / pLocal.rowwise().norm;
+	pLocalNorm2 = pLocal.rowwise().normalized();
+
+	Eigen::MatrixXf pCmrsNorm(pCmrs.rows(), pCmrs.cols());
+	pCmrsNorm = pCmrs.rowwise().normalized();
+
+	int lineAmt = pCmrs.rows();
+	int ppl = pHeadsets.rows() / lineAmt;
+	Eigen::MatrixXf pCmrsNormDup(pHeadsets.rows(), pHeadsets.cols());
+	std::cout << pCmrsNorm << "\n\n";
+	for (int i = 0; i < lineAmt; i++) {
+		for (int j = 0; j < ppl; j++) {
+			pCmrsNormDup.row(i*ppl + j) = pCmrsNorm.row(i);
+			//std::cout << pCmrsNormDup << "\n";
+		}
+
+	}
+	OutputDebugStringA("\npLocalNorm2\n");
+	for(int i = 0; i < pLocalNorm2.size(); i++)
+		OutputDebugStringA((std::to_string(pLocalNorm2.data()[i]) + "\t").c_str());
+	OutputDebugStringA("\npCmrsNorm\n");
+	for (int i = 0; i < pCmrsNorm.size(); i++)
+		OutputDebugStringA((std::to_string(pCmrsNorm.data()[i]) + "\t").c_str());
+	Eigen::Matrix3f C = pLocalNorm2.transpose() * pCmrsNormDup;
+	OutputDebugStringA("\nC\n");
+	for (int i = 0; i < C.size(); i++)
+		OutputDebugStringA((std::to_string(C.data()[i]) + "\t").c_str());
+	std::cout << "C\n" << C << "\n";
+	Eigen::JacobiSVD<Eigen::MatrixXf> svd(C, Eigen::ComputeFullU | Eigen::ComputeFullV);
+	Eigen::Matrix3f v = svd.matrixV();
+	Eigen::Matrix3f u = svd.matrixU();
+	Eigen::Matrix3f VUT = v * u.transpose();
+	//Eigen::Matrix3f VUT = u.transpose() * vt.transpose();
+	//Eigen::Matrix3f VUT = u.transpose() * vt.transpose();
+	//Eigen::Matrix3f VUT = u.transpose() * vt.transpose();
+	std::cout << "vt\n" << v << "\n";
+	std::cout << "u\n" << u << "\n";
+	std::cout << "VUT\n" << VUT << "\n";
+	float d = VUT.determinant();
+	OutputDebugStringA("\nd:\n");
+	OutputDebugStringA((std::to_string(d) + "\t").c_str());
+	Eigen::Matrix3f mid = Eigen::Matrix3f::Identity();
+	mid(2, 2) = d;
+	Eigen::Matrix3f rotationOffset = v * mid * u.transpose();
+	std::cout << "rotation offset\n" << rotationOffset;
+	return rotationOffset;
 }
