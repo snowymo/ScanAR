@@ -574,7 +574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &165220578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -787,7 +787,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 419713930}
-  m_Text: 
+  m_Text: WindowsEditor
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -1814,6 +1814,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localSpace: 0
   smooth: 0
+  tm: {fileID: 419713931}
   label: SyncCalib
   scope: 
   host: 0
@@ -1834,6 +1835,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pIntersection: {x: 0, y: 0, z: 0}
   rotationOffset: {x: 0, y: 0, z: 0, w: 0}
+  ks: []
+  pCens: []
 --- !u!1 &1041387456
 GameObject:
   m_ObjectHideFlags: 0
@@ -2703,7 +2706,7 @@ Prefab:
     - target: {fileID: 114748726467797520, guid: 957a810931a9c4b9a8423081101befd7,
         type: 2}
       propertyPath: relayAddress
-      value: 192.168.1.44
+      value: 192.168.1.12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 957a810931a9c4b9a8423081101befd7, type: 2}

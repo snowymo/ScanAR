@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SyncCalib : Holojam.Tools.SynchronizableTrackable
 {
+
+    public TextMesh tm;
     [SerializeField] string label = "SyncCalib";
     [SerializeField] string scope = "";
 
@@ -33,6 +35,8 @@ public class SyncCalib : Holojam.Tools.SynchronizableTrackable
         data = new Holojam.Network.Flake(calibCtrl.calibLineAmount * calibCtrl.calibPointPerLine + calibCtrl.calibLineAmount,0,0,1);
         host = true;
         host = (Application.platform == RuntimePlatform.Android);
+        //tm.text = Application.platform.ToString();
+        //tm.text += "\thello\n" + host;
         isReady = false;
     }
 
