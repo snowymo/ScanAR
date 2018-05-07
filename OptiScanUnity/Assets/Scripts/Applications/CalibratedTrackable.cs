@@ -48,8 +48,9 @@ public class CalibratedTrackable : Holojam.Tools.SynchronizableTrackable
             cr.getResult(ref tOffset, ref rOffset);
             Vector3 headsetRelative = headsetRB.InverseTransformPoint(oriObj.position);
             Vector3 pShift = headsetRelative - tOffset;
-            Vector3 newPos = rOffset * pShift;
+            Vector3 newPos = Quaternion.Inverse(rOffset) * pShift;
             data.vector3s[0] = newPos;
+            transform.localPosition = data.vector3s[0];
         }
         else
         {

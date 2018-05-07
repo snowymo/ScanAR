@@ -20,6 +20,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/mirage102.unity
     guid: 2fd4d1e2c1ee9c14bbb79c2bf515fa68
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/mirage103.unity
     guid: af6104ddce954294aba7eefc6dc3e099
+  - enabled: 0
+    path: Assets/Scenes/mirage104.unity
+    guid: 5d1d9e343e6766e48a0582b59f335559
+  - enabled: 1
+    path: Assets/Scenes/mirageCalib.unity
+    guid: 84f75ea773703cd44ac980cac835d58c

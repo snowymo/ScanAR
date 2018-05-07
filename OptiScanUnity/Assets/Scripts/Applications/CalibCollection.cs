@@ -56,6 +56,7 @@ public class CalibCollection : MonoBehaviour {
         // create a debug obj to see if it is correct
         GameObject go = GameObject.Instantiate(cube, headsetRB);
         go.transform.localPosition = headsetRelative;
+        go.name = "see";
     }
 
     void collectData()
@@ -92,8 +93,8 @@ public class CalibCollection : MonoBehaviour {
 
     void generateNewScreenPoint()
     {
-        Vector3 randomEulerAngle = new Vector3(Random.Range(0, 20), Random.Range(0, 8),0);
-        predefinedPoint.localPosition = Quaternion.Euler(randomEulerAngle) * Vector3.forward;
+        Vector3 randomEulerAngle = new Vector3(Random.Range(0, 15), Random.Range(0, 8),0);
+        predefinedPoint.localPosition = Quaternion.Euler(randomEulerAngle) * Vector3.forward * 0.5f;
         if (predefinedPoint.localPosition.z < 0)
             predefinedPoint.localPosition *= -1;
         overlayPos.Add(predefinedPoint.localPosition);

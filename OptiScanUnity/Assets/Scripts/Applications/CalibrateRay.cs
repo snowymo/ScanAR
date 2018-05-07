@@ -64,10 +64,10 @@ public class CalibrateRay : MonoBehaviour {
         
         // calculate intersection points
         Utility.CalIntersectionPoint(ks, pCens, ref pIntersection);
-        print(pIntersection);
+        print("pIntersection:" + pIntersection);
 
         // calculate rotation offset
         Utility.CalRotationOffset(pIntersection, vHeadsets, vCmrs, ref rotationOffset);
-
+        print("rotationOffset:" + rotationOffset);
     }
 }

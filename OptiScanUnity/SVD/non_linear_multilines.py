@@ -269,8 +269,13 @@ def stackoverflow():
         Phmean = Pheadsetssi.mean(axis=0)
 
         # Do an SVD on the mean-centered data.
+        #print("input:\n" + str(Pheadsetssi - Phmean))
         uu, dd, vv = LA.svd(Pheadsetssi - Phmean)
-
+        #print("vv:\n" + str(vv) + "\n" + str(vv[0]))
+        #print("uu")
+        #print(uu)
+        #print("dd")
+        #print(dd)
         # form a line based on vv and mean
         linepts = vv[0] * np.mgrid[-2:2:2j][:, np.newaxis] + Phmean
         ks[i] = vv[0]
@@ -284,24 +289,39 @@ def stackoverflow():
 
 def calculate_intersection(Ndirs, Pcens):
     print("calculate intersection point")
+    #print(Ndirs)
+    #print(Pcens)
     # minimize the sum of squared distance
     # sigma(a-p)T(I-nnT)(a-p), a = center point, n = dir, p = unknown intersection point
     sigmaR = np.zeros((3,3),dtype=np.float64)
     sigmaQ = np.zeros((3,1),dtype=np.float64)
     for i in range (0, line_amount):
         Ri = np.identity(Ndirs[i].shape[0]) - np.matmul(Ndirs[i].reshape(3,1), Ndirs[i].reshape(1,3))
+        #print("nnT")
+        #print(np.matmul(Ndirs[i].reshape(3,1), Ndirs[i].reshape(1,3)))
+        #print("Ri")
+        #print(Ri)
         sigmaR += Ri
         Qi = np.matmul(Ri, Pcens[i].reshape(3,1))
+        #print("Qi")
+        #print(Qi)
         sigmaQ += Qi
+    #print("sigmaR")
     #print(sigmaR)
+    #print("sigmaQ")
     #print(sigmaQ)
     P = np.matmul(LA.inv(sigmaR), sigmaQ)
+    #print("P")
     print(P)
     cx.scatter(P[0],P[1],P[2], zdir='z', c= 'black', s=[80])
     return P
 
 def calculate_rotation(Th2c, Pcens, Screenpoints):
     # calculate pLocal
+    print("input")
+    print("Th2c\n" + str(Th2c))
+    print("Pcens\n" + str(Pcens))
+    print("Screenpoints\n" + str(Screenpoints))
     Pcmrs = np.zeros((line_amount,3))
     Plocals = np.zeros((line_amount,3))
     #print(Screenpoints)
@@ -319,6 +339,7 @@ def calculate_rotation(Th2c, Pcens, Screenpoints):
     #print(Pcmrs)
     #print(Plocals.T)
     C = np.matmul(Plocals.T, Pcmrs)
+    print("C\n" + str(C))
     U, S, Vt = LA.svd(C)
     #print("U:" + str(U))
     #print("S:" + str(S))
@@ -333,6 +354,50 @@ def calculate_rotation(Th2c, Pcens, Screenpoints):
     #print("Roffset-1" + str(LA.inv(Roffset)))
 
     print ("RMSD after translation: "+ str(rmsd.kabsch(Plocals, Pcmrs)))
+    return Roffset
+
+def calculate_rotation2(Th2c, Pheadsetss, Screenpoints):
+    # calculate pLocal
+    print("input")
+    print("Th2c\n" + str(Th2c))
+    print("Pheadsetss\n" + str(Pheadsetss[:,:,0:3,:].reshape(line_amount,amount,3)))
+    print("Screenpoints\n" + str(Screenpoints))
+    Pcmrs = np.zeros((line_amount,3))
+    Plocals = np.zeros((line_amount,amount,3))
+    C = np.zeros((3,3))
+    #print(Screenpoints)
+    for i in range(0, line_amount):
+        #print(LA.norm(Screenpoints[i]))
+        Pcmr = Screenpoints[i].flatten() / LA.norm(Screenpoints[i].flatten())
+        Pcmrs[i] = Pcmr
+        #print("Pcens:" + str(Pcens[i]))
+        #print("Th2c:" + str(Th2c.flatten()))
+        Pheadsetssi = Pheadsetss[i][:,0:3,:].reshape(amount,3)
+        Plocal = Pheadsetssi - Th2c.flatten()
+        #print(Plocal)
+        Plocals[i] = Plocal / LA.norm(Plocal, axis=1).reshape(amount,1)
+
+        C += np.matmul(Plocals[i].T, np.tile(Pcmrs[i],(amount,1)))
+        #bx.scatter(Plocals[i][0],Plocals[i][1],Plocals[i][2], zdir='z', c= 'black')
+        #bx.scatter(Pcmr[0],Pcmr[1],Pcmr[2], zdir='z', c= 'yellow')
+    #print(Pcmrs)
+    #print(Plocals.T)
+    #C = np.matmul(Plocals.T, Pcmrs)
+    print("C\n" + str(C))
+    U, S, Vt = LA.svd(C)
+    #print("U:" + str(U))
+    #print("S:" + str(S))
+    #print("Vt:" + str(Vt))
+    VUT = np.matmul(Vt.T, U.T)
+    d = LA.det(VUT)
+    mid = np.identity(3)
+    mid[2,2] = d
+    #print(mid)
+    Roffset = np.matmul(np.matmul(Vt.T,mid),U.T)
+    print("Roffset" + str(Roffset))
+    #print("Roffset-1" + str(LA.inv(Roffset)))
+
+    #print ("RMSD after translation: "+ str(rmsd.kabsch(Plocals, Pcmrs)))
     return Roffset
     
 # initialize the var
@@ -361,6 +426,7 @@ Pcens, ks = stackoverflow()
 #print(ks)
 Th2c = calculate_intersection(ks, Pcens)
 Rh2c = calculate_rotation(Th2c, Pcens, Scrpoints)
+Rh2c = calculate_rotation2(Th2c, Pheadsetss, Scrpoints)
 
 # apply transformation from Pheadsets and show
 for line_i in range(0, line_amount):
