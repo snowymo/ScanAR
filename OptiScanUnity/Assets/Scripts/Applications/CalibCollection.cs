@@ -24,6 +24,8 @@ public class CalibCollection : MonoBehaviour {
 
     public SyncCalib syncCalib;
 
+    public GameObject cube;
+
     bool isSending;
 
     // TODO: reset, so that we can redo calibration several times
@@ -43,22 +45,31 @@ public class CalibCollection : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            // during testing, I randomize / or manually move marker's position
             collectData();
         }
 
 	}
+
+    void testRelatedPositionFunc(Vector3 headsetRelative)
+    {
+        // create a debug obj to see if it is correct
+        GameObject go = GameObject.Instantiate(cube, headsetRB);
+        go.transform.localPosition = headsetRelative;
+    }
 
     void collectData()
     {
         if (isSending)
             return;
 
-        // add to list
-        collectedData.Add(objMarker.position);
-        headsetRBPos.Add(headsetRB.position);
-        
-        //TODO: // transfer collectedData to Pheadset based on points and headset
         // use headsetRB's pos and rot to create a matrix and get the inverse and apply to obj.pos to get Pheadset and collect only that
+        Vector3 headsetRelative = headsetRB.InverseTransformPoint(objMarker.position);
+        //testRelatedPositionFunc(headsetRelative);
+        
+        // add to list
+        collectedData.Add(headsetRelative);
+        //headsetRBPos.Add(headsetRB.position);
 
         //print("collect one, now " + collectedData.Count + " points");
         ++curPointCount;
@@ -94,7 +105,7 @@ public class CalibCollection : MonoBehaviour {
         if (!isSending)
         {
             //
-            syncCalib.SetCollectedData(collectedData, headsetRBPos, overlayPos);
+            syncCalib.SetCollectedData(collectedData, overlayPos);
             isSending = true;
         }
     }

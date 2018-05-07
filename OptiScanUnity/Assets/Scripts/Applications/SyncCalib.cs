@@ -59,7 +59,7 @@ public class SyncCalib : Holojam.Tools.SynchronizableTrackable
         base.Update();
     }
 
-    public void SetCollectedData(List<Vector3> objPoints, List<Vector3> headsetPoints, List<Vector3> overlayPoints)
+    public void SetCollectedData(List<Vector3> objPoints, List<Vector3> overlayPoints)
     {
         print("set collected data for sync");
         int index = 0;
@@ -67,10 +67,6 @@ public class SyncCalib : Holojam.Tools.SynchronizableTrackable
         {
             data.vector3s[index] = objPoints[i];
         }
-//         for (int i = 0; i < headsetPoints.Count; i++, index++)
-//         {
-//             data.vector3s[index] = headsetPoints[i];
-//         }
         for (int i = 0; i < overlayPoints.Count; i++, index++)
         {
             data.vector3s[index] = overlayPoints[i];
