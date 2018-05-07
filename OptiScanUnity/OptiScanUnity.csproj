@@ -362,6 +362,7 @@
     <Compile Include="Assets\Scripts\Applications\Calibrate.cs" />
     <Compile Include="Assets\Scripts\Applications\Calibrate102.cs" />
     <Compile Include="Assets\Scripts\Applications\Calibrate104.cs" />
+    <Compile Include="Assets\Scripts\Applications\CalibratedTrackable.cs" />
     <Compile Include="Assets\Scripts\Applications\CalibrateRay.cs" />
     <Compile Include="Assets\Scripts\Applications\CameraMatrix.cs" />
     <Compile Include="Assets\Scripts\Applications\GlobalCtrl.cs" />

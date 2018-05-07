@@ -28,6 +28,12 @@ public class CalibrateRay : MonoBehaviour {
 		
 	}
 
+    public void getResult(ref Vector3 p, ref Quaternion q)
+    {
+        p = pIntersection;
+        q = rotationOffset;
+    }
+
     public void CalibrateRays(Vector3[] collectedData, int lineAmount, int pointPerLine)
     {
         print("collect data:");
@@ -61,7 +67,7 @@ public class CalibrateRay : MonoBehaviour {
         print(pIntersection);
 
         // calculate rotation offset
-        //Utility.CalRotationOffset(pIntersection, vHeadsets, vCmrs, ref rotationOffset);
+        Utility.CalRotationOffset(pIntersection, vHeadsets, vCmrs, ref rotationOffset);
 
     }
 }
