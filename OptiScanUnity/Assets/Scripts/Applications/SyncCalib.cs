@@ -53,7 +53,11 @@ public class SyncCalib : Holojam.Tools.SynchronizableTrackable
         {
             // receive all the vectors as a windows calculater
             if(data.ints[0] == 1)
+            {
                 cr.CalibrateRays(data.vector3s, calibCtrl.calibLineAmount, calibCtrl.calibPointPerLine);
+                data.ints[0] = 0;
+            }
+                
         }
     }
 

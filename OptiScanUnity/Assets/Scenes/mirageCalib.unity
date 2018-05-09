@@ -3670,7 +3670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localSpace: 0
   smooth: 0
-  label: RB102
+  label: RB104
   scope: 
 --- !u!1 &2125896682
 GameObject:

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class CalibrateRay : MonoBehaviour {
 
@@ -52,6 +53,9 @@ public class CalibrateRay : MonoBehaviour {
             vCmrs[i] = collectedData[lineAmount * pointPerLine + i];
         }
 
+        // write down locally 
+        writeForPython(lineAmount, pointPerLine, vHeadsets, vCmrs);
+
         // fit a line
         ks = new Vector3[lineAmount];
         pCens = new Vector3[lineAmount];
@@ -70,4 +74,31 @@ public class CalibrateRay : MonoBehaviour {
         Utility.CalRotationOffset(pIntersection, vHeadsets, vCmrs, ref rotationOffset);
         print("rotationOffset:" + rotationOffset);
     }
+
+    private void writeForPython(int lineAmount, int pointPerLine, Vector3[] vHeadsets, Vector3[] vCmrs)
+    {
+        print("writing");
+        StreamWriter writer = new StreamWriter("Assets/Resources/amount.txt");
+        writer.WriteLine(lineAmount);
+        writer.WriteLine(pointPerLine);
+        writer.Close();
+
+        for (int i = 0; i < lineAmount; i++)
+        {
+            writer = new StreamWriter("Assets/Resources/sp" + i.ToString() + ".txt");
+            writer.WriteLine(vCmrs[i].x);
+            writer.WriteLine(vCmrs[i].y);
+            writer.WriteLine(vCmrs[i].z);
+            writer.Close();
+
+            writer = new StreamWriter("Assets/Resources/ph" + i.ToString() + ".txt");
+            for(int j = 0; j < pointPerLine; j++)
+            {
+                writer.WriteLine(vHeadsets[i * pointPerLine + j].x + " " + vHeadsets[i * pointPerLine + j].y + " " + vHeadsets[i * pointPerLine + j].z);
+            }
+            
+            writer.Close();
+        }
+    }
+
 }
