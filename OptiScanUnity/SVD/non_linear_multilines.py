@@ -285,6 +285,40 @@ def stackoverflow():
         #print(Phmean)
         cx.scatter([Phmean[0]],[Phmean[1]],[Phmean[2]],c="black")
         cx.plot3D(*linepts.T, c="red")
+        #np.savetxt("ph" + str(i)+".txt",Pheadsetssi)
+        #np.savetxt("sp" + str(i)+".txt",Scrpoints[i])
+    return Pcen, ks
+
+def validRealData():
+    Pcen = np.zeros((line_amount,3), dtype=np.float64)
+    ks = np.zeros((line_amount,3), dtype=np.float64)
+    for i in range(0, line_amount):
+        # read from file
+        Pheadsetssi = np.loadtxt("ph" + str(i)+".txt")
+        Scrpointsi = np.loadtxt("sp" + str(i)+".txt")
+        Pheadsetss3[i] = Pheadsetssi
+        Scrpoints[i] = Scrpointsi.reshape(3,1)
+        #print(Pheadsetssi.shape)
+        # Calculate the mean of the points, i.e. the 'center' of the cloud
+        Phmean = Pheadsetssi.mean(axis=0)
+
+        # Do an SVD on the mean-centered data.
+        #print("input:\n" + str(Pheadsetssi - Phmean))
+        uu, dd, vv = LA.svd(Pheadsetssi - Phmean)
+        #print("vv:\n" + str(vv) + "\n" + str(vv[0]))
+        #print("uu")
+        #print(uu)
+        #print("dd")
+        #print(dd)
+        # form a line based on vv and mean
+        linepts = vv[0] * np.mgrid[-2:2:2j][:, np.newaxis] + Phmean
+        ks[i] = vv[0]
+        Pcen[i] = Phmean
+        #print("overlap:" + str(Scrpoints[i]))
+        #print("k:" + str(ks[i]))
+        #print(Phmean)
+        cx.scatter([Phmean[0]],[Phmean[1]],[Phmean[2]],c="black")
+        cx.plot3D(*linepts.T, c="red")
     return Pcen, ks
 
 def calculate_intersection(Ndirs, Pcens):
@@ -415,56 +449,57 @@ print("offset inv:" + str(LA.inv(Moffset)))
 
 # Let's try two lines at the beginning and it should be many lines later
 line_amount = 5
+
+f = open('amount.txt')
+line_amount = int(f.readline().strip())
+amount = int(f.readline().strip())
+    
 Scrpoints = np.zeros((line_amount,3,1),dtype=np.float64)
 Pheadsetss = np.zeros((line_amount, amount,4,1),dtype=np.float64)
+Pheadsetss3 = np.zeros((line_amount, amount,3),dtype=np.float64)
 Peyess = np.zeros((line_amount, amount,4,1),dtype=np.float64)
 
 #nicoSVD()
 #TLSSVD()
 #nihe()
-Pcens, ks = stackoverflow()
+#Pcens, ks = stackoverflow()
+Pcens, ks = validRealData()
 #print(ks)
 Th2c = calculate_intersection(ks, Pcens)
 Rh2c = calculate_rotation(Th2c, Pcens, Scrpoints)
-Rh2c = calculate_rotation2(Th2c, Pheadsetss, Scrpoints)
+#Rh2c = calculate_rotation2(Th2c, Pheadsetss, Scrpoints)
 
 # apply transformation from Pheadsets and show
+##for line_i in range(0, line_amount):
+##    for i in range(0, amount):
+##        Pshift = Pheadsetss[line_i][i][0:3] - Th2c.reshape(3,1)
+##        p = np.matmul(Rh2c, Pshift)
+##        bx.scatter(p[0][0],p[1][0],p[2][0], zdir='z', c= 'blue', s=[20], alpha = 0.5)
+        #bx.scatter(Pshift[0][0],Pshift[1][0],Pshift[2][0], zdir='z', c= 'purple', s=[5])
 for line_i in range(0, line_amount):
     for i in range(0, amount):
-        Pshift = Pheadsetss[line_i][i][0:3] - Th2c.reshape(3,1)
+        Pshift = Pheadsetss3[line_i][i].reshape(3,1) - Th2c.reshape(3,1)
         p = np.matmul(Rh2c, Pshift)
         bx.scatter(p[0][0],p[1][0],p[2][0], zdir='z', c= 'blue', s=[20], alpha = 0.5)
-        #bx.scatter(Pshift[0][0],Pshift[1][0],Pshift[2][0], zdir='z', c= 'purple', s=[5])
 
-#print(Dirs)
-#print(Pheadsetss)
-#Poverlaps2, Pheadsets3122, Pheadsets2 = prepare_one_line (amount, Moffset)
 
-##Poverlaps = np.concatenate((Poverlaps1, Poverlaps2), axis = 1)
-##Pheadsets312 = np.concatenate((Pheadsets3121, Pheadsets3122), axis = 1)
-##Pheadsets = np.concatenate((Pheadsets1, Pheadsets2), axis = 1)
-##
-##print(Poverlaps.shape)
-##print(Pheadsets312.shape)
-##print(Pheadsets.shape)
+# random data
+##for line_i in range(0, line_amount):
+##    for i in range(0, amount):
+##        cx.scatter(Pheadsetss[line_i][i][0][0],Pheadsetss[line_i][i][1][0],Pheadsetss[line_i][i][2][0], zdir='z', c= 'blue', s=[5])
+##        show_point = "["+ str(format(Pheadsetss[line_i][i][0][0],'7.2f')) +","+ str(format(Pheadsetss[line_i][i][1][0],'7.2f'))+","+str(format(Pheadsetss[line_i][i][2][0],'7.2f')) + "]"
+##        
+##        cx.scatter(Peyess[line_i][i][0],Peyess[line_i][i][1],Peyess[line_i][i][2], zdir='z', c= 'green', s=[5])
+##        bx.scatter(Peyess[line_i][i][0],Peyess[line_i][i][1],Peyess[line_i][i][2], zdir='z', c= 'green', s=[5])
+##    cx.plot([0,Scrpoints[line_i][0]],[0,Scrpoints[line_i][1]], [0,Scrpoints[line_i][2]],c='y')
     
-#Poverlaps = np.tile(Poverlap[0:3,:], (amount,1,1)) #(20,3,12)
-#print(Poverlaps.shape)
-##print("---lm---")
-##Moffinv44 = nllsm(Poverlaps, Pheadsets312, "lm")
-##print("Moffinv44:" + str(Moffinv44))
-##Moff44 = LA.inv(Moffinv44)
-##print("Moff44:" + str(Moff44))
-
-#validate Pcameras=M * Pheadset
-#calculate the Toffset
-#Toffset = np.zeros((4,1),dtype=np.float64)
+# real data
 for line_i in range(0, line_amount):
     for i in range(0, amount):
         #show original Pcameras to bx
         #Pcmr_ori1 = np.matmul(LA.inv(Moffset), Pheadsets1[i])
         #Pcmr_ori2 = np.matmul(LA.inv(Moffset), Pheadsets2[i])
-        cx.scatter(Pheadsetss[line_i][i][0][0],Pheadsetss[line_i][i][1][0],Pheadsetss[line_i][i][2][0], zdir='z', c= 'blue', s=[5])
+        cx.scatter(Pheadsetss3[line_i][i][0],Pheadsetss3[line_i][i][1],Pheadsetss3[line_i][i][2], zdir='z', c= 'blue', s=[5])
         show_point = "["+ str(format(Pheadsetss[line_i][i][0][0],'7.2f')) +","+ str(format(Pheadsetss[line_i][i][1][0],'7.2f'))+","+str(format(Pheadsetss[line_i][i][2][0],'7.2f')) + "]"
         
         #cx.text(Pheadsetss[line_i][i][0][0],Pheadsetss[line_i][i][1][0],Pheadsetss[line_i][i][2][0],show_point)
@@ -474,34 +509,5 @@ for line_i in range(0, line_amount):
         #cx.scatter(Pheadsets[i][4][0],Pheadsets[i][5][0],Pheadsets[i][6][0], zdir='z', c= 'blue')
     cx.plot([0,Scrpoints[line_i][0]],[0,Scrpoints[line_i][1]], [0,Scrpoints[line_i][2]],c='y')
     
-##for i in range(0, amount):
-##    Pcmr_cal1 = np.matmul(Moffinv44, Pheadsets1[i])# + Toffset
-##    Pcmr_cal2 = np.matmul(Moffinv44, Pheadsets2[i])
-##
-##    bx.scatter(Pcmr_cal1[0],Pcmr_cal1[1],Pcmr_cal1[2], zdir='z', c= 'red')
-##    bx.scatter(Pcmr_cal2[0],Pcmr_cal2[1],Pcmr_cal2[2], zdir='z', c= 'pink')
-##    #bx.scatter(Pcmr_ori[0],Pcmr_ori[1],Pcmr_ori[2], zdir='z', c= 'green')
-##    Mplot = np.squeeze(np.asarray(np.concatenate((Pcmr_ori1,Pcmr_cal1),axis=1)))
-##    #bx.plot([Pcmr_ori1[0],Pcmr_cal1[0]],Mplot[1],Mplot[2],c='y')
-##    Mplot = np.squeeze(np.asarray(np.concatenate((Pcmr_ori2,Pcmr_cal2),axis=1)))
-##    #bx.plot([Pcmr_ori2[0],Pcmr_cal2[0]],Mplot[1],Mplot[2],c='y')
-##
-##print("---default---")
-##Moffinv44 = nllsm(Poverlaps, Pheadsets312, "other")
-##print("Moffinv44:" + str(Moffinv44))
-##Moff44 = LA.inv(Moffinv44)
-##print("Moff44:" + str(Moff44))
-##
-##for i in range(0, amount):
-##    Pcmr_cal1 = np.matmul(Moffinv44, Pheadsets1[i])# + Toffset
-##    Pcmr_cal2 = np.matmul(Moffinv44, Pheadsets2[i])# + Toffset
-##
-##    dx.scatter(Pcmr_cal1[0],Pcmr_cal1[1],Pcmr_cal1[2], zdir='z', c= 'red')
-##    dx.scatter(Pcmr_cal2[0],Pcmr_cal2[1],Pcmr_cal2[2], zdir='z', c= 'pink')
-##    #dx.scatter(Pcmr_ori[0],Pcmr_ori[1],Pcmr_ori[2], zdir='z', c= 'green')
-##    Mplot = np.squeeze(np.asarray(np.concatenate((Pcmr_ori1,Pcmr_cal1),axis=1)))
-##    #dx.plot([Pcmr_ori1[0],Pcmr_cal1[0]],Mplot[1],Mplot[2],c='y')
-##    Mplot = np.squeeze(np.asarray(np.concatenate((Pcmr_ori2,Pcmr_cal2),axis=1)))
-##    #dx.plot([Pcmr_ori2[0],Pcmr_cal2[0]],Mplot[1],Mplot[2],c='y')
     
 plt.show()
