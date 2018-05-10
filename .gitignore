@@ -41,3 +41,5 @@ VuforiaUnity2017.3/app-HoloScan-addVT/
 holokitsdk-tango/
 Vuforia/
 Vuforia-vive/
+
+*.txt

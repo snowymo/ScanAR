@@ -75,23 +75,27 @@ public class CalibrateRay : MonoBehaviour {
         print("rotationOffset:" + rotationOffset);
     }
 
+    int datasetIdx = 0;
     private void writeForPython(int lineAmount, int pointPerLine, Vector3[] vHeadsets, Vector3[] vCmrs)
     {
         print("writing");
-        StreamWriter writer = new StreamWriter("Assets/Resources/amount.txt");
+        FileStream file = File.Open("Assets/Resources/" + datasetIdx.ToString() + "_amount.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+        StreamWriter writer = new StreamWriter(file);
         writer.WriteLine(lineAmount);
         writer.WriteLine(pointPerLine);
         writer.Close();
 
         for (int i = 0; i < lineAmount; i++)
         {
-            writer = new StreamWriter("Assets/Resources/sp" + i.ToString() + ".txt");
+            file = File.Open("Assets/Resources/" + datasetIdx.ToString() + "_sp" + i.ToString() + ".txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            writer = new StreamWriter(file);
             writer.WriteLine(vCmrs[i].x);
             writer.WriteLine(vCmrs[i].y);
             writer.WriteLine(vCmrs[i].z);
             writer.Close();
 
-            writer = new StreamWriter("Assets/Resources/ph" + i.ToString() + ".txt");
+            file = File.Open("Assets/Resources/" + datasetIdx.ToString() + "_ph" + i.ToString() + ".txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            writer = new StreamWriter(file);
             for(int j = 0; j < pointPerLine; j++)
             {
                 writer.WriteLine(vHeadsets[i * pointPerLine + j].x + " " + vHeadsets[i * pointPerLine + j].y + " " + vHeadsets[i * pointPerLine + j].z);
@@ -99,6 +103,7 @@ public class CalibrateRay : MonoBehaviour {
             
             writer.Close();
         }
+        ++datasetIdx;
     }
 
 }

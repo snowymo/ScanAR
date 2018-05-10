@@ -32,7 +32,7 @@ public class SyncCalib : Holojam.Tools.SynchronizableTrackable
 
     public override void ResetData()
     {
-        data = new Holojam.Network.Flake(calibCtrl.calibLineAmount * calibCtrl.calibPointPerLine + calibCtrl.calibLineAmount,0,0,1);
+        data = new Holojam.Network.Flake(calibCtrl.calibLineAmount_x * calibCtrl.calibLineAmount_y * calibCtrl.calibPointPerLine + calibCtrl.calibLineAmount_x * calibCtrl.calibLineAmount_y, 0, 0, 1);
         host = true;
         host = (Application.platform == RuntimePlatform.Android);
         //tm.text = Application.platform.ToString();
